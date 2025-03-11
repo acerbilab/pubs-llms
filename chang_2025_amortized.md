@@ -1,3 +1,14 @@
+```
+@article{chang2025amortized,
+  title={Amortized Probabilistic Conditioning for Optimization, Simulation and Inference},
+  author={Chang, Paul E and Loka, Nasrulloh and Huang, Daolang and Remes, Ulpu and Kaski, Samuel and Acerbi, Luigi},
+  journal={28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)},
+  year={2025}
+}
+```
+
+---
+
 #### Page 1
 
 # Amortized Probabilistic Conditioning for Optimization, Simulation and Inference
