@@ -11,3 +11,19 @@ Each paper is split in three parts:
 The paper-to-Markdown conversion has been done with [paper2llm](https://lacerbi.github.io/paper2llm/), using [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and tables and [Gemini 2.0 Flash](https://deepmind.google/technologies/gemini/flash/) as the img2txt model.
 
 **This repository is a work in progress.**
+
+
+## Publications
+
+### 2025
+
+- [Amortized Probabilistic Conditioning for Optimization, Simulation and Inference](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized.md)<br>
+  **Chang**, Paul E, **Loka**, Nasrulloh, **Huang**, Daolang, **Remes**, Ulpu, **Kaski**, Samuel, **Acerbi**, Luigi<br>
+  *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*
+  <details>
+  <summary>Additional materials</summary>
+
+  - [Appendix](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_appendix.md)
+  - [Backmatter](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_backmatter.md)
+  </details>
+
