@@ -6,6 +6,8 @@ A repository of academic publications from the [Machine and Human Intelligence G
 
 This repository contains research papers converted to plain text with AI-generated descriptions of figures, making them easily accessible for large language model (LLM) analysis and interactions, for both humans and machines.
 
+The full list of papers is available [below](#Publications).
+
 ## Content
 
 For practical usage, each paper is split into three separate files:
@@ -23,7 +25,7 @@ For practical usage, each paper is split into three separate files:
 
 The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github.io/paper2llm/), with [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and table extraction and [Gemini 2.0 Flash](https://deepmind.google/technologies/gemini/flash/) for image-to-text descriptions.
 
-### Note: This repository is a work in progress.
+#### Note: This repository is a work in progress.
 
 ---
 
