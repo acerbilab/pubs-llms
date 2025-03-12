@@ -112,14 +112,20 @@ We first sample random priors using the generative process described above. Then
 
 #### Page 17
 
-> **Image description.** The image is a grid of 25 plots, each displaying a curve on a graph. Each plot is labeled "Sample [number]" where the number ranges from 1 to 25.
+> **Image description.** The image is a grid of 25 plots, each displaying a different probability distribution. Each plot is labeled "Sample [number]" where the number ranges from 1 to 25, and is positioned above its corresponding plot.
 >
-> Each plot has the same basic structure:
+> Each plot has the following characteristics:
 >
-> - A horizontal axis ranging from 0 to 2.
-> - A vertical axis with varying scales, but all starting at 0 and reaching different maximum values (e.g., 0.015, 0.03, 0.100).
-> - A blue curve plotted on the graph. The shapes of these curves vary significantly across the samples. Some curves are unimodal, resembling Gaussian distributions (e.g., Sample 2, Sample 3, Sample 7, Sample 25), while others are more complex, exhibiting multiple peaks (e.g., Sample 1, Sample 23) or skewed shapes (e.g., Sample 5, Sample 6, Sample 11, Sample 14). Some are nearly flat lines (e.g., Sample 17, Sample 20). Sample 9 has a very narrow peak.
-> - The axes are black, and the curves are blue.
+> - **Axes:** Each plot has an x-axis ranging from 0 to 2, and a y-axis that varies in scale depending on the distribution, but generally ranges from 0 to a maximum value between 0.01 and 0.15. The axes are labeled with numerical values at regular intervals.
+> - **Curve:** Each plot displays a blue curve representing a probability distribution. The shapes of these curves vary considerably, including:
+>   - Bell-shaped curves resembling Gaussian distributions (e.g., Samples 2, 3, 7, 8, 12, 13, 16, 22, 25).
+>   - Skewed curves (e.g., Samples 4, 5, 6, 10, 11, 14, 15, 18, 19, 21).
+>   - Uniform distributions (horizontal lines) (e.g., Samples 17, 20).
+>   - Bimodal distributions (e.g., Samples 1, 23).
+>   - A sharp peak distribution (e.g., Sample 9, 24).
+> - **Data Points:** The curves are formed by connected blue dots.
+>
+> The plots are arranged in a 5x5 grid, with each plot visually separated from its neighbors.
 
 Figure S1: Examples of randomly sampled priors over the range $[0,2]$. Samples include mixtures of Gaussians and Uniform distributions.
 
@@ -132,41 +138,19 @@ To quantitatively assess the quality of our model's predicted posteriors, we com
 
 #### Page 18
 
-> **Image description.** The image is a figure composed of a 4x5 grid of plots. Each plot visualizes a probability distribution on a two-dimensional space. The horizontal axis of each plot is labeled "μ", and the vertical axis is labeled "σ". The color scheme uses a gradient from dark purple to yellow to represent increasing probability density. The plots are arranged in columns labeled "(a) Prior Distribution", "(b) Likelihood", "(c) True Posterior", and "(d) ACE Posterior". The rows show different examples or cases.
+> **Image description.** The image is a figure containing a 5x4 grid of plots, visually comparing different probability distributions. Each row represents a different scenario, and each column represents a different type of distribution: (a) Prior Distribution, (b) Likelihood, (c) True Posterior, and (d) ACE Posterior.
 >
-> In the first column, labeled "(a) Prior Distribution", the plots show:
+> The plots are all 2D contour plots with the x-axis labeled "μ" (mu) and the y-axis labeled "σ" (sigma). The background color of each plot is a dark purple, with contours represented by lines of varying colors, ranging from dark blue/purple to yellow/green, indicating probability density. Higher density regions are indicated by warmer colors (yellow/green), while lower density regions are indicated by cooler colors (blue/purple).
 >
-> - A vertical band of high probability density.
-> - A region of high probability density shaped like a bell curve.
-> - A horizontal band of high probability density.
-> - A narrow, horizontal ellipse of high probability density.
-> - A narrow, vertical band of high probability density.
+> The first column, labeled "(a) Prior Distribution," shows different prior distributions across the rows. The first row shows a vertical band of high probability. The second row shows a bimodal distribution. The third row shows a horizontal band of high probability. The fourth row shows a horizontal ellipse of high probability. The fifth row shows a vertical line of high probability.
 >
-> In the second column, labeled "(b) Likelihood", the plots show:
+> The second column, labeled "(b) Likelihood," shows the likelihood function for each scenario. The likelihoods are generally concentrated around a single point, indicated by concentric contours.
 >
-> - A roughly elliptical region of high probability density.
-> - A smaller, more compact elliptical region of high probability density.
-> - A similar, but slightly more elongated elliptical region of high probability density.
-> - A flattened elliptical region of high probability density.
-> - A similar, but slightly more elongated elliptical region of high probability density.
+> The third column, labeled "(c) True Posterior," shows the ground-truth Bayesian posterior distribution for each scenario. These plots show distributions that are generally concentrated around a single point, but with varying shapes and orientations.
 >
-> In the third column, labeled "(c) True Posterior", the plots show:
+> The fourth column, labeled "(d) ACE Posterior," shows the predicted posterior distribution from ACE (presumably an algorithm). These plots are visually similar to the "True Posterior" plots, suggesting that ACE is effectively approximating the true posterior.
 >
-> - A roughly elliptical region of high probability density.
-> - A smaller, more compact elliptical region of high probability density.
-> - A similar, but slightly more elongated elliptical region of high probability density.
-> - A flattened elliptical region of high probability density.
-> - A narrow, vertical band of high probability density.
->
-> In the fourth column, labeled "(d) ACE Posterior", the plots show:
->
-> - A roughly elliptical region of high probability density.
-> - A smaller, more compact elliptical region of high probability density.
-> - A similar, but slightly more elongated elliptical region of high probability density.
-> - A flattened elliptical region of high probability density.
-> - A narrow, vertical band of high probability density.
->
-> The plots in columns (c) and (d) are visually similar, suggesting that the "ACE Posterior" approximates the "True Posterior".
+> The rows are separated by white lines.
 
 Figure S2: Examples of the true and predicted posterior distributions in the toy 1D Gaussian case. (a) Prior distribution over $\boldsymbol{\theta}=(\mu, \sigma)$ set at runtime. (b) Likelihood for the observed data (the data themselves are not shown). (c) Ground-truth Bayesian posterior. (d) ACE's predicted posterior, based on the user-set prior and observed data, approximates well the true posterior.
 
@@ -174,40 +158,42 @@ Figure S2: Examples of the true and predicted posterior distributions in the toy
 
 #### Page 19
 
-> **Image description.** The image contains four scatter plots arranged in a 2x2 grid. Each plot compares predicted vs. true posterior values for either the mean (mu) or standard deviation (sigma).
+> **Image description.** This image contains four scatter plots arranged in a 2x2 grid. Each plot compares predicted vs. true posterior values for either the mean (μ) or standard deviation (σ).
 >
-> - **Plot 1 (Top Left):**
+> Here's a breakdown of each plot:
 >
->   - Title: "Predicted vs True Posterior Mean (μ)"
->   - X-axis label: "Predicted Posterior Mean (μ)" with values ranging from -1 to 1.
->   - Y-axis label: "True Posterior Mean (μ)" with values ranging from -0.75 to 1.00.
->   - Data points: Blue dots scattered around a diagonal red dashed line.
->   - Text: "R2: 1.00" in the top left corner.
+> - **Top Left:** "Predicted vs True Posterior Mean (μ)".
 >
-> - **Plot 2 (Top Right):**
+>   - The x-axis is labeled "Predicted Posterior Mean (μ)" and ranges from approximately -1 to 1.
+>   - The y-axis is labeled "True Posterior Mean (μ)" and ranges from approximately -1 to 1.
+>   - A cluster of blue data points forms a linear pattern.
+>   - A red dashed line runs diagonally through the data points.
+>   - A box in the upper left corner displays "R2: 1.00".
 >
->   - Title: "Predicted vs True Posterior Std (μ)"
->   - X-axis label: "Predicted Posterior Std (μ)" with values ranging from 0.00 to 0.30.
->   - Y-axis label: "True Posterior Std (μ)" with values ranging from 0.05 to 0.25.
->   - Data points: Blue dots scattered around a diagonal red dashed line.
->   - Text: "R2: 0.94" in the top left corner.
+> - **Top Right:** "Predicted vs True Posterior Std (μ)".
 >
-> - **Plot 3 (Bottom Left):**
+>   - The x-axis is labeled "Predicted Posterior Std (μ)" and ranges from 0.00 to 0.30.
+>   - The y-axis is labeled "True Posterior Std (μ)" and ranges from 0.00 to 0.25.
+>   - A cluster of blue data points forms a linear pattern.
+>   - A red dashed line runs diagonally through the data points.
+>   - A box in the upper left corner displays "R2: 0.94".
 >
->   - Title: "Predicted vs True Posterior Mean (σ)"
->   - X-axis label: "Predicted Posterior Mean (σ)" with values ranging from 0.0 to 1.0.
->   - Y-axis label: "True Posterior Mean (σ)" with values ranging from 0.2 to 0.8.
->   - Data points: Blue dots scattered around a diagonal red dashed line.
->   - Text: "R2: 1.00" in the top left corner.
+> - **Bottom Left:** "Predicted vs True Posterior Mean (σ)".
 >
-> - **Plot 4 (Bottom Right):**
->   - Title: "Predicted vs True Posterior Std (σ)"
->   - X-axis label: "Predicted Posterior Std (σ)" with values ranging from 0.00 to 0.18.
->   - Y-axis label: "True Posterior Std (σ)" with values ranging from 0.025 to 0.175.
->   - Data points: Blue dots scattered around a diagonal red dashed line.
->   - Text: "R2: 0.89" in the top left corner.
+>   - The x-axis is labeled "Predicted Posterior Mean (σ)" and ranges from 0.0 to 1.0.
+>   - The y-axis is labeled "True Posterior Mean (σ)" and ranges from approximately 0.0 to 0.8.
+>   - A cluster of blue data points forms a linear pattern.
+>   - A red dashed line runs diagonally through the data points.
+>   - A box in the upper left corner displays "R2: 1.00".
 >
-> In all four plots, the diagonal red dashed line represents a perfect prediction where the predicted value equals the true value. The R-squared values indicate the goodness of fit, with values closer to 1 indicating a better fit.
+> - **Bottom Right:** "Predicted vs True Posterior Std (σ)".
+>   - The x-axis is labeled "Predicted Posterior Std (σ)" and ranges from 0.00 to 0.18.
+>   - The y-axis is labeled "True Posterior Std (σ)" and ranges from 0.00 to 0.175.
+>   - A cluster of blue data points forms a linear pattern.
+>   - A red dashed line runs diagonally through the data points.
+>   - A box in the upper left corner displays "R2: 0.89".
+>
+> In all four plots, the data points are clustered closely around the red dashed line, suggesting a strong correlation between the predicted and true posterior values. The R-squared values, displayed in the upper left corner of each plot, quantify the strength of this correlation.
 
 Figure S3: The scatter plots compare the predicted and true posterior mean and standard deviation values for both $\mu$ and $\sigma$ across 100 examples. We can see that the points lie closely along the diagonal red dashed line, indicating that the moments (mean and standard deviation) of the predicted posteriors closely match the true posteriors.
 
@@ -219,45 +205,42 @@ Figure S3: The scatter plots compare the predicted and true posterior mean and s
 
 Here we give an overview of two key architectures used in our paper. First, we show the TNP-D (Nguyen and Grover, 2022) architecture in Fig. S4, which our method extends. Fig. S5 shows the ACE architecture introduced in this paper.
 
-> **Image description.** This is a diagram illustrating a conceptual architecture, likely for a neural network or machine learning model.
+> **Image description.** This is a diagram illustrating an architecture, likely a neural network or similar computational model.
 >
-> The diagram is structured as a series of connected blocks, with arrows indicating the flow of data. The diagram contains the following elements:
+> The diagram is structured from left to right, showing the flow of data through different layers or components.
 >
-> - **Input Blocks:** On the left side, there are six input blocks. The top three blocks are labeled "(x1, y1)", "(x3, y3)", and "(x5, y5)". These blocks are gray. The bottom three blocks are labeled "(x2)", "(x4)", and "(x6)". These blocks are also gray, but the labels are in red. Arrows point from each of these blocks to the "Embedder" block.
+> - **Input:** On the left, there are six inputs represented as gray rounded rectangles. The top three contain coordinate pairs (x1, y1), (x3, y3), and (x5, y5). The bottom three contain only x values: (x2), (x4), and (x6). The x values are in red font. Arrows point from each input to a central block labeled "Embedder" in light gray.
 >
-> - **Embedder Block:** A large, light purple rectangular block labeled "Embedder" is located in the center-left of the diagram.
+> - **Embedder:** The "Embedder" is a large, light-gray rectangle.
 >
-> - **MHSA Block:** To the right of the Embedder, there is a block consisting of three stacked gray rectangular blocks labeled "(z1)", "(z3)", and "(z5)". This block is enclosed in a rounded purple rectangle labeled "MHSA" at the top.
+> - **MHSA and CA:** The output of the "Embedder" splits into two paths. The top path leads to a block labeled "MHSA" (Multi-Head Self-Attention). This block contains three gray rounded rectangles labeled (z1), (z3), and (z5). The bottom path leads to a block labeled "CA" (Cross-Attention). This block also receives input from the "MHSA" block. The "MHSA" and "CA" blocks are enclosed within a larger rounded rectangle labeled "k-blocks" in blue. The labels "MHSA" and "CA" are in red font. The inputs to CA are gray rounded rectangles labeled (z2), (z4), and (z6). The z values are in red font.
 >
-> - **CA Block:** Below the MHSA block and aligned with the bottom three inputs, there is a light purple rectangular block labeled "CA" in red. The MHSA and CA blocks are enclosed in a larger purple rounded rectangle labeled "k-blocks" at the bottom.
+> - **Head:** The output of the "k-blocks" feeds into another light-gray rectangle labeled "Head".
 >
-> - **Head Block:** To the right of the MHSA/CA block, there is a light purple rectangular block labeled "Head".
+> - **Output/Loss:** The output of the "Head" leads to a final block labeled "Loss" in gold. This block contains six rounded rectangles arranged in two columns. The left column contains white rectangles with hat{y} values: (hat{y}2), (hat{y}4), and (hat{y}6). The right column contains gray rectangles with y values: (y2), (y4), and (y6). The y values are in red font.
 >
-> - **Output/Loss Block:** On the right side, there is a block enclosed in an orange rounded rectangle labeled "Loss" at the top. This block contains six smaller blocks. The top three blocks are white rectangles labeled "(ŷ2)", "(ŷ4)", and "(ŷ6)". The bottom three blocks are gray rectangles labeled "(y2)", "(y4)", and "(y6)" in red.
->
-> Arrows connect the blocks in the following way:
->
-> - Arrows from the input blocks to the Embedder block.
-> - Arrows from the Embedder block to the MHSA block and the CA block.
-> - An arrow from the MHSA block to the CA block.
-> - Arrows from the MHSA block and CA block to the Head block.
-> - Arrows from the Head block to the output/loss block.
+> Arrows connect the components, indicating the flow of data. The color scheme uses light-gray for blocks, black for arrows, red for certain labels and values, blue for the "k-blocks" enclosure, and gold for the "Loss" enclosure.
 
 Figure S4: A conceptual figure of TNP-D architecture. The TNP-D architecture can be summarized in the embedding layer, attention layers and output head. The $x$ denotes locations where the output is unknown (target inputs). The $z$ is the embedded data, while MHSA stands for multi head cross attention and CA for cross attention. The head for TNP-D is Gaussian, so it outputs a mean and variance for each target point.
 
-> **Image description.** A diagram illustrates the ACE architecture. The diagram is composed of several blocks and arrows, representing data flow and processing steps.
+> **Image description.** This is a diagram illustrating the ACE architecture, a neural network architecture. The diagram shows the flow of data through different layers and components of the network.
 >
-> - **Input Blocks (Left Side):** There are six rectangular blocks on the left side. From top to bottom, they contain the following text: "($\theta_1$)" in a green box, "(x3, y3)" in a gray box, "(x5, y5)" in a gray box, "(?$\theta_2$)" in a green box, "(x4)" in a red box, and "(x6)" in a dark-gray box. Each block is connected to a central block labeled "Embedder" by a black arrow pointing right.
+> Here's a breakdown of the visible elements:
 >
-> - **Embedder Block (Center-Left):** A large, light-red rectangular block is labeled "Embedder" in gray text. This block receives input from the blocks on the left and outputs to blocks on the right.
+> - **Input:** On the left side, there are several inputs represented by rectangles.
+>   - Two green rectangles labeled "(θ₁)" and "(?θ₂)".
+>   - Three grey rectangles labeled "(x₃, y₃)", "(x₅, y₅)", "(x₄)", and "(x₆)". The label "(z₂)" is written in red.
+> - **Embedder:** A large, light-pink rectangle labeled "Embedder" in grey is positioned in the center of the left side. Arrows connect the input rectangles to the Embedder.
+> - **MHSA:** A blue rounded rectangle labeled "MHSA" in black. Inside the rectangle are three grey rectangles labeled "(z₁)", "(z₃)", and "(z₅)". Arrows connect the Embedder to these rectangles.
+> - **CA:** Below the MHSA rectangle, there is a light-pink rectangle labeled "CA" in dark red. An arrow connects the MHSA rectangle to the CA rectangle. The label "k-blocks" is written below the CA rectangle.
+> - **Head:** To the right of the CA rectangle, there is a light-pink rectangle labeled "Head (GMM or Cat)" in grey. An arrow connects the CA rectangle to the Head rectangle.
+> - **Output/Loss:** On the right side, there is an orange rounded rectangle labeled "Loss" in orange. Inside the rectangle are six rectangles:
+>   - Two white rectangles labeled "(^θ₂)" and "(^y₄)" and "(^y₆)".
+>   - Four grey rectangles labeled "(y₄)" and "(y₆)".
+>   - One green rectangle labeled "(θ₂)".
+> - **Arrows:** Arrows connect the different components, indicating the flow of data.
 >
-> - **MHSA and CA Blocks (Center-Right):** To the right of the "Embedder" block, there's a blue-outlined rounded rectangle labeled "MHSA" in purple. Inside this rounded rectangle are three gray rectangular blocks labeled "(z1)", "(z3)", and "(z5)". Below these is a purple arrow pointing down to another light-red rounded rectangle labeled "CA" in purple. Below the rounded rectangle is the text "k-blocks" in purple. To the left of the "CA" block are three gray rectangular blocks labeled "(z2)" in red, "(z4)" in dark-gray, and "(z6)" in dark-gray.
->
-> - **Head Block (Center-Right):** To the right of the "CA" block is another light-red rectangular block labeled "Head (GMM or Cat)" in gray text.
->
-> - **Output Blocks and Loss (Right Side):** To the right of the "Head" block, there's an orange-outlined rounded rectangle labeled "Loss" in orange. Inside this rounded rectangle are six blocks arranged in two columns. The left column contains white blocks with the text "($\hat{\theta}_2$)", "($\hat{y}_4$)", and "($\hat{y}_6$)". The right column contains a green block with the text "($\theta_2$)", and two gray blocks with the text "(y4)" and "(y6)".
->
-> - **Arrows:** Black arrows connect each block, indicating the flow of data through the architecture.
+> The diagram uses different colors to highlight different types of data or components. The labels provide information about the variables and operations involved in each step of the architecture. The overall layout suggests a sequential processing of data from the input to the output/loss calculation.
 
 Figure S5: A conceptual figure of ACE architecture. The diagram shows key differences between ACE and TNP-D. The differences boil down to the embedder layer that now incorporates latents $\theta_{l}$ (and possibly priors over these) and the output head that is now a Gaussian mixture model (GMM, for continuous variables) or categorical (Cat, for discrete variables). Both latent and data can be of either type.
 
@@ -297,15 +280,18 @@ We now demonstrate the use of ACE for performing amortized inference tasks in th
 
 #### Page 22
 
-> **Image description.** The image contains three line graphs, labeled (a), (b), and (c) respectively. Each graph has a horizontal axis labeled "Size of $\mathcal{D}_N$" ranging from approximately 0 to 20.
+> **Image description.** The image contains three line graphs, labeled (a), (b), and (c) respectively, arranged horizontally. Each graph plots data against "Size of $\mathcal{D}_N$" on the x-axis, which ranges from approximately 0 to 20. All graphs have gridlines.
 >
-> Graph (a) displays "Log predictive density $p(y|\cdot)$" on the vertical axis, ranging from -1 to 2. Three lines are plotted: a dashed orange line labeled "$p(y|\mathcal{D}_N)$", a solid green line labeled "$p(y|\boldsymbol{\theta}, \mathcal{D}_N)$", and a solid blue line labeled "GP predictive". Each line has a shaded area around it, indicating a confidence interval.
+> - **Graph (a):** This graph displays "Log predictive density $p(y|\cdot)$" on the y-axis, ranging from -1 to 2. Three lines are plotted:
 >
-> Graph (b) displays "Kernel identification accuracy" on the vertical axis, ranging from 0.4 to 1. A single solid orange line is plotted with a shaded area around it.
+>   - A dashed orange line representing "$p(y|\mathcal{D}_N)$".
+>   - A solid green line representing "$p(y|\theta, \mathcal{D}_N)$".
+>   - A solid blue line representing "GP predictive".
+>     Each line has circular markers at data points and is surrounded by a shaded area of the same color, indicating a confidence interval.
 >
-> Graph (c) displays "Log predictive density $p(\theta|\mathcal{D}_N)$" on the vertical axis, ranging from 0 to 0.6. A single solid orange line is plotted with a shaded area around it.
+> - **Graph (b):** This graph displays "Kernel identification accuracy" on the y-axis, ranging from 0.4 to 1. A single solid orange line with circular markers is plotted, also surrounded by a shaded area of the same color.
 >
-> All three graphs have a light gray grid in the background.
+> - **Graph (c):** This graph displays "Log predictive density $p(\theta|\mathcal{D}_N)$" on the y-axis, ranging from 0 to 0.6. A single solid orange line with circular markers is plotted, surrounded by a shaded area of the same color.
 
 Figure S6: (a) Conditioning on the latent variable $\boldsymbol{\theta}$ (kernel hyperparameters and type) improves predictive performance, approaching the GP upper bound for the log predictive density. (b) ACE can identify the kernel $\kappa$. (c) ACE can learn kernel hyperparameters.
 
@@ -328,15 +314,15 @@ The experiments on images demonstrate the versatility of the ACE method and its 
 
 #### Page 23
 
-> **Image description.** This image shows a comparison of image completion results for the MNIST dataset, displayed in a 2x5 grid. Each row represents a different digit (9 and 7), and each column represents a different stage or method in the image completion process.
+> **Image description.** The image presents a series of image completion results for handwritten digits, arranged in a 2x5 grid. Each image is a square. The top row shows the digit '9', and the bottom row shows the digit '7'.
 >
-> - **Column 1 (a) Image:** Shows the original, complete images of the digits '9' and '7' on a black background. The digits are white.
-> - **Column 2 (b) $\mathcal{D}_{N}$:** Shows the context images. These images have a blue background with a sparse scattering of small black and white squares, representing the observed pixels.
-> - **Column 3 (c) TNPD:** Shows the image completion results using the TNPD method. The digits are blurry and grayscale, with a black background containing scattered blue dots. The observed pixels are marked with small blue squares.
-> - **Column 4 (d) ACE:** Shows the image completion results using the ACE method. The digits are clearer than in the TNPD results, with a black background containing scattered blue dots. The observed pixels are marked with small blue squares.
-> - **Column 5 (e) ACE- $\boldsymbol{\theta}$:** Shows the image completion results using the ACE method conditioned on the class label. The digits are the clearest and most similar to the original images, with a black background containing scattered blue dots. The observed pixels are marked with small blue squares.
+> - **Column 1 (a) Image:** The first column displays the original, complete images of the digits. The digit '9' is in the top row, and the digit '7' is in the bottom row. Digits are white on a black background.
+> - **Column 2 (b) $\mathcal{D}_{N}$:** The second column shows the context provided to the models. The background is blue, and a sparse scattering of small white and dark blue squares represents the observed pixels (10% of the pixels are observed).
+> - **Column 3 (c) TNPD:** The third column shows the image completion results from the TNPD model. The digits are blurry and faint, with a gray scale appearance. The background is black, and there is a scattering of small blue squares.
+> - **Column 4 (d) ACE:** The fourth column shows the image completion results from the ACE model. The digits are clearer than in the TNPD column. The background is black, and there is a scattering of small blue squares.
+> - **Column 5 (e) ACE- $\boldsymbol{\theta}$:** The fifth column shows the image completion results from the ACE model conditioned on the class label. The digits are the clearest and most similar to the original images. The background is black, and there is a scattering of small blue squares.
 >
-> Below each column is a label indicating the stage or method: (a) Image, (b) $\mathcal{D}_{N}$, (c) TNPD, (d) ACE, (e) ACE- $\boldsymbol{\theta}$.
+> Below each column, there is a label: (a) Image, (b) $\mathcal{D}_{N}$, (c) TNPD, (d) ACE, and (e) ACE- $\boldsymbol{\theta}$.
 
 (a) Image
 (b) $\mathcal{D}_{N}$
@@ -344,15 +330,18 @@ The experiments on images demonstrate the versatility of the ACE method and its 
 (d) ACE
 (e) ACE- $\boldsymbol{\theta}$
 
-> **Image description.** The image is a line graph comparing the performance of three different models: ACE, ACE-θ, and TNPD.
+> **Image description.** A line graph compares the performance of three models: ACE, ACE-θ, and TNPD.
 >
-> - **Axes:** The x-axis ranges from 0 to 20, with tick marks at intervals of 10. The y-axis ranges from -1.2 to -0.6, with tick marks at intervals of 0.2.
-> - **Data:**
->   - ACE is represented by a blue line with circular data points. A light blue shaded region surrounds the line, indicating a confidence interval.
->   - ACE-θ is represented by an orange line with circular data points. A light orange shaded region surrounds the line, indicating a confidence interval.
->   - TNPD is represented by a green line with circular data points. A light green shaded region surrounds the line, indicating a confidence interval.
-> - **Legend:** A legend in the upper right corner identifies each model with its corresponding color and label: ACE (blue), ACE-θ (orange), and TNPD (green).
-> - **Overall Trend:** All three models show a general downward trend, indicating improving performance (lower y-axis values) as the x-axis value increases. The TNPD model starts with a higher (worse) value but decreases more rapidly than the other two.
+> The graph has the following elements:
+>
+> - **X-axis:** Ranges from 0 to 20, with ticks at intervals of 10.
+> - **Y-axis:** Ranges from -1.2 to -0.6, with ticks at intervals of 0.2.
+> - **Three lines:**
+>   - **ACE:** A blue line with circular markers.
+>   - **ACE-θ:** An orange line with circular markers.
+>   - **TNPD:** A green line with circular markers.
+> - **Shaded regions:** Each line has a corresponding shaded region around it, representing a confidence interval. The colors of the shaded regions match the colors of the lines.
+> - **Legend:** A box in the upper right corner identifies each line by its color and label.
 
 (f) NLPD v Context(\% of image)
 
@@ -362,59 +351,55 @@ CNPs. We outperform the current state-of-the-art TNP-D on the standard image com
 
 In addition to image completion, our method can condition on and predict latent variables $\boldsymbol{\theta}$. For MNIST, we use the class labels as latents, so 0 , $1,2, \ldots$, which were encoded into a single discrete variable. Meanwhile, for CelebA we use as latents the 40 binary features that accompany the dataset, e.g. BrownHair, Man, Smiling, trained with the sampling procedure discussed below. We recall that in ACE the latents $\boldsymbol{\theta}$ can be both conditioned on and predicted. Thus, we can do conditional generation based on the class or features or, given a sample of an image, predict its class or features, as initially promised in Fig. 1a.
 
-> **Image description.** The image is a line graph showing the relationship between "Context Size %" and "Classification Accuracy".
+> **Image description.** A line graph depicts the relationship between "Context Size %" on the x-axis and "Classification Accuracy" on the y-axis.
 >
-> The x-axis is labeled "Context Size %" and ranges from 0 to 100. The y-axis is labeled "Classification Accuracy" and ranges from 0 to 1. The graph contains a blue line with circular data points, illustrating the trend. A light blue shaded area surrounds the line, likely representing a confidence interval. The line starts at a low classification accuracy for small context sizes and rapidly increases until it reaches a context size of around 40%. After that, the classification accuracy plateaus near 1, with a slight dip towards the end. A grid of light gray lines is present in the background.
+> The x-axis ranges from 0 to 100, with labels at 0, 20, 40, 60, 80, and 100. The y-axis ranges from 0 to 1, with labels at 0, 0.2, 0.4, 0.6, 0.8, and 1.
+>
+> A blue line with circular markers represents the data points. The line starts at approximately (0, 0.2) and increases sharply to around (20, 0.85). It then gradually rises, reaching nearly 1.0 around (60, 1.0). The line remains close to 1.0 for the rest of the graph, with a slight dip near the end.
+>
+> A shaded light blue area surrounds the line, indicating the confidence interval or variability of the data. A grid of light gray lines is visible in the background, providing a visual aid for reading values on the graph.
 
 Figure S8: Classification accuracy for MNIST for varying context size.
 
 Results. The main image completion results for the CelebA dataset are shown in Fig. 3, with the same experiment performed on MNIST and displayed in Fig. S7. In both figures, we display some example images and predictions and negative log-probability density for different context sizes (shaded area is $95 \%$ confidence interval). Our method demonstrates a clear improvement over the TNP-D method across all context sizes on both datasets (Fig. 3 and Fig. S7). Moreover, incorporating latent information for conditional generation further enhances the performance of our base method. A variation of the image completion experiment is shown in Fig. S9, where the context is no longer randomly sampled from within the image but instead selected according
 
-> **Image description.** The image shows a blurry, low-resolution depiction of a person's head and shoulders, obscured by a large, bright green rectangle that covers the upper portion of the head. The area below the green rectangle shows the person's face, neck, and shoulders, although the details are indistinct due to the image quality. The person's skin appears to have a yellowish tint. The shoulders are dark, possibly indicating clothing. The background is white.
+> **Image description.** The image shows a close-up of a person's head and shoulders with a bright green rectangle obscuring the top half of their face. The person's skin tone appears light, and the visible portion of their face shows features like a nose and mouth. The shoulders and neck are outlined in black. The background is white. The green rectangle covers the forehead and eyes.
 
 (a) Context
 
-> **Image description.** The image shows a close-up photograph of a person's face. The person appears to be an older man with fair skin and a white beard. The image quality is somewhat low-resolution, resulting in a slightly blurred appearance. The background is plain white, which isolates the face as the primary subject. The man is facing forward, and his expression is neutral. He is wearing a dark-colored garment, possibly a shirt or jacket, but the details are not clear due to the image resolution.
+> **Image description.** The image is a close-up photograph of a person's face. The person appears to be a man with light skin, a white beard, and brown hair that is balding on top. The image quality is somewhat pixelated and blurry, especially around the edges. The man is wearing a dark-colored shirt or jacket. The background is plain white.
 
 (b) $\mathrm{BALD}=$ True
 
-> **Image description.** The image shows a set of five images, arranged horizontally, each depicting a face.
+> **Image description.** The image consists of two panels.
 >
-> - **(a) Image:** The first image shows a blurry, low-resolution color image of a man's face. The man has light skin, dark hair, and is wearing a black jacket or shirt. The background is white.
+> The left panel shows a blurry image of a man's face. The face is light-skinned with dark hair. He is wearing a dark-colored shirt or jacket with a high collar. The image is somewhat pixelated and lacks fine detail.
 >
-> - **(b) $\mathcal{D}_{N}$:** The second image shows the same blurry face as in (a), but with a vertical green bar covering approximately 1/3 of the right side of the image. The rest of the image is visible.
->
-> - **(c) TNPD:** The third image shows a blurry, low-resolution color image of a man's face. The face is similar to the one in (a) but slightly different, indicating a reconstruction or prediction.
->
-> - **(d) ACE:** The fourth image shows another blurry, low-resolution color image of a man's face. This face is also similar to the one in (a) but has distinct differences compared to (c), suggesting a different reconstruction method.
->
-> - **(e) ACE- $\boldsymbol{\theta}$:** The fifth image shows a blurry, low-resolution color image of a man's face. This face appears to be the clearest and most similar to the original image (a) compared to (c) and (d).
+> The right panel is divided into two vertical rectangles. The left rectangle is bright green, and the right rectangle is black.
 
 (c) $\mathrm{BALD}=\mathrm{False}$
 
-> **Image description.** The image contains six panels, labeled (a) through (f), related to image regression on MNIST.
+> **Image description.** The image shows two panels side-by-side, each containing a partial image.
 >
-> Panel (a) shows a blurred image of what appears to be a handwritten digit.
+> Panel 1: The top half of the image is a solid bright green color. The bottom half shows a blurry image with hints of blue, white, and a brownish-orange color. The shapes are indistinct.
 >
-> Panel (b) shows the same image as (a), but with the top portion covered by a solid green rectangle.
->
-> Panels (c), (d), and (e) each show a blurred image, presumably reconstructions of the original digit. Panel (e) appears slightly clearer than (c) and (d). The colors in all three panels are predominantly blue and red.
->
-> Panel (f) displays a line graph. The x-axis is labeled "Context (% of image)". The y-axis is not explicitly labeled but represents performance. A blue line with a shaded area around it represents the mean and 95% confidence interval. The line increases as the context increases.
+> Panel 2: This panel shows a blurred image with a color palette of blue, black, and red. The shapes are indistinct, but there is a suggestion of a rounded form in the center of the image.
 
 (d) Context
 
-> **Image description.** The image shows two blurred portraits of a person against a blue background.
+> **Image description.** The image contains two blurry images of faces.
 >
-> The left portrait shows a person with brown skin and a bald head. The right portrait shows a person with dark skin and dark hair. Both portraits are blurred, making it difficult to discern specific facial features. The background in both images is a gradient of blue shades, darker at the top and lighter at the bottom.
+> The left image shows a person's face with a brown complexion, set against a blurred blue background. The person appears to be bald or have very short hair. The image quality is low, making it difficult to discern fine details.
+>
+> The right image also shows a person's face against a blurred blue background. However, in this image, the person's hair appears dark and covers most of their forehead. The image is similarly blurry, obscuring facial features. A black vertical bar is visible on the left side of the image.
 
 (e) $\mathrm{BALD}=\mathrm{True}$
 
-> **Image description.** The image contains two blurry images of faces.
+> **Image description.** The image contains two blurry headshot-style photographs.
 >
-> The first image shows a person with dark hair and skin, set against a blue background. The image is blurry, making it difficult to discern specific facial features.
+> The left photograph shows a person with dark skin, a bald head, and a blurred expression. The background is a gradient of blue.
 >
-> The second image is also blurry, depicting a person with dark hair and skin against a blue background. A vertical black bar obscures a portion of the left side of the image. Like the first image, the blurriness makes it hard to identify distinct facial features.
+> The right photograph shows a person with dark skin and dark hair. A vertical black bar obscures part of the left side of the image. The background is also a gradient of blue. The image is blurry, making it difficult to discern specific facial features.
 
 (f) $\mathrm{BALD}=\mathrm{False}$
 
@@ -426,13 +411,13 @@ Figure S9: Example of ACE conditioning on the value of the BALD feature when the
 
 to a top 22-row image mask. For this example, the latent information BALD is either conditioned on True or False. The results show that the model adjusts its generated output based on the provided latent information, highlighting the potential of conditional generation. Furthermore, in Fig. S10, we show examples of ACE's ability to perform image classification showing a subset of the 40 features in CelebA dataset. Despite only having $10 \%$ of the image available, ACE can predict most features successfully. Finally, in Fig. S8 the accuracy for predicting the correct class label for MNIST is reported.
 
-> **Image description.** The image is a figure composed of three panels arranged horizontally. The figure shows the classification ability of an AI model.
+> **Image description.** The image presents a figure with three panels labeled (a), (b), and (c). The figure appears to be related to image classification based on partial information.
 >
-> Panel (a), labeled "Context", shows a pixelated image with a predominantly green background. Scattered throughout are small squares of various colors including white, black, red, and gray. This represents the available context or partial information.
+> Panel (a), labeled "Context," shows a pixelated representation of an image. The background is predominantly green, with scattered pixels of other colors (white, black, orange, and gray). This likely represents the available context or input to a classification model.
 >
-> Panel (b), labeled "Full image", presents a pixelated image of a face. The top image shows a light-skinned individual with short hair, while the bottom image shows a darker-haired individual. These are the full images that the model is trying to classify, given the context in panel (a).
+> Panel (b), labeled "Full image," displays a pixelated image of a face. The top image shows a light-skinned person, potentially male, with light-colored hair. The bottom image shows a light-skinned person, potentially female, with dark hair. The pixelation obscures fine details, but the basic facial features are discernible.
 >
-> Panel (c), labeled "Classification probability for some features", displays two horizontal bar charts stacked vertically. Each chart represents the classification probabilities for a subset of features related to the face images. The y-axis lists features such as "Bald", "Gray_Hair", "Smiling", "Black_Hair", "Big_Lips", "Wearing_Necktie", "Male", "Bangs", "Young", and "No_Beard". The x-axis represents probability, ranging from 0 to 1. For each feature, there is a blue horizontal bar indicating the predicted probability, a black dot representing the average probability, and either a red asterisk (\*) or a black cross (x) indicating whether the true label for that feature is 1 or 0, respectively. A vertical dashed red line is at the 0.5 probability mark.
+> Panel (c), labeled "Classification probability for some features," shows two horizontal bar charts, one for each image in (b). Each chart displays the classification probabilities for a subset of features. The features listed vertically on the left side of each chart are: "Bald," "Gray_Hair," "Smiling," "Black_Hair," "Big_Lips," "Wearing_Necktie," "Male," "Bangs," "Young," and "No_Beard." The x-axis ranges from 0 to 1, representing the probability. Each feature has a blue horizontal bar indicating the probability, a black dot representing the average probability, and a symbol indicating the ground truth label: a red asterisk (\*) for label = 1 and a black cross (x) for label = 0. A vertical dashed red line is present at x = 0.5. The bars extend to the right or left of the average depending on the probability.
 
 Figure S10: An example showing the classification ability of ACE. (a) is the context available of the full image displayed in the panel (b). The probabilities for a subset of features are in (c).
 
@@ -454,17 +439,22 @@ Dataset. The BO datasets are generated by sampling from a GP, following the appr
 
 #### Page 25
 
-> **Image description.** The image presents a comparative visual analysis of image reconstruction, arranged in a 2x4 grid. The first row depicts a woman's face, while the second row shows a man wearing a baseball cap.
+> **Image description.** This image shows a comparison of image reconstruction using different methods. It consists of two rows, each with four panels, and each panel displays a 64x64 pixel image.
 >
-> - **Column (a) Context:** The first column displays a square image filled with a seemingly random arrangement of colored pixels. The dominant color is green, with scattered pixels of red, white, blue, and black. This likely represents the "context" data used for reconstruction.
+> - **Row 1:** The first row shows a reconstruction of a woman's face.
 >
-> - **Column (b) Image:** The second column shows the original, low-resolution images. The top image is a woman in profile, facing right. She has dark hair and fair skin. The bottom image is a man wearing a red baseball cap and sunglasses. The background appears to be blurry and blue.
+>   - Panel (a), labeled "Context", shows a green background with scattered colored pixels (red, black, white). This appears to be a sparse or noisy representation of the image.
+>   - Panel (b), labeled "Image", displays the original image of a woman's face in profile. She has dark hair and fair skin.
+>   - Panel (c), labeled "ACE", shows a reconstruction of the woman's face, slightly blurred compared to the original.
+>   - Panel (d), labeled "ACE-θ", shows another reconstruction of the woman's face, also slightly blurred, and appears similar to panel (c).
 >
-> - **Column (c) ACE:** The third column displays the images reconstructed using the "ACE" method. These images are slightly clearer than the original images in column (b), but still retain a pixelated appearance.
+> - **Row 2:** The second row shows a reconstruction of a man's face.
+>   - Panel (a), labeled "Context", shows a green background with scattered colored pixels (red, black, white). This appears to be a sparse or noisy representation of the image.
+>   - Panel (b), labeled "Image", displays the original image of a man's face wearing a red baseball cap and sunglasses. He has fair skin. The background is blurred and appears to be blue.
+>   - Panel (c), labeled "ACE", shows a reconstruction of the man's face, slightly blurred compared to the original.
+>   - Panel (d), labeled "ACE-θ", shows another reconstruction of the man's face, also slightly blurred, and appears similar to panel (c).
 >
-> - **Column (d) ACE-θ:** The fourth column shows the images reconstructed using the "ACE-θ" method. These images appear to be the clearest and most detailed of the three, with smoother edges and more defined features.
->
-> Below each column is a label: "(a) Context", "(b) Image", "(c) ACE", and "(d) ACE-θ".
+> The reconstructions in panels (c) and (d) of both rows appear to be attempts to recreate the original images (panel b) from the sparse context provided in panel (a).
 
 Figure S11: Examples of ACE on 64x64 image size.
 
@@ -494,17 +484,7 @@ Figure S11: Examples of ACE on 64x64 image size.
 
 #### Page 26
 
-> **Image description.** This image presents a grid of 16 line graphs, each displaying a different sample function. Each graph is contained within its own subplot, arranged in a 4x4 grid.
->
-> Each subplot features:
->
-> - A line graph plotted with a teal/cyan colored line. The shapes of these lines vary across the subplots, showing different function behaviors. Some lines are smooth and curved, while others are jagged and erratic.
-> - A red dot marking a specific point on the line, presumably indicating the global optimum.
-> - X and Y axes. The X-axis ranges from -1.0 to 1.0 with tick marks at -1.0, -0.5, 0.0, 0.5, and 1.0. The Y-axis ranges vary across the subplots to accommodate the range of values for each sample function.
-> - A title above each graph, labeled "Sample 1" through "Sample 16".
-> - The X-axis is labeled 'x' at the bottom right of the entire grid. The Y-axis is labeled 'y' on the left side of the grid.
->
-> The overall visual impression is that of a collection of diverse function samples, each with a marked global optimum.
+> **Image description.** A figure containing 16 subplots, each displaying a one-dimensional graph. Each subplot has the same x-axis range from -1.0 to 1.0, and a different y-axis range depending on the function plotted. The x-axis is labeled "x" at the bottom right of the figure, and the y-axis is labeled "y" at the left of the figure. Each graph shows a blue line representing a function, and a red dot marking the global optimum of that function within the plotted range. The title of each subplot indicates the sample number, from "Sample 1" to "Sample 16". The functions plotted vary in complexity, with some being smooth and others exhibiting more erratic behavior.
 
 Figure S12: One-dimensional Bayesian optimization dataset samples, with their global optimum (red dot).
 
@@ -519,11 +499,9 @@ The model was trained for $5 \times 10^{5}$ steps with a batch size of 64 for 1-
 
 #### Page 27
 
-> **Image description.** The image presents a collection of nine contour plots, arranged in a 3x3 grid. Each plot is labeled "Sample [number]" from 1 to 9. The plots visualize a two-dimensional function, with the x-axis labeled as "X1" and the y-axis as "X2" on the left side of the middle row.
+> **Image description.** This image presents a set of nine contour plots arranged in a 3x3 grid. Each plot visualizes a two-dimensional function, likely representing Bayesian optimization dataset samples.
 >
-> Each subplot displays a contour plot with the x and y axes ranging from -1 to 1. The contours are colored according to a color scale shown on the right side of each plot, with yellow indicating higher values and purple indicating lower values. A red dot is present in each plot, indicating a specific point on the contour map. The location of the red dot varies across the different samples.
->
-> The contour patterns differ significantly between the samples. Some samples (e.g., Sample 1, Sample 2, Sample 5, Sample 8, and Sample 9) show concentric or nested contours, suggesting a local minimum or maximum. Other samples (e.g., Sample 3, Sample 6, and Sample 7) exhibit more complex, elongated, or striped patterns. Sample 4 shows a more scattered contour pattern.
+> Each subplot is labeled "Sample [number]" where the number ranges from 1 to 9. The x-axis, labeled "X1" at the bottom of the 8th subplot, and y-axis, labeled "X2" to the left of the 4th subplot, both range from -1.0 to 1.0. Each subplot displays a contour plot with varying color gradients, likely indicating the value of the function at different points in the 2D space. The color gradient ranges from dark purple (representing low values) to bright yellow (representing high values). Each subplot also contains a single red dot, which is identified in the caption as the optimum. Each subplot has a colorbar to its right indicating the range of values represented by the color gradient. The range of values varies from subplot to subplot.
 
 Figure S13: Two-dimensional Bayesian optimization dataset samples, with their optimum (red dot).
 importance to the latent variables during training. This adjustment accounts for the fact that the number of latent variables, $n_{\text {latent }}$, is generally much smaller than the number of data points, $\left(n_{\text {total }}-n_{\text {latent }}\right)$. The weight assigned to the latent loss is calculated as $w_{\text {latent }}=\left(n_{\text {total }}-1 / 2\left(\max \_c t x+\min \_c t x\right) / n_{\text {latent }}\right)^{T}$ where $T$ is a tunable parameter, max_ctx and max_ctx are the maximum and minimum number of context points during the dataset generation. We conducted a grid search over $T=1,2 / 3,1 / 3,0$ to identify the best-performing model. In our experiments, the optimal $T$ values are $T=1$ for $1 \mathrm{D}, T=2 / 3$ for 2 D and 3 D , and $T=0$ for $4 \mathrm{D}-6 \mathrm{D}$. Note that ACE has different models trained with different datasets for each input dimensionality.
@@ -576,20 +554,19 @@ Input: observed data points $\mathcal{D}_{N}=\left\{x_{1: N}, y_{1: N}\right\}$,
 
 #### Page 29
 
-> **Image description.** The image shows three panels, each depicting a Bayesian optimization process at different iterations. Each panel contains a plot with an x-axis labeled "x" ranging from -1.0 to 1.0 and a y-axis labeled "y".
+> **Image description.** The image shows three panels, each representing an iteration of a Bayesian optimization process on a 1D function. Each panel contains a plot with an x-axis labeled "x" ranging from -1.0 to 1.0 and a y-axis labeled "y".
 >
-> Each panel includes the following visual elements:
+> - **Main Plot:** A dashed gray line represents the underlying function. Black dots indicate observed points on the function. A dotted line connects the observed points, and a shaded purple area around the dotted line represents the uncertainty or confidence interval. A red asterisk marks the queried point at each iteration. In the third panel, two blue dots are also present.
 >
-> - A dashed gray line represents an underlying function.
-> - Black dots mark observed data points. In the second and third panels, there are blue dots as well.
-> - A dotted line, surrounded by a shaded purple area, represents the model's prediction and uncertainty.
-> - A red asterisk indicates the queried point at each iteration.
-> - An orange probability density function (PDF) is displayed on the left side of the plot.
-> - A horizontal dashed-dotted orange line intersects the orange PDF.
-> - A red PDF is shown at the bottom of the plot.
-> - A vertical dotted gray line extends from the red asterisk to the x-axis.
+> - **Left PDF:** An orange probability density function (PDF) is displayed on the left side of each panel, oriented vertically. This PDF likely represents the probability distribution of the optimal y-value.
 >
-> The panels are labeled "Iteration 1", "Iteration 2", and "Iteration 3" respectively.
+> - **Bottom PDF:** A red PDF is shown at the bottom of each panel, oriented horizontally. This PDF likely represents the probability distribution of the optimal x-value given a sampled optimal y-value.
+>
+> - **Horizontal Line:** A dashed-dot orange line runs horizontally across the main plot in each panel. This line represents a sampled optimal y-value.
+>
+> - **Vertical Line:** A dotted gray vertical line runs from the x axis to the top of the plot, intersecting with the red asterisk.
+>
+> - **Panel Titles:** Each panel is labeled with "Iteration 1", "Iteration 2", and "Iteration 3" respectively.
 
 Figure S14: Bayesian optimization example. We show here an example evolution of ACE-TS on a 1D function. The orange pdf on the left of each panel is $p\left(y_{\text {opt }} \mid \mathcal{D}_{N}\right)$, the red pdf at the bottom of each panel is $p\left(x_{\text {opt }} \mid y_{\text {opt }}, \mathcal{D}_{N}\right)$, for a sampled $y_{\text {opt }}$ (orange dashed-dot line). The queried point at each iteration is marked with a red asterisk, while black and blue dots represent the observed points. Note how ACE is able to learn complex conditional predictive distributions for $\mathbf{x}_{\text {opt }}$ and $y_{\text {opt }}$.
 
@@ -647,34 +624,28 @@ BO benchmarks. We use a diverse set of benchmark functions with input dimensions
 
 #### Page 31
 
-> **Image description.** The image is a collection of eight line graphs arranged in a 2x4 grid. Each graph displays the "Regret" on the y-axis versus "Iteration" on the x-axis for different test functions.
+> **Image description.** The image consists of eight line graphs arranged in a 2x4 grid. Each graph depicts the "Regret" on the y-axis versus "Iteration" on the x-axis for different test functions.
 >
-> - **General Layout:** The graphs are organized in two rows with four graphs in each row. Each graph has labeled axes and a title indicating the test function and its dimensionality.
+> - **Overall Layout:** The graphs are arranged in two rows and four columns. Each graph has the same general structure: x-axis labeled "Iteration," y-axis labeled "Regret," and multiple lines representing different algorithms.
 >
 > - **Axes and Labels:**
 >
->   - The y-axis is labeled "Regret" and ranges from 0 to varying maximum values depending on the graph (e.g., 3.8, 0.9, 1.2, 5.8, 1.8, 75, 90).
->   - The x-axis is labeled "Iteration" and ranges from 0 to varying maximum values depending on the graph (e.g., 25, 50, 75, 90).
->   - The x-axis has tick marks at approximately 10, 25, 50, 75, and 90.
->   - The y-axis has tick marks at 0 and the maximum value.
+>   - The x-axis (Iteration) ranges from approximately 0 to 25, 50, 75, or 90, depending on the specific graph.
+>   - The y-axis (Regret) ranges from 0 to varying maximum values, such as 3.8, 0.9, 1.2, 5.8, and 1.8, depending on the specific graph.
+>   - Each graph has a title indicating the test function used, such as "Ackley 1D," "Easom 1D," "Michalewicz 2D," "Ackley 2D," "Levy 3D," "Hartmann 4D," "Griewank 5D," and "Griewank 6D."
 >
-> - **Graph Titles (Test Functions):**
+> - **Lines and Algorithms:** Each graph contains multiple lines, each representing a different Bayesian optimization algorithm. The algorithms are:
 >
->   - Top Row: "Ackley 1D", "Easom 1D", "Michalewicz 2D", "Ackley 2D"
->   - Bottom Row: "Levy 3D", "Hartmann 4D", "Griewank 5D", "Griewank 6D"
+>   - ACE-TS (solid blue line)
+>   - ACE-MES (dashed blue line)
+>   - AR-TNPD-TS (solid green line)
+>   - GP-TS (solid orange line)
+>   - GP-MES (dashed orange line)
+>   - Random (dotted pink line)
 >
-> - **Lines and Shaded Regions:** Each graph contains multiple lines representing different algorithms, along with shaded regions around each line. The lines are colored and styled differently to distinguish them. The shaded regions likely represent the standard error or confidence intervals.
+> - **Shaded Regions:** Each line has a shaded region around it, representing the standard error (mean $\pm$ standard error) of the algorithm's performance. The color of the shaded region corresponds to the color of the line representing the algorithm.
 >
-> - **Legend (Top of the image):** A legend at the top of the image identifies the different algorithms:
->
->   - "ACE-TS" (solid blue line)
->   - "ACE-MES" (dashed blue line)
->   - "AR-TNPD-TS" (solid green line)
->   - "GP-TS" (solid orange line)
->   - "GP-MES" (dashed orange line)
->   - "Random" (dotted pink line)
->
-> - **Visual Patterns:** The lines generally start at a higher "Regret" value and decrease as the "Iteration" increases, indicating an improvement in performance over time. The rate of decrease and the final "Regret" value vary depending on the algorithm and the test function. The "Random" line generally stays higher than the other lines, suggesting poorer performance.
+> - **Visual Patterns:** The graphs show how the regret decreases as the number of iterations increases for each algorithm on different test functions. The performance of different algorithms varies across the different test functions. The "Random" algorithm generally performs worse than the other algorithms, as indicated by its higher regret values.
 
 Figure S15: Bayesian optimization additional results. Regret comparison (mean $\pm$ standard error) on extended BO benchmark results on distinct test functions.
 which has a narrow, curved valley containing the global minimum, and (9) the 3D, 4D, and 6D Hartmann function, a widely used standard benchmark. These functions present a range of challenges, allowing us to effectively test the robustness and accuracy of ACE across different scenarios.
@@ -688,38 +659,47 @@ Shotgun optimizer. To perform fast optimization in parallel, we first sample 100
 
 #### Page 32
 
-> **Image description.** The image contains six line graphs arranged in a 2x3 grid. Each graph displays the "Regret" on the y-axis versus "Iteration" on the x-axis. All graphs have the same four lines, each representing a different algorithm: ACE-TS (solid blue), ACEP-TS (dotted blue), GP-TS (solid orange), and πBO-TS (dotted-dashed orange). Shaded regions around the lines indicate the standard error.
+> **Image description.** This image contains six line graphs arranged in a 2x3 grid, each showing the performance of different Bayesian optimization algorithms on different test functions. Each graph plots "Regret" on the y-axis against "Iteration" on the x-axis. The algorithms compared are ACE-TS (solid blue line), ACEP-TS (dashed blue line), GP-TS (solid orange line), and πBO-TS (dashed orange line). Shaded regions around the lines indicate the standard error.
 >
-> Each graph is titled with a function name and "(weak)". The function names are:
+> Here's a breakdown of each subplot:
 >
-> - Top left: Ackley 1D (weak)
-> - Top middle: Gramacy Lee 1D (weak)
-> - Top right: Negeasom 1D (weak)
-> - Bottom left: Branin 2D (weak)
-> - Bottom middle: Ackley 2D (weak)
-> - Bottom right: Hartmann 3D (weak)
+> - **Top Left:** "Ackley 1D (weak)" is the title. The y-axis ranges from 0 to 4.2. The x-axis ranges from 0 to 25.
+> - **Top Middle:** "Gramacy Lee 1D (weak)" is the title. The y-axis ranges from 0 to 0.7. The x-axis ranges from 0 to 75.
+> - **Top Right:** "Negeasom 1D (weak)" is the title. The y-axis ranges from 0 to 0.8. The x-axis ranges from 0 to 50.
+> - **Bottom Left:** "Branin 2D (weak)" is the title. The y-axis ranges from 0 to 0.13. The x-axis ranges from 0 to 75.
+> - **Bottom Middle:** "Ackley 2D (weak)" is the title. The y-axis ranges from 0 to 4.5. The x-axis ranges from 0 to 90.
+> - **Bottom Right:** "Hartmann 3D (weak)" is the title. The y-axis ranges from 0 to 1.3. The x-axis ranges from 0 to 50.
 >
-> The y-axis scales vary between the graphs, with maximum values of 4.2, 0.7, 0.8, 0.13, 4.5, and 1.3 respectively. The x-axis scales also vary, with maximum values of 25, 75, 50, 75, 90, and 50 respectively.
+> A legend at the top of the figure identifies the line styles and colors for each algorithm: ACE-TS (solid blue), ACEP-TS (dashed blue), GP-TS (solid orange), and πBO-TS (dashed orange).
 >
-> A legend is located at the top of the image, showing the line styles and colors corresponding to each algorithm.
+> All subplots show a general trend of decreasing regret as the number of iterations increases, indicating that the algorithms are improving their performance over time. The "weak" designation in the titles likely refers to the use of a weak prior in the Bayesian optimization process.
 
 Figure S16: Bayesian optimization with weak prior. Simple regret (mean $\pm$ standard error). Prior injection can improve the performance of ACE, making it perform competitively compared to $\pi$ BO-TS.
 
-> **Image description.** The image presents a figure consisting of six line graphs arranged in a 2x3 grid. Each graph depicts the "Regret" on the y-axis versus "Iteration" on the x-axis for different benchmark functions. All graphs are labeled with the function name and "(strong)".
+> **Image description.** The image consists of six line graphs arranged in a 2x3 grid. Each graph plots "Regret" on the y-axis against "Iteration" on the x-axis. All graphs share a similar style, with step-like lines representing different algorithms.
 >
-> The top row contains graphs for:
+> - **Overall Layout:** The six graphs are arranged in two rows and three columns. Each graph has a title indicating the function being optimized and the strength of the prior.
 >
-> 1.  "Ackley 1D (strong)" with the y-axis ranging from 0 to 4.2 and x-axis from 0 to 25.
-> 2.  "Gramacy Lee 1D (strong)" with the y-axis ranging from 0 to 0.7 and x-axis from 0 to 75.
-> 3.  "Negeasom 1D (strong)" with the y-axis ranging from 0 to 0.8 and x-axis from 0 to 50.
+> - **Axes and Labels:**
 >
-> The bottom row contains graphs for:
+>   - The y-axis is labeled "Regret" on the left side of the graphs. The y-axis scales vary between the graphs, ranging from 0 to 4.2, 0 to 0.7, 0 to 0.8, 0 to 0.13, 0 to 4.5, and 0 to 1.3.
+>   - The x-axis is labeled "Iteration" at the bottom of the graphs. The x-axis scales vary between the graphs, ranging from 0 to 25, 0 to 75, 0 to 50, 0 to 75, 0 to 90, and 0 to 50.
 >
-> 1.  "Branin 2D (strong)" with the y-axis ranging from 0 to 0.13 and x-axis from 0 to 75.
-> 2.  "Ackley 2D (strong)" with the y-axis ranging from 0 to 4.5 and x-axis from 0 to 90.
-> 3.  "Hartmann 3D (strong)" with the y-axis ranging from 0 to 1.3 and x-axis from 0 to 50.
+> - **Lines and Shaded Regions:**
 >
-> Each graph displays four lines representing different algorithms: "ACE-TS" (solid blue), "ACEP-TS" (dashed blue), "GP-TS" (solid orange), and "πBO-TS" (dashed orange). Shaded regions around the "ACE-TS" and "GP-TS" lines indicate the standard error. The plots show the regret decreasing with increasing iterations for each algorithm on the respective benchmark function.
+>   - Each graph contains multiple lines representing different algorithms. The lines are colored blue, dark blue, orange, and yellow.
+>   - A solid blue line represents "ACE-TS".
+>   - A dashed dark blue line represents "ACEP-TS".
+>   - A solid orange line represents "GP-TS".
+>   - A dotted yellow line represents "πBO-TS".
+>   - Each line is surrounded by a shaded region of the same color, representing the standard error.
+>
+> - **Titles:**
+>
+>   - Top row: "Ackley 1D (strong)", "Gramacy Lee 1D (strong)", "Negeasom 1D (strong)"
+>   - Bottom row: "Branin 2D (strong)", "Ackley 2D (strong)", "Hartmann 3D (strong)"
+>
+> - **Legend:** Located at the top of the image, the legend identifies the lines: "ACE-TS" (solid blue), "ACEP-TS" (dashed dark blue), "GP-TS" (solid orange), and "πBO-TS" (dotted yellow).
 
 Figure S17: Bayesian optimization with strong prior. Simple regret (mean $\pm$ standard error). When strong priors are used, the gap between ACE-TS and ACEP-TS is more evident compared to weak priors.
 
@@ -847,11 +827,23 @@ Fig. S18 shows that our ACE is well-calibrated with pre-defined uniform priors a
 
 #### Page 36
 
-> **Image description.** The image contains four pairs of plots, arranged in two rows and four columns. Each pair consists of a density plot in the top row and a fractional rank statistic plot in the bottom row.
+> **Image description.** This image presents a figure composed of eight subplots arranged in two rows and four columns, displaying simulation-based calibration results. The top row shows density plots, while the bottom row shows fractional rank statistics against ECDF (Empirical Cumulative Distribution Function) differences.
 >
-> - **Top Row (Density Plots):** Each plot in the top row displays the density of posterior samples compared with prior samples. The y-axis is labeled "Density." Each plot contains two lines: one in gray, representing "prior samples," and one in purple, representing "ACE." The x-axis scales vary across the four plots. From left to right, the x-axis scales are x10^8, x10^8, x10^-10, and x10^9.
+> - **Top Row (Density Plots):** Each of the four plots in the top row displays the density of posterior samples from ACE (presumably an algorithm) compared with prior samples.
 >
-> - **Bottom Row (Fractional Rank Statistic Plots):** Each plot in the bottom row shows the fractional rank statistic against the ECDF difference. The y-axis is labeled "Δ ECDF." The x-axis is labeled "Fractional Rank." Each plot contains a purple line representing "ACE" and a gray shaded area resembling an oval. The x-axis ranges from 0.00 to 1.00 in all four plots. Below the x-axis label, each plot has a different label: "G0", "T", "v", and "σw^2" from left to right.
+>   - The y-axis is labeled "Density."
+>   - Each plot contains two curves: one in gray representing "prior samples" and one in purple representing "ACE."
+>   - The x-axis is scaled differently in each plot, with labels like "x10^8", "x10^-10", and "x10^9", indicating different scales for the x-axis values. The x-axis values range from 0.0 to 1.0 in the first two plots, from 0 to 6 in the third plot, and from 0.0 to 1.0 in the fourth plot.
+>   - The shapes of the curves vary slightly between the plots, but generally, the purple ACE curve is more peaked than the gray prior samples curve.
+>
+> - **Bottom Row (Fractional Rank Statistics):** Each of the four plots in the bottom row shows the fractional rank statistic against the ECDF difference.
+>   - The y-axis is labeled "Δ ECDF".
+>   - The x-axis is labeled "Fractional Rank" and ranges from 0.00 to 1.00.
+>   - Each plot contains a purple line representing the ACE data.
+>   - A gray shaded oval region is present in each plot, presumably representing a 95% confidence band. The purple line fluctuates within or near the boundaries of this gray region.
+>   - Labels are present below the x-axis of each plot: "G0", "T", "V", and "σw^2".
+>
+> Overall, the figure appears to be comparing the performance of an algorithm (ACE) against prior samples, with the bottom row indicating the calibration of the algorithm within a certain confidence interval.
 
 Figure S18: Simulation-based calibration of ACE on the Turin model. The top row shows the density of the posterior samples from ACE compared with the prior samples. The bottom row shows the fractional rank statistic against the ECDF difference with $95 \%$ confidence bands. ACE is well-calibrated.
 vanilla ACE (without prior-injection) does not include the correct prior information and shows suboptimal calibration performance, whereas ACEP correctly leverages the provided prior information and shows closer alignment with the prior and lower ECDF deviations. We also calculate the average absolute deviation over 100 randomly sampled priors. In the prior-injection setting, ACEP demonstrates better calibration, with an average deviation of $0.03 \pm 0.01$ compared to $0.10 \pm 0.05$ for ACE without the correct prior.
@@ -870,34 +862,28 @@ To validate model predictions, we note that ground-truth parameter values are no
 
 #### Page 37
 
-> **Image description.** The image presents a figure composed of eight subplots arranged in a 2x4 grid. The top row displays probability density plots, while the bottom row shows ECDF (Empirical Cumulative Distribution Function) difference plots.
+> **Image description.** The image presents a figure composed of eight subplots arranged in two rows and four columns. The top row displays probability density functions (PDFs), while the bottom row shows the difference in empirical cumulative distribution functions (ΔECDF). Each column corresponds to a different parameter: G0, T, v, and σw^2.
 >
-> - **Top Row (Density Plots):** Each of the four subplots in the top row displays the probability density on the y-axis and a parameter value on the x-axis. The y-axis is labeled "Density." Each plot contains three overlapping curves representing different distributions: "prior samples" (gray), "ACE" (purple), and "ACEP" (green). The x-axes are labeled with parameter values and are scaled differently across the plots, with multipliers of x10^-8, x10^-8, x10^9, and x10^-9 respectively.
+> - **Top Row (PDFs):** Each subplot in the top row displays three overlapping density curves. The y-axis is labeled "Density". The x-axis label varies depending on the column, with units of x10^8, x10^8, x10^-10, and x10^-9 respectively. A legend in the first subplot identifies the curves as "prior samples" (gray), "ACE" (purple), and "ACEP" (green). The curves show the distribution of the parameters.
 >
-> - **Bottom Row (ECDF Difference Plots):** Each of the four subplots in the bottom row displays the difference in ECDF (Δ ECDF) on the y-axis and "Fractional Rank" on the x-axis. The y-axis is labeled "Δ ECDF." Each plot contains two curves representing "ACE" (purple) and "ACEP" (green). A gray shaded area, roughly elliptical in shape, is present in the background of each plot. The x-axis is labeled "Fractional Rank". The x-axis ranges from 0.00 to 1.00.
+> - **Bottom Row (ΔECDF):** Each subplot in the bottom row shows the difference in the empirical cumulative distribution function (ΔECDF) on the y-axis, ranging from -0.10 to 0.10. The x-axis is labeled "Fractional Rank" and ranges from 0.00 to 1.00. The curves represent "ACE" (purple) and "ACEP" (green). A gray, horizontally-oriented oval is present in the background of each subplot, visually indicating a region of acceptable deviation. The x-axis labels for each column are G0, T, v, and σw^2.
 >
-> - **Individual Subplots (Bottom Row):**
->   - The first subplot is labeled "G_0" below the x-axis.
->   - The second subplot is labeled "T" below the x-axis.
->   - The third subplot is labeled "v" below the x-axis.
->   - The fourth subplot is labeled "σ_w^2" below the x-axis.
->
-> The overall layout suggests a comparison of the ACE and ACEP methods against a prior distribution, with the top row showing the density estimates and the bottom row showing the difference in their empirical cumulative distribution functions.
+> In summary, the figure compares the performance of ACE and ACEP against prior samples in terms of parameter distributions (PDFs) and ECDF differences.
 
 Figure S19: Simulation-based calibration of ACE and ACEP on the Turin model with an example custom prior. ACEP demonstrates improved calibration by closely following the prior distribution and showing lower deviations in the ECDF difference, highlighting its ability to condition on user-specified priors effectively.
 and sampling 4 chains with $5 \times 10^{4}$ warm-up steps and $5 \times 10^{4}$ samples.
 
-> **Image description.** The image consists of three line graphs arranged horizontally, each representing a different model: ACE, NPE, and MCMC. Each graph displays the relationship between "Time" on the x-axis and "Count" on the y-axis.
+> **Image description.** The image contains three line graphs arranged side-by-side, comparing different methods: ACE, NPE, and MCMC. Each graph plots "Count" on the y-axis versus "Time" on the x-axis.
 >
-> - **General Layout:** The three graphs are identically formatted. The x-axis ranges from 0 to 10, and the y-axis ranges from 0 to 400. Each graph contains a blue line representing the "PPD mean," a shaded light blue area representing the "PPD 95% CI" (confidence interval), and black dots representing "observed" data points.
+> - **General Layout:** The three graphs are labeled "ACE," "NPE," and "MCMC" respectively above each plot. Each graph displays a light blue line representing the "PPD mean," a shaded light blue area representing the "PPD 95% CI" (Credible Interval), and black dots representing "observed" data points. The y-axis ranges from 0 to 400, and the x-axis ranges from 0 to 10 in all three graphs.
 >
-> - **Graph 1 (ACE):** The title "ACE" is above the graph. The text "log-prob ↑ -64.4" is positioned near the top of the graph. The blue line and shaded area form a curve that peaks around Time = 5. The black dots are clustered around the blue line.
+> - **ACE Graph:** The graph labeled "ACE" shows the PPD mean line rising to a peak around Time=5 and then decreasing. The black dots are scattered around the PPD mean line, generally within the shaded 95% CI. The text "log-prob ↑ -64.4" is displayed above the graph.
 >
-> - **Graph 2 (NPE):** The title "NPE" is above the graph. The text "log-prob ↑ -64.6" is positioned near the top of the graph. The curve formed by the blue line and shaded area is similar to the ACE graph, peaking around Time = 5. The black dots are clustered around the blue line.
+> - **NPE Graph:** The graph labeled "NPE" is visually similar to the ACE graph, with the PPD mean line peaking around Time=5 and decreasing. The black dots are also scattered around the PPD mean line and mostly within the 95% CI. The text "log-prob ↑ -64.6" is displayed above the graph.
 >
-> - **Graph 3 (MCMC):** The title "MCMC" is above the graph. The text "log-prob ↑ -62.9" is positioned near the top of the graph. The curve formed by the blue line and shaded area is similar to the ACE and NPE graphs, peaking around Time = 5. The black dots are clustered around the blue line.
+> - **MCMC Graph:** The graph labeled "MCMC" follows the same general pattern as the ACE and NPE graphs. The PPD mean line peaks around Time=5 and decreases. The black dots are scattered around the PPD mean line, largely within the 95% CI. The text "log-prob ↑ -62.9" is displayed above the graph.
 >
-> - **Legend:** A legend is located to the right of the MCMC graph. It labels the blue line as "PPD mean," the shaded light blue area as "PPD 95% CI," and the black dots as "observed."
+> - **Legend:** A legend is present to the right of the graphs, indicating that the blue line represents the "PPD mean," the shaded blue area represents the "PPD 95% CI," and the black dots represent "observed" data.
 
 Figure S20: SIR model on a real dataset. Posterior predictive distributions based on the ACE, NPE, and MCMC posteriors. The dataset is mildly misspecified, in that even MCMC does not fully match the data.
 

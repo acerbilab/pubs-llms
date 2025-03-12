@@ -23,33 +23,29 @@ Amortized meta-learning methods based on pre-training have propelled fields like
 
 Amortization, or pre-training, is a crucial technique for improving computational efficiency and generalization
 
-> **Image description.** The image presents a series of diagrams illustrating probabilistic conditioning and prediction across three different scenarios, labeled (a), (b), and (c). Each scenario is depicted in a row, with each row separated by a dashed gray line. Each scenario consists of four panels, labeled "Data" and "Latent" twice, with an arrow pointing from the first two panels to the last two panels.
+> **Image description.** This image presents a diagram illustrating probabilistic conditioning and prediction across three different scenarios, labeled (a), (b), and (c). Each scenario is depicted in a row, showing the relationship between "Data" and "Latent" variables before and after a process represented by an arrow.
 >
-> Row (a):
+> - **Row (a):** This row deals with image completion and classification.
 >
-> - The first "Data" panel shows a grayscale image of a handwritten digit "3".
-> - The first "Latent" panel shows a bar chart with three horizontal bars, colored orange, with values against a y-axis labeled "7-", "3-", and "2-".
-> - An arrow points from these two panels to the next two.
-> - The second "Data" panel shows a similar image of a handwritten digit "3", but with a purple overlay.
-> - The second "Latent" panel shows a bar chart similar to the first, with three horizontal orange bars and the same y-axis labels.
-> - The second set of panels suggests a transformation or prediction based on the initial data and latent variables.
-> - Below this is a similar set of panels, but with the latent variable represented by a single orange bar labeled "Label".
+>   - The first panel shows a blurred grayscale image of the digit "3".
+>   - The second panel shows a bar chart representing the latent variable. The y-axis is labeled with values 2, 3, and 7. The bars are horizontal and orange. A "Label" is written above the bar chart.
+>   - An arrow points to the third panel, which shows the completed image of the digit "3" in purple and black.
+>   - The fourth panel shows another bar chart, similar to the second panel, representing the latent variable after the process.
 >
-> Row (b):
+> - **Row (b):** This row demonstrates Bayesian optimization.
 >
-> - The first "Data" panel shows a scatter plot of black dots.
-> - The first "Latent" panel shows a scatter plot of light gray dots, with a vertical green bar labeled "yopt" and a horizontal orange bar labeled "xopt".
-> - An arrow points from these two panels to the next two.
-> - The second "Data" panel shows a line graph with black dots connected by lines, with a purple shaded area around the line.
-> - The second "Latent" panel shows a similar line graph with a gray shaded area around the line, and an orange distribution below the graph.
+>   - The first panel shows a scatter plot with several black dots.
+>   - The second panel shows another scatter plot. In the bottom and left of the scatter plot are a horizontal orange bar labeled "xopt" and a vertical green bar labeled "yopt".
+>   - An arrow points to the third panel, which shows a plot of a function with data points marked as black dots with error bars. A purple shaded region surrounds the function.
+>   - The fourth panel shows two plots, one above the other. The top plot shows a function with a grey shaded region surrounding it. The bottom plot shows a distribution represented by an orange filled curve.
 >
-> Row (c):
+> - **Row (c):** This row shows simulation-based inference.
+>   - The first panel shows a scatter plot with several black dots.
+>   - The second panel shows a distribution represented by an orange filled curve. A "θ" symbol is written above the distribution.
+>   - An arrow points to the third panel, which shows a plot of a function with data points marked as black dots with error bars.
+>   - The fourth panel shows a distribution represented by an orange filled curve.
 >
-> - The first "Data" panel shows a scatter plot of black dots.
-> - The first "Latent" panel shows a distribution curve, colored orange, labeled "θ".
-> - An arrow points from these two panels to the next two.
-> - The second "Data" panel shows a line graph with black dots connected by lines, with purple error bars.
-> - The second "Latent" panel shows a distribution curve, colored orange.
+> The rows are separated by dashed lines. The labels "Data" and "Latent" are written above the columns.
 
 Figure 1: Probabilistic conditioning and prediction. Many tasks reduce to probabilistic conditioning on data and key latent variables (left) and then predicting data and latents (right). (a) Image completion and classification (data: pixels; latents: classes). Top: Class prediction. Bottom: Conditional generation. (b) Bayesian optimization (data: function values; latents: optimum location $x_{\text {opt }}$ and value $y_{\text {opt }}$ ). We predict both the function values and $x_{\text {opt }}, y_{\text {opt }}$ given function observations and a prior over $x_{\text {opt }}, y_{\text {opt }}$ (here flat). (c) Simulator-based inference (data: observations; latents: model parameter $\theta$ ). Given data and a prior over $\theta$, we can compute both the posterior over $\theta$ and predictive distribution over unseen data. Our method fully amortizes probabilistic conditioning and prediction.
 
@@ -107,24 +103,23 @@ Transformers. Transformers (Vaswani et al., 2017) are deep neural networks based
 
 Transformer diagonal prediction maps. We define here a general transformer prediction map model family, focusing on its diagonal variant (TPM-D), which includes the TNP-D model from Nguyen and Grover (2022) and prior-fitted networks (PFNs; Müller et al., 2022). TPM-Ds are not strictly CNPs because the context set is encoded by a variable-size representation, but they otherwise share many similarities. In
 
-> **Image description.** This image contains a set of eight heatmaps arranged in a 2x4 grid, each depicting a probability distribution.
+> **Image description.** This image shows a set of eight heatmaps arranged in a 2x4 grid, each representing a probability distribution. The heatmaps are colored with a gradient from dark purple to bright yellow, indicating increasing probability density.
 >
-> Each heatmap is square and has a dark purple background. The probability density is represented by concentric regions of color, ranging from dark purple (low density) to yellow/green (high density).
+> - **Axes and Labels:** Each heatmap has implicit x and y axes. The x-axis is labeled with "μ" (mu) below each column of heatmaps, and the y-axis is labeled with "σ" (sigma) to the left of each row of heatmaps.
 >
-> - **Row 1:**
+> - **Marginal Distributions:** The first heatmap in each row also includes marginal distributions plotted along the axes.
 >
->   - **Panel 1:** A vertical stripe of high probability density runs centrally through the heatmap. A probability distribution plot is shown along the top and left edges. The top plot shows a distribution with two peaks. The left plot shows a distribution with a single peak.
->   - **Panel 2:** An oval-shaped region of high probability density is located in the center of the heatmap.
->   - **Panel 3:** A vertically elongated region of high probability density is located in the center of the heatmap.
->   - **Panel 4:** A vertically elongated region of high probability density is located in the center of the heatmap, but it is shorter and wider than in Panel 3.
+>   - The top-left heatmap has a histogram-like plot along the top edge and a similar plot along the left edge.
+>   - The bottom-left heatmap also has histogram-like plots along the top and left edges.
 >
-> - **Row 2:**
->   - **Panel 1:** A region of high probability density is located in the bottom-left corner of the heatmap. A probability distribution plot is shown along the top and left edges. The top plot shows a distribution with a single peak. The left plot shows a distribution with a single peak.
->   - **Panel 2:** An oval-shaped region of high probability density is located in the center of the heatmap.
->   - **Panel 3:** A small region of high probability density is located in the center of the heatmap.
->   - **Panel 4:** A small region of high probability density is located in the center of the heatmap, but it is slightly larger than in Panel 3.
+> - **Heatmap Patterns:** The heatmaps display different patterns of probability density:
 >
-> The x-axis of each heatmap is labeled "μ" (mu) and the y-axis is labeled "σ" (sigma). The panels are labeled (a), (b), (c), and (d) from left to right.
+>   - **(a) Top Row:** A vertical stripe of high probability density. Bottom Row: An elongated blob of high probability density.
+>   - **(b) Top Row:** An elliptical blob with the major axis aligned vertically. Bottom Row: Similar to the top row, but the blob is more compact.
+>   - **(c) Top Row:** A vertically oriented, teardrop-shaped blob of high probability density. Bottom Row: A small, horizontally oriented blob of high probability density.
+>   - **(d) Top Row:** A vertically oriented, teardrop-shaped blob of high probability density, but more compact than (c). Bottom Row: A small, horizontally oriented blob of high probability density, but more compact than (c).
+>
+> - **Panel Labels:** Each column of heatmaps is labeled with a lowercase letter in parentheses below the bottom heatmap: (a), (b), (c), and (d).
 
 Figure 2: Prior amortization. Two example posterior distributions for the mean $\mu$ and standard deviation $\sigma$ of a 1D Gaussian. (a) Prior distribution over $\boldsymbol{\theta}=(\mu, \sigma)$ set at runtime. (b) Likelihood for the observed data. (c) Ground-truth Bayesian posterior. (d) ACE's predicted posterior approximates well the true posterior.
 a TPM-D, context data $\left(\mathbf{x}_{n}, y_{n}\right)_{n=1}^{N}$ and target inputs $\left(\mathbf{x}_{m}^{*}\right)_{m=1}^{M}$ are first individually mapped to vector embeddings of size $D_{\text {emb }}$ via an embedder $f_{\text {emb }}$, often a linear map or an MLP. The embedded context points are processed together via a series of $B-1$ transformer layers implementing self-attention within the context set. We denote by $\mathbf{E}^{(b)}=\left(\mathbf{e}_{1}^{(b)}, \ldots, \mathbf{e}_{N}^{(b)}\right)$ the matrix of output embeddings of the $b$-th transformer layer, with $b=0$ the embedding layer. The encoded context representation is the stacked output of all layers, i.e. $\mathbf{r}_{\mathcal{D}}=\left(\mathbf{E}^{(0)}, \ldots, \mathbf{E}^{(B-1)}\right)$, whose size is linear in the context size $N$. The decoder is represented by a series of $B$ transformer layers that apply cross-attention from the embedded target points to the context set layer-wise, with the $b$-th target transformer layer attending the output $\mathbf{E}^{(b-1)}$ of the previous context transformer layer. The decoder transformer layers operate in parallel on each target point. The $M$ outputs of the $B$-th decoder block are fed in parallel to an output head yielding the predictive distribution, Eq. (2). This shows that indeed TPM-Ds are diagonal prediction maps. The predictive distribution is a single Gaussian in TNP-D (Nguyen and Grover, 2022) and a 'Riemannian distribution' (a mixture of uniform distributions with fixed bin edges and half-Gaussian tails on the sides) in PFNs (Müller et al., 2022). While in TPM-Ds encoding is mathematically decoupled from decoding, in practice encoding and decoding are commonly implemented in parallel within a single transformer layer via masking (Nguyen and Grover, 2022; Müller et al., 2022).
@@ -180,25 +175,16 @@ Prediction. ACE is trained via independent predictions of target data and latent
 
 Task-specific contributions. The availability of predictive distributions in closed form allows ACE to simplify tasks or perform new ones. We give an example in Section 4.2, where ACE facilitates the computation of acquisition functions in Bayesian optimization.
 
-> **Image description.** The image contains two distinct visual elements: a series of image reconstructions and a line graph.
+> **Image description.** The image is a composite figure containing two rows of images and a line graph.
 >
-> The top portion of the image shows a 2x5 grid of images.
+> The top two rows display images. The first image in the first row (labeled "(a) Image") shows a low-resolution image of a woman's face. The second image (labeled "(b) D_N") is a pixelated image with mostly green pixels and some other colored pixels scattered around. The third image (labeled "(c) TNP-D") shows a blurry image of a woman's face. The fourth image (labeled "(d) ACE") shows a slightly clearer image of a woman's face compared to (c). The fifth image (labeled "(e) ACE-θ") shows a slightly clearer image of a woman's face compared to (d). The second row mirrors the first row, but with a man's face instead of a woman's.
 >
-> - The first column, labeled "(a) Image", displays two blurred images of faces, one of a woman and one of a man.
-> - The second column, labeled "(b) D_N", shows two images consisting of colored squares against a green background.
-> - The third column, labeled "(c) TNP-D", displays two blurred images of faces, similar to the first column but with some differences.
-> - The fourth column, labeled "(d) ACE", displays two blurred images of faces, similar to the first column but with some differences.
-> - The fifth column, labeled "(e) ACE-θ", displays two blurred images of faces, similar to the first column but with some differences.
+> The bottom part of the image is a line graph. The x-axis is labeled "Context %" and ranges from 0 to 30. The y-axis ranges from -1 to 1. There are three lines plotted on the graph, each with markers.
 >
-> The bottom portion of the image is a line graph.
->
-> - The x-axis is labeled "Context %" and ranges from 0 to 30 in increments of 5.
-> - The y-axis ranges from -1 to 1 in increments of 1.
-> - Three lines are plotted on the graph, each with a different color and label:
->   - A blue line with circular markers, labeled "ACE".
->   - An orange line with circular markers, labeled "ACE-θ".
->   - A green line with circular markers, labeled "TNP-D".
-> - The lines generally decrease as the Context % increases. The green line is consistently higher than the blue and orange lines. There is a shaded region around each line, indicating some form of uncertainty.
+> - A blue line with circular markers represents "ACE".
+> - An orange line with circular markers represents "ACE-θ".
+> - A green line with circular markers represents "TNP-D".
+>   The lines show a decreasing trend as "Context %" increases. The green line ("TNP-D") is consistently higher than the blue ("ACE") and orange ("ACE-θ") lines. The blue and orange lines are close to each other. Shaded regions around the lines indicate uncertainty or variance.
 
 (f) Negative log-probability density vs. Context
 
@@ -217,17 +203,20 @@ Firstly, Section 4.1 demonstrates how ACE complements transformer-based meta-lea
 
 #### Page 6
 
-> **Image description.** The image contains two line graphs, labeled (a) and (b), illustrating Bayesian Optimization. Each graph has an x-axis labeled "x" and a y-axis labeled "y".
+> **Image description.** The image shows two graphs, labeled (a) and (b), illustrating Bayesian Optimization. Both graphs share a similar structure, plotting a function with respect to x and y axes.
 >
-> Both graphs display the following elements:
+> Here's a breakdown of the elements in each graph:
 >
-> - A dashed gray line representing the "True function".
-> - Black dots representing "Observations".
-> - A dotted purple line that connects the observations.
-> - A shaded purple area around the dotted line, indicating uncertainty.
-> - A solid blue line at the bottom of the graph.
+> - **Axes:** Both graphs have x and y axes, labeled accordingly.
+> - **True Function:** A dashed gray line represents the "True function". This line shows the actual function being optimized.
+> - **Observations:** Black dots mark the "Observations," which are data points sampled from the true function.
+> - **Prediction:** A dotted line represents the prediction of the function based on the observations.
+> - **Uncertainty:** A shaded purple area around the prediction line indicates the uncertainty in the prediction. The width of the shaded area reflects the degree of uncertainty.
+> - **Additional Curves:** Each graph contains additional curves:
+>   - In graph (a), there's an orange curve that starts from the origin and increases rapidly. A blue curve is present at the bottom of the graph, showing a peak corresponding to the location of the optimum.
+>   - In graph (b), a horizontal dashed orange line represents y_opt (true minimum value). A blue curve is present at the bottom of the graph, showing a peak corresponding to the location of the optimum.
 >
-> In graph (a), there is an additional orange region on the left side of the graph. In graph (b), there is a dashed orange line spanning the width of the graph.
+> The key difference between the two graphs is the conditioning on y_opt in graph (b). The prediction and uncertainty in graph (b) are updated based on knowing the true minimum value.
 
 Figure 4: Bayesian Optimization example. (a) ACE predicts function values ( $\cdots \cdots p\left(y \mid x, \mathcal{D}_{N}\right)$ ) as well as latents: optimum location ( $\left.\left.\left.\right|\left.\right.\right\rangle p\left(x_{\mathrm{opt}} \mid \mathcal{D}_{N}\right)$ ) and optimum value ( $\left.\left.\left.\right|\left.\right\rangle p\left(y_{\mathrm{opt}} \mid \mathcal{D}_{N}\right)\right)$. (b) Further conditioning on $\cdots-y_{\mathrm{opt}}$ (here the true minimum value) leads to updated predictions.
 
@@ -264,33 +253,46 @@ Results. We compare ACE with gold-standard Gaussian processes (GPs) and the stat
 
 #### Page 7
 
-> **Image description.** The image is a figure containing eight line graphs arranged in a 2x4 grid. Each graph displays the "Regret" on the y-axis versus "Iteration" on the x-axis.
+> **Image description.** The image is a figure containing eight line graphs arranged in a 2x4 grid. Each graph displays the performance of different optimization methods on benchmark tasks, plotting "Regret" on the y-axis against "Iteration" on the x-axis.
 >
-> - **Overall Layout:** The graphs are organized in two rows of four. Each graph has a title indicating the function being evaluated (e.g., "Gramacy Lee 1D", "Branin Scaled 2D").
+> - **Overall Structure:** The figure consists of eight individual plots, each representing a different benchmark function. The plots are arranged in two rows and four columns.
 >
-> - **Axes:**
+> - **Axes and Labels:**
 >
->   - The y-axis is labeled "Regret" and the x-axis is labeled "Iteration".
->   - The y-axis scales vary between graphs, with maximum values ranging from 0.1 to 28.
->   - The x-axis scales also vary, with maximum values ranging from 50 to 90.
->   - The x-axis displays tick marks at approximately 10, 25, 50, 75, and 90 (depending on the graph's range).
->   - The y-axis displays tick marks at 0 and the maximum value, with intermediate tick marks depending on the scale.
+>   - Each plot has an x-axis labeled "Iteration" and a y-axis labeled "Regret".
+>   - The x-axis ranges vary slightly between plots, typically from 0 to 75 or 90.
+>   - The y-axis ranges also vary, with maximum values ranging from 0.1 to 28.
+>   - Each plot has a title indicating the benchmark function being evaluated, such as "Gramacy Lee 1D", "Branin Scaled 2D", "Hartmann 3D", "Rosenbrock 4D", "Rosenbrock 5D", "Levy 5D", "Hartmann 6D", and "Levy 6D".
 >
-> - **Lines:** Each graph contains multiple lines representing different methods. The methods are identified by a legend at the top of the figure:
+> - **Data Representation:**
 >
->   - ACE-TS (solid blue line)
->   - ACE-MES (dashed blue line)
->   - AR-TNPD-TS (solid green line)
->   - GP-TS (solid orange line)
->   - GP-MES (dashed orange line)
->   - Random (dotted pink line)
->   - Each line has a shaded region around it, indicating the standard error.
+>   - Each plot contains multiple lines, each representing a different optimization method.
+>   - The methods are identified in a legend at the top of the figure: "ACE-TS" (solid blue line), "ACE-MES" (dashed blue line), "AR-TNPD-TS" (solid green line), "GP-TS" (solid orange line), "GP-MES" (dashed orange line), and "Random" (dotted pink line).
+>   - Each line is accompanied by a shaded region of the same color, representing the standard error.
 >
-> - **Titles:** The titles of each graph are:
->   - Top row: "Gramacy Lee 1D", "Branin Scaled 2D", "Hartmann 3D", "Rosenbrock 4D"
->   - Bottom row: "Rosenbrock 5D", "Levy 5D", "Hartmann 6D", "Levy 6D"
+> - **Visual Patterns:**
 >
-> The figure appears to be comparing the performance of different optimization methods on various benchmark functions, with "Regret" decreasing as "Iteration" increases.
+>   - In most plots, the "Regret" values decrease as the "Iteration" number increases, indicating that the optimization methods are converging towards a solution.
+>   - The "Random" method generally performs worse than the other methods, as indicated by its higher "Regret" values.
+>   - The relative performance of the other methods varies depending on the benchmark function.
+>
+> - **Text:** The following text is present in the image:
+>   - "ACE-TS"
+>   - "ACE-MES"
+>   - "AR-TNPD-TS"
+>   - "GP-TS"
+>   - "GP-MES"
+>   - "Random"
+>   - "Regret" (y-axis label)
+>   - "Iteration" (x-axis label)
+>   - "Gramacy Lee 1D"
+>   - "Branin Scaled 2D"
+>   - "Hartmann 3D"
+>   - "Rosenbrock 4D"
+>   - "Rosenbrock 5D"
+>   - "Levy 5D"
+>   - "Hartmann 6D"
+>   - "Levy 6D"
 
 Figure 5: Bayesian optimization results. Regret comparison (mean $\pm$ standard error) for different methods across benchmark tasks.
 
@@ -302,20 +304,14 @@ In Fig. 5, we show the performance of ACE Thompson sampling (ACE-TS) and MES (AC
 
 We now apply ACE to simulation-based inference (SBI; Cranmer et al., 2020). With ACE, we can predict the posterior distribution of (latent) model parameters, simulate data based on parameters, predict missing data given partial observations, and set priors at run-
 
-> **Image description.** The image consists of four line graphs arranged in a 2x2 grid. Each graph shows the "Regret" on the y-axis versus "Iteration" on the x-axis.
+> **Image description.** The image contains four line graphs arranged in a 2x2 grid. Each graph displays the "Regret" on the y-axis versus "Iteration" on the x-axis. The graphs compare the performance of four different methods: ACE-TS (solid blue line), ACEP-TS (dashed blue line), GP-TS (solid orange line), and πBO-TS (dotted orange line). Shaded regions around the lines represent the standard error.
 >
-> The top row contains two graphs labeled "Michalewicz 2D (weak)" and "Michalewicz 2D (strong)". The y-axis ranges from 0 to 1.2, and the x-axis ranges from 10 to 90.
+> - **Top Left:** The graph is titled "Michalewicz 2D (weak)". The x-axis ranges from 10 to 90, and the y-axis ranges from 0 to 1.2.
+> - **Top Right:** The graph is titled "Michalewicz 2D (strong)". The x-axis ranges from 10 to 90, and the y-axis ranges from 0 to 1.2.
+> - **Bottom Left:** The graph is titled "Levy 3D (weak)". The x-axis ranges from 10 to 50, and the y-axis ranges from 0 to 1.3.
+> - **Bottom Right:** The graph is titled "Levy 3D (strong)". The x-axis ranges from 10 to 50, and the y-axis ranges from 0 to 1.3.
 >
-> The bottom row contains two graphs labeled "Levy 3D (weak)" and "Levy 3D (strong)". The y-axis ranges from 0 to 1.3, and the x-axis ranges from 10 to 50.
->
-> Each graph displays four lines representing different methods:
->
-> - A solid blue line labeled "ACE-TS".
-> - A dashed blue line labeled "ACEP-TS".
-> - A solid orange line labeled "GP-TS".
-> - A dotted orange line labeled "πBO-TS".
->
-> Each line is accompanied by a shaded region of the same color, indicating the standard error. The blue shaded regions appear to be narrower than the orange shaded regions. The lines generally decrease as the iteration number increases, indicating a reduction in regret.
+> The legend at the top of the image identifies the line styles and colors corresponding to each method.
 
 Figure 6: Bayesian optimization with prior over $\mathbf{x}_{\text {opt }}$. Regret comparison (mean $\pm$ standard error) on 2D and 3D optimization benchmarks. Left: Weak Gaussian prior ( $25 \%$ ), Right: Strong prior ( $10 \%$ ). ACEP-TS performs competitively compared to $\pi$ BO-TS.
 time. We consider two benchmark time-series models, each with two latents: the Ornstein-Uhlenbeck Process (OUP; Uhlenbeck and Ornstein 1930) and the Susceptible-Infectious-Recovered model (SIR; Kermack and McKendrick 1927); and a third more complex engineering model from the field of radio propagation (Turin; Turin et al., 1972), which has four parameters and produces 101-dimensional data representing a radio signal. See Appendix C. 4 for all model descriptions.
