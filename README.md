@@ -39,3 +39,10 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*<br>
   [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
 
+### 2024
+
+- **Amortized Bayesian Experimental Design for Decision-Making**<br>
+  Huang D, Guo Y, Acerbi L & Kaski S<br>
+  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md)
+
