@@ -13,9 +13,13 @@
 
 # Amortized Bayesian Experimental Design for Decision-Making
 
-Daolang Huang<br>Aalto University<br>daolang.huang@aalto.fi<br>Luigi Acerbi<br>University of Helsinki<br>luigi.acerbi@helsinki.fi
+Daolang Huang<br>Aalto University<br>daolang.huang@aalto.fi
 
-Yujia Guo<br>Aalto University<br>yujia.guo@aalto.fi<br>Samuel Kaski<br>Aalto University<br>University of Manchester<br>samuel.kaski@aalto.fi
+Yujia Guo<br>Aalto University<br>yujia.guo@aalto.fi
+
+Luigi Acerbi<br>University of Helsinki<br>luigi.acerbi@helsinki.fi
+
+Samuel Kaski<br>Aalto University<br>University of Manchester<br>samuel.kaski@aalto.fi
 
 #### Abstract
 
