@@ -41,6 +41,11 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 ### 2024
 
+- **Preferential Normalizing Flows**<br>
+  Mikkola P, Acerbi L & Klami A<br>
+  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
+
 - **Amortized Bayesian Experimental Design for Decision-Making**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
