@@ -85,8 +85,8 @@ def get_conference_order(venue):
     elif 'aaai' in venue_lower:
         return 2   # February
     else:
-        # Default to middle of year for unknown venues
-        return 6
+        # Default to bottom for unknown venues
+        return 0
 
 def update_readme():
     """Update the README.md file with the list of publications."""
