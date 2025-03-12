@@ -18,9 +18,31 @@ def extract_bibtex(file_path):
         content = f.read()
     
     # Look for BibTeX content between triple backticks
-    bibtex_match = re.search(r'```\s*@\w+{([^,]+),\s*title={([^}]*)},\s*author={([^}]*)},\s*journal={([^}]*)},\s*year={(\d+)}', content, re.DOTALL)
+    bibtex_match = re.search(r'```\s*@\w+{([^,]+),\s*title={([^}]*)},\s*author={([^}]*)},\s*(?:journal|booktitle)={([^}]*)},\s*year={(\d+)}', content, re.DOTALL)
     
     if not bibtex_match:
+        # Try a more flexible approach for different BibTeX formats
+        bibtex_block = re.search(r'```(.*?)```', content, re.DOTALL)
+        if bibtex_block:
+            bibtex_content = bibtex_block.group(1)
+            
+            # Extract individual fields
+            key_match = re.search(r'@\w+{([^,]+),', bibtex_content)
+            title_match = re.search(r'title={([^}]*)}', bibtex_content)
+            author_match = re.search(r'author={([^}]*)}', bibtex_content)
+            venue_match = re.search(r'(?:journal|booktitle)={([^}]*)}', bibtex_content)
+            year_match = re.search(r'year={(\d+)}', bibtex_content)
+            
+            if key_match and title_match and author_match and venue_match and year_match:
+                return {
+                    'key': key_match.group(1),
+                    'title': title_match.group(1),
+                    'authors': author_match.group(1),
+                    'venue': venue_match.group(1),
+                    'year': int(year_match.group(1)),
+                    'file_path': file_path
+                }
+        
         print(f"Warning: Could not extract BibTeX from {file_path}")
         return None
     
