@@ -101,7 +101,7 @@ def update_readme():
     
     # Find all main markdown files (exclude _appendix and _backmatter)
     main_files = []
-    for md_file in glob.glob(os.path.join(REPO_ROOT, '*.md')):
+    for md_file in glob.glob(os.path.join(REPO_ROOT, 'publications', '*.md')):
         filename = os.path.basename(md_file)
         if '_appendix' not in filename and '_backmatter' not in filename and filename != 'README.md':
             main_files.append(md_file)
@@ -113,8 +113,9 @@ def update_readme():
         if bibtex_data:
             # Check for companion files
             base_name = Path(file_path).stem
-            appendix_file = os.path.join(REPO_ROOT, f"{base_name}_appendix.md")
-            backmatter_file = os.path.join(REPO_ROOT, f"{base_name}_backmatter.md")
+            publications_dir = os.path.join(REPO_ROOT, 'publications')
+            appendix_file = os.path.join(publications_dir, f"{base_name}_appendix.md")
+            backmatter_file = os.path.join(publications_dir, f"{base_name}_backmatter.md")
             
             bibtex_data['has_appendix'] = os.path.exists(appendix_file)
             bibtex_data['has_backmatter'] = os.path.exists(backmatter_file)
@@ -123,15 +124,15 @@ def update_readme():
             
             # Format GitHub links
             file_basename = os.path.basename(file_path)
-            bibtex_data['github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/{file_basename}"
+            bibtex_data['github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{file_basename}"
             
             if bibtex_data['has_appendix']:
                 appendix_basename = os.path.basename(appendix_file)
-                bibtex_data['appendix_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/{appendix_basename}"
+                bibtex_data['appendix_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{appendix_basename}"
             
             if bibtex_data['has_backmatter']:
                 backmatter_basename = os.path.basename(backmatter_file)
-                bibtex_data['backmatter_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/{backmatter_basename}"
+                bibtex_data['backmatter_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{backmatter_basename}"
             
             publications.append(bibtex_data)
     
