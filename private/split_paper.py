@@ -55,7 +55,9 @@ def find_section_boundaries(content):
         r'^#+\s+(Supplementary|Supporting)\s+(Material|Information|Data)',
         r'^#+\s+Supplemental\s+',
         r'^#+\s+SI\s+',
-        r'^#+\s+S\d+\.\s+'  # Matches S1., S2., etc. (common in supplementary sections)
+        r'^#+\s+S\d+\.\s+',  # Matches S1., S2., etc. (common in supplementary sections)
+        r'^#+\s+A\s+',       # Matches headings starting with "A " (common appendix format)
+        r'^#+\s+A\.\s+'      # Matches headings starting with "A. " (common appendix format)
     ]
     
     # Pattern for page markers
@@ -76,8 +78,16 @@ def find_section_boundaries(content):
     for pattern in appendix_patterns:
         match = re.search(pattern, content, re.MULTILINE | re.IGNORECASE)
         if match and (appendix_match is None or match.start() < appendix_match.start()):
-            appendix_match = match
-            appendix_start = match.start()
+            # For "A " or "A. " patterns, verify they occur after acknowledgments to avoid false positives
+            if (pattern == r'^#+\s+A\s+' or pattern == r'^#+\s+A\.\s+') and ack_start is not None:
+                # Only accept the match if it occurs after acknowledgments
+                if match.start() > ack_start:
+                    appendix_match = match
+                    appendix_start = match.start()
+            else:
+                # For all other patterns, accept the match as normal
+                appendix_match = match
+                appendix_start = match.start()
     
     # Check for page markers before sections
     if ack_start is not None:
