@@ -17,13 +17,8 @@ The paper-to-Markdown conversion has been done with [paper2llm](https://lacerbi.
 
 ### 2025
 
-- [Amortized Probabilistic Conditioning for Optimization, Simulation and Inference](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized.md)<br>
-  **Chang**, Paul E, **Loka**, Nasrulloh, **Huang**, Daolang, **Remes**, Ulpu, **Kaski**, Samuel, **Acerbi**, Luigi<br>
-  *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*
-  <details>
-  <summary>Additional materials</summary>
-
-  - [Appendix](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_appendix.md)
-  - [Backmatter](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_backmatter.md)
-  </details>
+- **Amortized Probabilistic Conditioning for Optimization, Simulation and Inference**<br>
+  Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
+  *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/chang2025amortized_backmatter.md)
 
