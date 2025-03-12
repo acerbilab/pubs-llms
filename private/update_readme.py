@@ -34,7 +34,7 @@ def extract_bibtex(file_path):
     }
 
 def format_author_list(authors):
-    """Format the author list for display, highlighting last name."""
+    """Format the author list for display as 'Surname FI' with '& ' for last author."""
     author_list = [author.strip() for author in authors.split('and')]
     formatted_authors = []
     
@@ -42,18 +42,29 @@ def format_author_list(authors):
         parts = author.split(',')
         if len(parts) > 1:
             # Lastname, Firstname format
-            formatted_authors.append(f"**{parts[0].strip()}**, {parts[1].strip()}")
+            lastname = parts[0].strip()
+            firstname = parts[1].strip()
+            # Get initials from firstname
+            initials = ''.join([name[0] for name in firstname.split() if name])
+            formatted_authors.append(f"{lastname} {initials}")
         else:
             # Firstname Lastname format
             name_parts = author.split()
             if len(name_parts) > 1:
                 lastname = name_parts[-1]
-                firstname = ' '.join(name_parts[:-1])
-                formatted_authors.append(f"{firstname} **{lastname}**")
+                # Get initials from firstname parts
+                initials = ''.join([name[0] for name in name_parts[:-1] if name])
+                formatted_authors.append(f"{lastname} {initials}")
             else:
                 formatted_authors.append(author)
     
-    return ', '.join(formatted_authors)
+    # Join with commas but use '& ' for the last author unless there's only one author
+    if len(formatted_authors) == 1:
+        return formatted_authors[0]
+    elif len(formatted_authors) > 1:
+        return ', '.join(formatted_authors[:-1]) + ' & ' + formatted_authors[-1]
+    else:
+        return ''
 
 def get_conference_order(venue):
     """Return a number to sort conferences within a year."""
@@ -143,18 +154,19 @@ def update_readme():
             formatted_authors = format_author_list(pub['authors'])
             
             # Create publication entry
-            publications_md += f"- [{pub['title']}]({pub['github_link']})<br>\n"
+            publications_md += f"- **{pub['title']}**<br>\n"
             publications_md += f"  {formatted_authors}<br>\n"
-            publications_md += f"  *{pub['venue']}*\n"
+            publications_md += f"  *{pub['venue']}*<br>\n"
             
-            # Add links to appendix and backmatter if they exist
-            if pub['has_appendix'] or pub['has_backmatter']:
-                publications_md += "  <details>\n  <summary>Additional materials</summary>\n\n"
-                if pub['has_appendix']:
-                    publications_md += f"  - [Appendix]({pub['appendix_github_link']})\n"
-                if pub['has_backmatter']:
-                    publications_md += f"  - [Backmatter]({pub['backmatter_github_link']})\n"
-                publications_md += "  </details>\n"
+            # Add simplified navigation links
+            nav_links = []
+            nav_links.append(f"[main]({pub['github_link']})")
+            if pub['has_appendix']:
+                nav_links.append(f"[appendix]({pub['appendix_github_link']})")
+            if pub['has_backmatter']:
+                nav_links.append(f"[backmatter]({pub['backmatter_github_link']})")
+            
+            publications_md += f"  {' | '.join(nav_links)}\n"
             
             publications_md += "\n"
     
