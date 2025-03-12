@@ -21,7 +21,7 @@ Amortized meta-learning methods based on pre-training have propelled fields like
 
 ## 1 INTRODUCTION
 
-Amortization, or pre-training, is a crucial technique for improving computational efficiency and generalization
+Amortization, or pre-training, is a crucial technique for improving computational efficiency and generalization across many machine learning tasks, from regression (Garnelo et al., 2018a) to optimization (Amos, 2022)
 
 > **Image description.** This image presents a diagram illustrating probabilistic conditioning and prediction across three different scenarios, labeled (a), (b), and (c). Each scenario is depicted in a row, showing the relationship between "Data" and "Latent" variables before and after a process represented by an arrow.
 >
