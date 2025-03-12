@@ -41,6 +41,11 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 ### 2024
 
+- **Improving robustness to corruptions with multiplicative weight perturbations**<br>
+  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
+  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md)
+
 - **Preferential Normalizing Flows**<br>
   Mikkola P, Acerbi L & Klami A<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
