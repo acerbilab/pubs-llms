@@ -3,10 +3,11 @@
 This repo contains the publications from the [Machine and Human Intelligence Group](https://www.helsinki.fi/en/researchgroups/machine-and-human-intelligence) in an LLM-friendly text-only Markdown format.
 Papers include an AI-generated textual description of their figures.
 
-Each paper is split in three parts:
-- Main text ([example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized.md))
-- Appendix (if present; [example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized_appendix.md))
-- Backmatter (containing sections such as Acknowlegments, Checklists, References, and other materials which you often do not want to feed to an LLM; [example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized_backmatter.md)).
+For convenience, each paper is split in three files:
+
+1. Main text ([example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized.md))
+2. Appendix (if present; [example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized_appendix.md))
+3. Backmatter (containing sections such as Acknowlegments, Checklists, References, and other materials which you rarely want to feed to an LLM; [example](https://github.com/acerbilab/pubs-llms/blob/main/chang_2025_amortized_backmatter.md)).
 
 The paper-to-Markdown conversion has been done with [paper2llm](https://lacerbi.github.io/paper2llm/), using [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and tables and [Gemini 2.0 Flash](https://deepmind.google/technologies/gemini/flash/) as the img2txt model.
 
