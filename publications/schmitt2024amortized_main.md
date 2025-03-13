@@ -1,10 +1,10 @@
 ```
 @article{schmitt2024amortized,
-  title = {Amortized Bayesian Workflow (Extended Abstract)},
-  author = {Marvin Schmitt and Chengkun Li and A. Vehtari and Luigi Acerbi and Paul-Christian Burkner and Stefan T. Radev},
-  year = {2024},
-  journal = {NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty},
-  doi = {10.48550/arXiv.2409.04332}
+  title={Amortized Bayesian Workflow (Extended Abstract)},
+  author={Marvin Schmitt and Chengkun Li and A. Vehtari and Luigi Acerbi and Paul-Christian Burkner and Stefan T. Radev},
+  year={2024},
+  journal={NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty},
+  doi={10.48550/arXiv.2409.04332}
 }
 ```
 
