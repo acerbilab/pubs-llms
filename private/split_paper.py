@@ -41,19 +41,23 @@ def find_section_boundaries(content):
     Also checks for page markers before section headers.
     """
     # Define regex patterns for different section headers
-    # Match variations of acknowledgment sections (different heading levels and spellings)
+    # Match variations of acknowledgment sections and impact statements (different heading levels and spellings)
     ack_patterns = [
         r'^#+\s+(Acknowledgments?)\b',
         r'^#+\s+(Acknowledgements?)\b',
-        r'^#+\s+Author\s+Contributions',
-        r'^#+\s+Funding'
+        r'^#+\s+Author\s+(Contributions|contributions)',
+        r'^#+\s+Funding',
+        r'^#+\s+Impact\s+(Statement|statement)',
+        r'^#+\s+Broader\s+(Impact|impact)',
+        r'^#+\s+Societal\s+(Impact|impact)',
+        r'^#+\s+Ethical\s+(Considerations|considerations)'
     ]
     
-    # Match variations of appendix/supplementary sections
+    # Match variations of appendix/supplementary sections (including lowercase variants)
     appendix_patterns = [
-        r'^#+\s+(Appendix|Appendices)\b',
-        r'^#+\s+(Supplementary|Supporting)\s+(Material|Information|Data)',
-        r'^#+\s+Supplemental\s+',
+        r'^#+\s+(Appendix|Appendices|appendix|appendices)\b',
+        r'^#+\s+(Supplementary|Supporting|supplementary|supporting)\s+(Material|Materials|Information|Data|material|materials|information|data)',
+        r'^#+\s+(Supplemental|supplemental)\s+',
         r'^#+\s+SI\s+',
         r'^#+\s+S\d+\.\s+',  # Matches S1., S2., etc. (common in supplementary sections)
         r'^#+\s+A\s+',       # Matches headings starting with "A " (common appendix format)
@@ -91,7 +95,7 @@ def find_section_boundaries(content):
     
     # Check for page markers before sections
     if ack_start is not None:
-        # Look for page marker before acknowledgments section
+        # Look for page marker before backmatter section (acknowledgments/impact statement)
         content_before_ack = content[:ack_start]
         lines_before_ack = content_before_ack.split('\n')
         
@@ -190,7 +194,7 @@ def split_paper(input_file, output_dir=None):
         appendix_content = content[appendix_start:]
         main_content = content[:appendix_start]
     
-    # If we found an acknowledgments section
+    # If we found a backmatter section (acknowledgments or impact statement)
     if ack_start is not None:
         # Adjust indices if appendix was already extracted
         if appendix_start is not None and ack_start > appendix_start:
@@ -228,7 +232,7 @@ def split_paper(input_file, output_dir=None):
                 f.write(backmatter_content)
             print(f"Created backmatter file: {backmatter_file}")
         else:
-            print("No backmatter (acknowledgments/references) section found.")
+            print("No backmatter (impact statement/acknowledgments/references) section found.")
         
         if appendix_content:
             with open(appendix_file, 'w', encoding='utf-8') as f:
