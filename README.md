@@ -46,6 +46,11 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
   [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
 
+- **Amortized Decision-Aware Bayesian Experimental Design**<br>
+  Huang D, Guo Y, Acerbi L & Kaski S<br>
+  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_backmatter.md)
+
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
@@ -60,4 +65,14 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   Mikkola P, Acerbi L & Klami A<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
   [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
+
+- **Input-gradient space particle inference for neural network ensembles**<br>
+  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
+  *International Conference on Learning Representations (ICLR 2024)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_backmatter.md)
+
+- **PyBADS: Fast and robust black-box optimization in Python**<br>
+  Singh G & Acerbi L<br>
+  *Journal of Open Source Software*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
 
