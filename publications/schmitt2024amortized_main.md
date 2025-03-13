@@ -33,8 +33,6 @@ In Bayesian inference, both MCMC (e.g., ChEES-HMC; [9]) and amortized inference 
 >
 > This visualization represents the adaptive workflow approach described in the paper, showing how different Bayesian inference methods balance accuracy and computational efficiency.
 
-Based on the context provided, this appears to be Figure 1 from the paper, illustrating how the proposed workflow adaptively moves along the Pareto front of Bayesian inference methods, balancing accuracy guarantees with computational speed.
-
 Figure 1: Our workflow adaptively moves along the Pareto front and re-uses previous computations.
 
 ## 2 Integrating Amortized Inference into the Bayesian Workflow
