@@ -37,22 +37,22 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 - **Amortized Probabilistic Conditioning for Optimization, Simulation and Inference**<br>
   Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
   *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
 
 ### 2024
 
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md)
-
-- **Preferential Normalizing Flows**<br>
-  Mikkola P, Acerbi L & Klami A<br>
-  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md)
 
 - **Amortized Bayesian Experimental Design for Decision-Making**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md)
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md)
+
+- **Preferential Normalizing Flows**<br>
+  Mikkola P, Acerbi L & Klami A<br>
+  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
 
