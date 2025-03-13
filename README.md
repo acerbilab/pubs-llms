@@ -41,6 +41,11 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 ### 2024
 
+- **Amortized Bayesian Workflow (Extended Abstract)**<br>
+  Schmitt M, Li C, Vehtari A, Acerbi L, Burkner P & Radev ST<br>
+  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
+
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
