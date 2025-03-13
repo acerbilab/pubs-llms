@@ -121,12 +121,10 @@ def update_readme():
         print(f"Warning: {frontmatter_path} not found, using empty frontmatter")
         frontmatter = ""
     
-    # Find all main markdown files (exclude _appendix and _backmatter)
+    # Find all main markdown files (look for _main suffix)
     main_files = []
-    for md_file in glob.glob(os.path.join(REPO_ROOT, 'publications', '*.md')):
-        filename = os.path.basename(md_file)
-        if '_appendix' not in filename and '_backmatter' not in filename and filename != 'README.md':
-            main_files.append(md_file)
+    for md_file in glob.glob(os.path.join(REPO_ROOT, 'publications', '*_main.md')):
+        main_files.append(md_file)
     
     # Extract BibTeX information from each file
     publications = []
@@ -134,7 +132,8 @@ def update_readme():
         bibtex_data = extract_bibtex(file_path)
         if bibtex_data:
             # Check for companion files
-            base_name = Path(file_path).stem
+            # Extract base name by removing "_main" suffix
+            base_name = Path(file_path).stem.replace("_main", "")
             publications_dir = os.path.join(REPO_ROOT, 'publications')
             appendix_file = os.path.join(publications_dir, f"{base_name}_appendix.md")
             backmatter_file = os.path.join(publications_dir, f"{base_name}_backmatter.md")
