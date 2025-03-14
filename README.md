@@ -68,7 +68,7 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 - **PyBADS: Fast and robust black-box optimization in Python**<br>
   Singh G & Acerbi L<br>
-  `Journal of Open Source Software` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
+  `JOSS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
 
 ### 2023
 
