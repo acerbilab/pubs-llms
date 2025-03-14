@@ -42,6 +42,8 @@ VENUE_STANDARDIZATION = {
     'PLoS Comput Biol': 'PLoS Computational Biology',
     'PLOS ONE': 'PLoS ONE',
     'Comput Brain Behav': 'Computational Brain & Behavior',
+    'Journal of Open Source Software': 'Journal of Open Source Software',
+    'JOSS': 'Journal of Open Source Software',
 }
 
 # Venue abbreviation mapping - maps standard names to abbreviations
@@ -58,6 +60,7 @@ VENUE_ABBREVIATIONS = {
     'PLoS Computational Biology': 'PLoS Comput Biol',
     'PLoS ONE': 'PLoS ONE',
     'Computational Brain & Behavior': 'Comput Brain Behav',
+    'Journal of Open Source Software': 'JOSS',
 }
 
 def identify_workshop(venue):
