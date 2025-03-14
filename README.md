@@ -12,9 +12,11 @@ The full list of papers is available [below](#Publications).
 
 For practical usage, each paper is split into three separate files:
 
-1. **Main Text** - The core content of the paper ([example](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md))
-2. **Appendix** - Supplementary materials, when available ([example](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md))
-3. **Backmatter** - References, acknowledgments, checklists, and other auxiliary content rarely fed to an LLM ([example](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md))
+| **Document Part**    | **Description** | **Example Link** |
+|------------------|---------------|-----------------|
+| **Main Text**    | The core content of the paper. | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) |
+| **Appendix**     | Supplementary materials, when available. | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) |
+| **Backmatter**   | References, acknowledgments, checklists, and other auxiliary content rarely fed to an LLM. | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md) |
 
 ### Usage Guide
 
