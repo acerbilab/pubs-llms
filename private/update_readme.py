@@ -91,24 +91,31 @@ def format_author_list(authors):
 def get_conference_order(venue):
     """Return a number to sort conferences within a year."""
     venue_lower = venue.lower()
+    
+    # Initialize default value
+    venue_value = 0
+    
     # Approximate conference dates (month) for sorting
     if 'neurips' in venue_lower or 'nips' in venue_lower:
-        return 12  # December
+        venue_value = 12  # December
     elif 'icml' in venue_lower:
-        return 7   # July
+        venue_value = 7   # July
     elif 'iclr' in venue_lower:
-        return 5   # May
+        venue_value = 5   # May
     elif 'aistats' in venue_lower:
-        return 4   # April
+        venue_value = 4   # April
     elif 'uai' in venue_lower:
-        return 8   # August
+        venue_value = 8   # August
     elif 'ijcai' in venue_lower:
-        return 8   # August
+        venue_value = 8   # August
     elif 'aaai' in venue_lower:
-        return 2   # February
-    else:
-        # Default to bottom for unknown venues
-        return 0
+        venue_value = 2   # February
+    
+    # Subtract 0.5 if venue is a workshop
+    if 'workshop' in venue_lower or 'workshops' in venue_lower:
+        venue_value -= 0.5
+        
+    return venue_value
 
 def update_readme():
     """Update the README.md file with the list of publications."""
