@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # AI Summary: Automatically updates README.md with a formatted list of publications extracted from markdown files.
 # Extracts BibTeX data, checks for companion files, and sorts publications by year and venue.
-# Script runs from the ./private folder but operates on files in the root directory.
+# Uses a two-step venue mapping process with special handling for workshop venues.
 
 import os
 import re
@@ -11,6 +11,84 @@ from collections import defaultdict
 
 # Set up the repository root path (one level up from the private folder)
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Venue standardization mapping - maps variant spellings to standard names
+VENUE_STANDARDIZATION = {
+    # NeurIPS variants
+    'Advances in Neural Information Processing Systems': 'Neural Information Processing Systems',
+    'Proceedings of Neural Information Processing Systems': 'Neural Information Processing Systems',
+    'NeurIPS': 'Neural Information Processing Systems',
+    'NIPS': 'Neural Information Processing Systems',
+    # ICML variants
+    'Proceedings of the International Conference on Machine Learning': 'International Conference on Machine Learning',
+    # ICLR variants
+    'Proceedings of the International Conference on Learning Representations': 'International Conference on Learning Representations',
+    # AISTATS variants
+    'Proceedings of Artificial Intelligence and Statistics': 'Artificial Intelligence and Statistics',
+    # UAI variants
+    'Proceedings of the Conference on Uncertainty in Artificial Intelligence': 'Conference on Uncertainty in Artificial Intelligence',
+    # IJCAI variants
+    'Proceedings of the International Joint Conference on Artificial Intelligence': 'International Joint Conference on Artificial Intelligence',
+    # AAAI variants
+    'Proceedings of the AAAI Conference on Artificial Intelligence': 'AAAI Conference on Artificial Intelligence',
+    # Journal variants
+    'PLOS Computational Biology': 'PLoS Computational Biology',
+    'PLOS ONE': 'PLoS ONE',
+}
+
+# Venue abbreviation mapping - maps standard names to abbreviations
+VENUE_ABBREVIATIONS = {
+    # Conferences
+    'Neural Information Processing Systems': 'NeurIPS',
+    'International Conference on Machine Learning': 'ICML',
+    'International Conference on Learning Representations': 'ICLR',
+    'Artificial Intelligence and Statistics': 'AISTATS',
+    'Conference on Uncertainty in Artificial Intelligence': 'UAI',
+    'International Joint Conference on Artificial Intelligence': 'IJCAI',
+    'AAAI Conference on Artificial Intelligence': 'AAAI',
+    # Journals
+    'PLoS Computational Biology': 'PLoS Comput Biol',
+    'PLoS ONE': 'PLoS ONE',
+    'Computational Brain & Behavior': 'Comput Brain Behav',
+}
+
+def identify_workshop(venue):
+    """Check if the venue is a workshop."""
+    return 'workshop' in venue.lower()
+
+def standardize_venue_name(venue):
+    """Standardize venue name by mapping variant spellings to standard names."""
+    # Check for exact matches first
+    if venue in VENUE_STANDARDIZATION:
+        return VENUE_STANDARDIZATION[venue]
+    
+    # Check for substring matches if no exact match
+    for variant, standard in VENUE_STANDARDIZATION.items():
+        if variant.lower() in venue.lower():
+            return standard
+    
+    # Return original if no match found
+    return venue
+
+def get_venue_abbreviation(venue):
+    """Get abbreviation for a standardized venue name, with workshop handling."""
+    # First standardize the venue name
+    standard_venue = standardize_venue_name(venue)
+    
+    # Check if this is a workshop
+    is_workshop = identify_workshop(venue)
+    
+    # Get abbreviation of the standardized name
+    if standard_venue in VENUE_ABBREVIATIONS:
+        abbr = VENUE_ABBREVIATIONS[standard_venue]
+    else:
+        abbr = standard_venue
+    
+    # Append "Workshop" if it's a workshop
+    if is_workshop and " Workshop" not in abbr:
+        abbr += " Workshop"
+    
+    return abbr
 
 def extract_bibtex(file_path):
     """Extract BibTeX information from a markdown file."""
@@ -162,6 +240,9 @@ def update_readme():
                 backmatter_basename = os.path.basename(backmatter_file)
                 bibtex_data['backmatter_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{backmatter_basename}"
             
+            # Get venue abbreviation
+            bibtex_data['venue_abbr'] = get_venue_abbreviation(bibtex_data['venue'])
+            
             publications.append(bibtex_data)
     
     # Sort publications by year (descending) and then by conference order
@@ -185,19 +266,17 @@ def update_readme():
             # Create publication entry
             publications_md += f"- **{pub['title']}**<br>\n"
             publications_md += f"  {formatted_authors}<br>\n"
-            publications_md += f"  *{pub['venue']}*<br>\n"
             
-            # Add simplified navigation links
+            # Add links with venue abbreviation
             nav_links = []
+            nav_links.append(f"`{pub['venue_abbr']}`")
             nav_links.append(f"[main]({pub['github_link']})")
             if pub['has_appendix']:
                 nav_links.append(f"[appendix]({pub['appendix_github_link']})")
             if pub['has_backmatter']:
                 nav_links.append(f"[backmatter]({pub['backmatter_github_link']})")
             
-            publications_md += f"  {' | '.join(nav_links)}\n"
-            
-            publications_md += "\n"
+            publications_md += f"  {' | '.join(nav_links)}\n\n"
     
     # Combine frontmatter and publications list
     readme_content = f"{frontmatter}\n\n{publications_md}"
