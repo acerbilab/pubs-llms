@@ -78,3 +78,10 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   *Journal of Open Source Software*<br>
   [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
 
+### 2023
+
+- **Practical Equivariances via Relational Conditional Neural Processes**<br>
+  Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
+  *The Thirty-seventh Annual Conference on Neural Information Processing Systems (NeurIPS 2023)*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md)
+
