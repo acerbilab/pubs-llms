@@ -81,7 +81,7 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_backmatter.md)
 
 - **Online Simulator-Based Experimental Design for Cognitive Model Selection**<br>
-  Alex, Aushev e, Putkonen A, Clarte G, Ch SH, ramouli, Acerbi L, Kaski S & Howes A<br>
+  Aushev A, Putkonen A, Clarte G, Chandramouli SH, Acerbi L, Kaski S & Howes A<br>
   `Comput Brain Behav` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_backmatter.md)
 
 - **PyVBMC: Efficient Bayesian inference in Python**<br>
