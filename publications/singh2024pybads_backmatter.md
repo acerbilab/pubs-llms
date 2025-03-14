@@ -2,6 +2,28 @@
 
 ---
 
+DOI: 10.21105/joss. 05694
+
+## Software
+
+- Review $\square$
+- Repository $\square$
+- Archive $\square$
+
+## Editor: Rachel Kurchin $\square$
+
+## Reviewers:
+
+- @jungtaekkim
+- @vankesteren
+
+Submitted: 11 June 2023
+Published: 29 February 2024
+
+## License
+
+Authors of papers retain copyright and release the work under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
 # Acknowledgments
 
 We thank Bobby Huggins, Chengkun Li, Marlon Tobaben and Mikko Aarnos for helpful comments and feedback. We also acknowledge support from CSC - IT Center for Science, Finland, for computational resources. Work on the PyBADS package was supported by the Research Council of Finland Flagship programme: Finnish Center for Artificial Intelligence FCAI, and additionally by project grants 356498 and 358980.

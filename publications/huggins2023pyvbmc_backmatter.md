@@ -2,6 +2,28 @@
 
 ---
 
+DOI: 10.21105/joss. 05428
+
+## Software
+
+- Review $t^{2}$
+- Repository $t^{2}$
+- Archive $t^{2}$
+
+## Editor: Rachel Kurchin $t^{2}$ (2)
+
+Reviewers:
+
+- @matt-graham
+- @isdanni
+
+Submitted: 16 March 2023
+Published: 21 June 2023
+
+## License
+
+Authors of papers retain copyright and release the work under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
 # Acknowledgments
 
 Work on the PyVBMC package is supported by the Academy of Finland Flagship programme: Finnish Center for Artificial Intelligence FCAI.

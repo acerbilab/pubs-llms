@@ -15,28 +15,6 @@
 
 Bobby Huggins ${ }^{1 * *}$, Chengkun Li ${ }^{1 *}$, Marlon Tobaben ${ }^{1 *}$, Mikko J. Aarnos ${ }^{1}$, and Luigi Acerbi ${ }^{1 \text { ¶ }}$<br>1 University of Helsinki ${ }^{\text {I }}$ Corresponding author \* These authors contributed equally.
 
-DOI: 10.21105/joss. 05428
-
-## Software
-
-- Review $t^{2}$
-- Repository $t^{2}$
-- Archive $t^{2}$
-
-## Editor: Rachel Kurchin $t^{2}$ (2)
-
-Reviewers:
-
-- @matt-graham
-- @isdanni
-
-Submitted: 16 March 2023
-Published: 21 June 2023
-
-## License
-
-Authors of papers retain copyright and release the work under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
-
 ## Summary
 
 PyVBMC is a Python implementation of the Variational Bayesian Monte Carlo (VBMC) algorithm for posterior and model inference for black-box computational models (Acerbi, 2018, 2020). VBMC is an approximate inference method designed for efficient parameter estimation and model assessment when model evaluations are mildly-to-very expensive (e.g., a second or more) and/or noisy. Specifically, VBMC computes:

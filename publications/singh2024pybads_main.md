@@ -18,28 +18,6 @@ Gurjeet Sangra Singh ${ }^{1,3 \boldsymbol{\square}}$ and Luigi Acerbi ${ }^{2 \
 
 1 University of Geneva 2 University of Helsinki 3 University of Applied Sciences and Arts Western Switzerland (HES-SO) $\boldsymbol{\square}$ Corresponding author
 
-DOI: 10.21105/joss. 05694
-
-## Software
-
-- Review $\square$
-- Repository $\square$
-- Archive $\square$
-
-## Editor: Rachel Kurchin $\square$
-
-## Reviewers:
-
-- @jungtaekkim
-- @vankesteren
-
-Submitted: 11 June 2023
-Published: 29 February 2024
-
-## License
-
-Authors of papers retain copyright and release the work under a Creative Commons Attribution 4.0 International License (CC BY 4.0).
-
 ## Summary
 
 PyBADS is a Python implementation of the Bayesian Adaptive Direct Search (BADS) algorithm for fast and robust black-box optimization (Acerbi \& Ma, 2017). BADS is an optimization algorithm designed to efficiently solve difficult optimization problems where the objective function is rough (non-convex, non-smooth), mildly expensive (e.g., the function evaluation requires more than 0.1 seconds), possibly noisy, and gradient information is unavailable. With BADS, these issues are well addressed, making it an excellent choice for fitting computational models using methods such as maximum-likelihood estimation. The algorithm scales efficiently to black-box functions with up to $D \approx 20$ continuous input parameters and supports bounds or no constraints. PyBADS builds on the previous MATLAB implementation with an easy-to-use Pythonic interface for running the algorithm and inspecting its results. PyBADS only requires the user to provide a Python function for evaluating the target function, and optionally other constraints.
