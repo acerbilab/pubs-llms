@@ -21,19 +21,27 @@ VENUE_STANDARDIZATION = {
     'NIPS': 'Neural Information Processing Systems',
     # ICML variants
     'Proceedings of the International Conference on Machine Learning': 'International Conference on Machine Learning',
+    'ICML': 'International Conference on Machine Learning',
     # ICLR variants
     'Proceedings of the International Conference on Learning Representations': 'International Conference on Learning Representations',
+    'ICLR': 'International Conference on Learning Representations',
     # AISTATS variants
     'Proceedings of Artificial Intelligence and Statistics': 'Artificial Intelligence and Statistics',
+    'AISTATS': 'Artificial Intelligence and Statistics',
     # UAI variants
     'Proceedings of the Conference on Uncertainty in Artificial Intelligence': 'Conference on Uncertainty in Artificial Intelligence',
+    'UAI': 'Conference on Uncertainty in Artificial Intelligence',
     # IJCAI variants
     'Proceedings of the International Joint Conference on Artificial Intelligence': 'International Joint Conference on Artificial Intelligence',
+    'IJCAI': 'International Joint Conference on Artificial Intelligence',
     # AAAI variants
     'Proceedings of the AAAI Conference on Artificial Intelligence': 'AAAI Conference on Artificial Intelligence',
+    'AAAI': 'AAAI Conference on Artificial Intelligence',
     # Journal variants
     'PLOS Computational Biology': 'PLoS Computational Biology',
+    'PLoS Comput Biol': 'PLoS Computational Biology',
     'PLOS ONE': 'PLoS ONE',
+    'Comput Brain Behav': 'Computational Brain & Behavior',
 }
 
 # Venue abbreviation mapping - maps standard names to abbreviations
