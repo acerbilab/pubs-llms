@@ -147,7 +147,8 @@ def extract_bibtex(file_path):
 
 def format_author_list(authors):
     """Format the author list for display as 'Surname FI' with '& ' for last author."""
-    author_list = [author.strip() for author in authors.split('and')]
+    import re
+    author_list = [author.strip() for author in re.split(r'\s+and\s+', authors)]
     formatted_authors = []
     
     for author in author_list:
