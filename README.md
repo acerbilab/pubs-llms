@@ -41,16 +41,6 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 ### 2024
 
-- **Amortized Bayesian Workflow (Extended Abstract)**<br>
-  Schmitt M, Li C, Vehtari A, Acerbi L, Burkner P & Radev ST<br>
-  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
-
-- **Amortized Decision-Aware Bayesian Experimental Design**<br>
-  Huang D, Guo Y, Acerbi L & Kaski S<br>
-  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_backmatter.md)
-
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
@@ -65,6 +55,16 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
   Mikkola P, Acerbi L & Klami A<br>
   *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
   [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
+
+- **Amortized Bayesian Workflow (Extended Abstract)**<br>
+  Schmitt M, Li C, Vehtari A, Acerbi L, Burkner P & Radev ST<br>
+  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
+
+- **Amortized Decision-Aware Bayesian Experimental Design**<br>
+  Huang D, Guo Y, Acerbi L & Kaski S<br>
+  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
+  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_backmatter.md)
 
 - **Input-gradient space particle inference for neural network ensembles**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
