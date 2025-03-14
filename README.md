@@ -38,50 +38,45 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 - **Amortized Probabilistic Conditioning for Optimization, Simulation and Inference**<br>
   Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
-  *28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
+  `28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
 
 ### 2024
 
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
-  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md)
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md)
 
 - **Amortized Bayesian Experimental Design for Decision-Making**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
-  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md)
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md)
 
 - **Preferential Normalizing Flows**<br>
   Mikkola P, Acerbi L & Klami A<br>
-  *The Thirty-eighth Annual Conference on Neural Information Processing Systems (NeurIPS 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md)
 
 - **Amortized Bayesian Workflow (Extended Abstract)**<br>
   Schmitt M, Li C, Vehtari A, Acerbi L, Burkner P & Radev ST<br>
-  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
+  `NeurIPS Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/schmitt2024amortized_backmatter.md)
 
 - **Amortized Decision-Aware Bayesian Experimental Design**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
-  *NeurIPS 2024 Workshop on Bayesian Decision-making and Uncertainty*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_backmatter.md)
+  `NeurIPS Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024bamortized_backmatter.md)
 
 - **Input-gradient space particle inference for neural network ensembles**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
-  *International Conference on Learning Representations (ICLR 2024)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_backmatter.md)
+  `International Conference on Learning Representations (ICLR 2024)` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_backmatter.md)
 
 - **PyBADS: Fast and robust black-box optimization in Python**<br>
   Singh G & Acerbi L<br>
-  *Journal of Open Source Software*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
+  `Journal of Open Source Software` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/singh2024pybads_backmatter.md)
 
 ### 2023
 
 - **Practical Equivariances via Relational Conditional Neural Processes**<br>
   Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
-  *The Thirty-seventh Annual Conference on Neural Information Processing Systems (NeurIPS 2023)*<br>
-  [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md)
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md)
+
+- **Learning Robust Statistics for Simulation-based Inference under Model Misspecification**<br>
+  Huang D, Bharti A, Souza A, Acerbi L & Kaski S<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_backmatter.md)
 
