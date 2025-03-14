@@ -38,7 +38,7 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 - **Amortized Probabilistic Conditioning for Optimization, Simulation and Inference**<br>
   Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
-  `28th Int. Conf. on Artificial Intelligence & Statistics (AISTATS 2025)` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
+  `AISTATS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md)
 
 ### 2024
 
@@ -64,7 +64,7 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 
 - **Input-gradient space particle inference for neural network ensembles**<br>
   Trinh T, Heinonen M, Acerbi L & Kaski S<br>
-  `International Conference on Learning Representations (ICLR 2024)` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_backmatter.md)
+  `ICLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_main.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_appendix.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024input_backmatter.md)
 
 - **PyBADS: Fast and robust black-box optimization in Python**<br>
   Singh G & Acerbi L<br>
