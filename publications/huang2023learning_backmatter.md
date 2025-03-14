@@ -2,11 +2,7 @@
 
 ---
 
-#### Page 10
-
-Limitations and future work. A limitation of our method is the increased computational complexity due to the cost of estimating the MMD, which can be alleviated using the sample-efficient MMD estimator from [10] or quasi-Monte Carlo points [56]. Moreover, as our method utilizes the observed statistic during the training procedure, the corresponding NPE is not amortized anymore a limitation we share with RNPE. Thus, working on robust NPE methods which are still amortized (to some extent) is an interesting direction for future research. An obvious extension of the work could be to investigate if the ideas translate to likelihood-free model selection methods [68, 76] which can suffer from similar problems as SBI if all (or some) of the candidate models are misspecified.
-
-# Acknowledgements 
+# Acknowledgements
 
 The authors would like to thank Dr. Carl Gustafson and Prof. Fredrik Tufvesson (Lund University) for providing the measurement data. We also thank Masha Naslidnyk, Dr. François-Xavier Briol, and Dr. Markus Heinonen for their useful comments and discussion. We acknowledge the computational resources provided by the Aalto Science-IT Project from Computer Science IT. This work was supported by the Academy of Finland Flagship programme: Finnish Center for Artificial Intelligence FCAI. SK was supported by the UKRI Turing AI World-Leading Researcher Fellowship, [EP/W002973/1].
 
