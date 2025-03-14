@@ -60,6 +60,7 @@ VENUE_ABBREVIATIONS = {
     'PLoS Computational Biology': 'PLoS Comput Biol',
     'PLoS ONE': 'PLoS ONE',
     'Computational Brain & Behavior': 'Comput Brain Behav',
+    'Computational Brain \& Behavior': 'Comput Brain Behav',
     'Journal of Open Source Software': 'JOSS',
 }
 
