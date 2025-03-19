@@ -1,4 +1,4 @@
-# pubs-llms 📄: Our Publications for Humans and Machines
+# 📚 pubs-llms: Our Publications for Humans and Machines
 
 A repository of academic publications from the [Machine and Human Intelligence Group](https://www.helsinki.fi/en/researchgroups/machine-and-human-intelligence) converted to LLM-friendly text-only Markdown format.
 
@@ -38,6 +38,7 @@ The paper-to-Markdown conversion process uses [paper2llm](https://lacerbi.github
 - Please **report such mistakes** by raising a [GitHub issue](https://github.com/acerbilab/pubs-llms/issues).
 
 For non-critical applications, we consider that the benefit of having LLM-friendly access to research papers outweigh the potential inaccuracies, which generally do not affect the gist of the paper. As usual, double-check key assumptions and results.
+
 </details>
 
 ---
