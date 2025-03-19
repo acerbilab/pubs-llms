@@ -35,9 +35,23 @@ jobs:
     - name: Check for changes
       id: git-check
       run: |
+        # Check for README.md changes
+        git diff --exit-code README.md || echo "readme_modified=true" >> $GITHUB_OUTPUT
+        
+        # Check for new full paper files
+        FULL_PAPERS=$(git ls-files --others --exclude-standard | grep "_full.md" || echo "")
+        if [ -n "$FULL_PAPERS" ]; then
+          echo "full_papers_exist=true" >> $GITHUB_OUTPUT
+          echo "Found untracked full papers: $FULL_PAPERS"
+        fi
+        
+        # Set the overall modified flag if either README or full papers changed
+        if [ -n "$(git diff --name-only README.md)" ] || [ -n "$FULL_PAPERS" ]; then
+          echo "modified=true" >> $GITHUB_OUTPUT
+        fi
+        
+        # Show status for debugging
         git status
-        # Check for both README.md changes and new full paper files
-        (git diff --exit-code README.md && git ls-files --others --exclude-standard | grep -q "_full.md") || echo "modified=true" >> $GITHUB_OUTPUT
       continue-on-error: true
         
     - name: Commit changes if files were modified or created
@@ -45,12 +59,28 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add README.md
-        git add publications/*_full.md
-        git commit -m "Auto-update README.md and generated full papers"
+        
+        # Always try to add README.md
+        git add README.md || echo "No changes to README.md to commit"
+        
+        # Only add full papers if they exist
+        if [ "${{ steps.git-check.outputs.full_papers_exist }}" == "true" ]; then
+          # Find all untracked full paper files and add them individually
+          git ls-files --others --exclude-standard | grep "_full.md" | xargs git add || echo "No full papers to add"
+          echo "Added full paper files to commit"
+        fi
+        
+        # Commit if there are changes to be committed
+        if ! git diff --staged --quiet; then
+          git commit -m "Auto-update README.md and generated full papers"
+          echo "Changes committed successfully"
+        else
+          echo "No changes to commit"
+          exit 1
+        fi
         
     - name: Push changes
-      if: steps.git-check.outputs.modified == 'true'
+      if: steps.git-check.outputs.modified == 'true' && success()
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
