@@ -15,8 +15,8 @@ For practical usage, each paper is available in full as well as split into three
 | **Part**       | **Description**                                                                | **Example**                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | **Main Text**  | The core content of the paper.                                                 | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md)             |
-| **Appendix**   | Supplementary materials, when available.                                       | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md)     |
 | **Backmatter** | References, acknowledgments, and other auxiliary content rarely fed to an LLM. | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md) |
+| **Appendix**   | Supplementary materials, when available.                                       | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md)     |
 | **Full Text**  | Combined version with all parts in a single document.                          | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_full.md)             |
 
 ### Usage Guide
