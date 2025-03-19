@@ -21,7 +21,7 @@ For practical usage, each paper is available in full as well as split into three
 
 ### Usage Guide
 
-- **Quick usage:** Navigate to the paper of interest, click "Copy raw file" on GitHub, paste the content (or excerpts) into your LLM chat to ask questions about the paper. Use the full version when you want the complete paper in a single file.
+- **Quick usage:** Navigate to the paper of interest, click "Copy raw file" on GitHub, paste the full content or individual parts and excerpts into your LLM chat to ask questions about the paper.
 - **Luigi's usage:** Include relevant papers in project repositories for use with advanced LLM assistants. Luigi uses Athanor (an in-house LLM research and coding assistant), but other options include [Aider](https://aider.chat/), [Cline](https://cline.bot/), [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), and keep growing.
 
 ### Technical Details
