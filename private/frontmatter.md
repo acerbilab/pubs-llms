@@ -10,17 +10,18 @@ The full list of papers is available [below](#Publications).
 
 ### Content
 
-For practical usage, each paper is split into three separate files:
+For practical usage, each paper is available in full as well as split into three parts:
 
 | **Part**       | **Description**                                                                | **Example**                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | **Main Text**  | The core content of the paper.                                                 | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md)             |
 | **Appendix**   | Supplementary materials, when available.                                       | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md)     |
 | **Backmatter** | References, acknowledgments, and other auxiliary content rarely fed to an LLM. | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md) |
+| **Full Text**  | Combined version with all parts in a single document.                          | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_full.md)             |
 
 ### Usage Guide
 
-- **Quick usage:** Navigate to the paper of interest, click "Copy raw file" on GitHub, paste the content (or excerpts) into your LLM chat to ask questions about the paper.
+- **Quick usage:** Navigate to the paper of interest, click "Copy raw file" on GitHub, paste the content (or excerpts) into your LLM chat to ask questions about the paper. Use the full version when you want the complete paper in a single file.
 - **Luigi's usage:** Include relevant papers in project repositories for use with advanced LLM assistants. Luigi uses Athanor (an in-house LLM research and coding assistant), but other options include [Aider](https://aider.chat/), [Cline](https://cline.bot/), [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), and keep growing.
 
 ### Technical Details

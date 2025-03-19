@@ -270,11 +270,14 @@ def update_readme():
             publications_dir = os.path.join(REPO_ROOT, 'publications')
             appendix_file = os.path.join(publications_dir, f"{base_name}_appendix.md")
             backmatter_file = os.path.join(publications_dir, f"{base_name}_backmatter.md")
+            full_file = os.path.join(publications_dir, f"{base_name}_full.md")
             
             bibtex_data['has_appendix'] = os.path.exists(appendix_file)
             bibtex_data['has_backmatter'] = os.path.exists(backmatter_file)
+            bibtex_data['has_full'] = os.path.exists(full_file)
             bibtex_data['appendix_path'] = appendix_file if bibtex_data['has_appendix'] else None
             bibtex_data['backmatter_path'] = backmatter_file if bibtex_data['has_backmatter'] else None
+            bibtex_data['full_path'] = full_file if bibtex_data['has_full'] else None
             
             # Format GitHub links
             file_basename = os.path.basename(file_path)
@@ -287,6 +290,10 @@ def update_readme():
             if bibtex_data['has_backmatter']:
                 backmatter_basename = os.path.basename(backmatter_file)
                 bibtex_data['backmatter_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{backmatter_basename}"
+                
+            if bibtex_data['has_full']:
+                full_basename = os.path.basename(full_file)
+                bibtex_data['full_github_link'] = f"https://github.com/acerbilab/pubs-llms/blob/main/publications/{full_basename}"
             
             # Get venue abbreviation
             bibtex_data['venue_abbr'] = get_venue_abbreviation(bibtex_data['venue'])
@@ -319,10 +326,12 @@ def update_readme():
             nav_links = []
             nav_links.append(f"`{pub['venue_abbr']}`")
             nav_links.append(f"[main]({pub['github_link']})")
-            if pub['has_appendix']:
-                nav_links.append(f"[appendix]({pub['appendix_github_link']})")
             if pub['has_backmatter']:
                 nav_links.append(f"[backmatter]({pub['backmatter_github_link']})")
+            if pub['has_appendix']:
+                nav_links.append(f"[appendix]({pub['appendix_github_link']})")
+            if pub['has_full']:
+                nav_links.append(f"[full]({pub['full_github_link']})")
             
             publications_md += f"  {' | '.join(nav_links)}\n\n"
     
