@@ -1,8 +1,8 @@
-# AI Summary: GitHub Actions workflow that automatically updates README.md when repository files change.
+# AI Summary: GitHub Actions workflow that automatically updates README.md and full paper files when repository files change.
 # Triggers on pushes to main branch (excluding README.md changes) and allows manual triggering.
 # Sets up Python, runs the update_readme.py script, and commits changes back to the repository.
 
-name: Update README
+name: Update README and Generate Full Papers
 
 on:
   push:
@@ -35,16 +35,19 @@ jobs:
     - name: Check for changes
       id: git-check
       run: |
-        git diff --exit-code README.md || echo "::set-output name=modified::true"
+        git status
+        # Check for both README.md changes and new full paper files
+        (git diff --exit-code README.md && git ls-files --others --exclude-standard | grep -q "_full.md") || echo "modified=true" >> $GITHUB_OUTPUT
       continue-on-error: true
         
-    - name: Commit changes if README.md was modified
+    - name: Commit changes if files were modified or created
       if: steps.git-check.outputs.modified == 'true'
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add README.md
-        git commit -m "Auto-update README.md with latest publications"
+        git add publications/*_full.md
+        git commit -m "Auto-update README.md and generated full papers"
         
     - name: Push changes
       if: steps.git-check.outputs.modified == 'true'
