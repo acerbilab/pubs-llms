@@ -57,6 +57,14 @@ For non-critical applications, we consider that the benefit of having LLM-friend
   Li C, Huggins B, Mikkola P & Acerbi L<br>
   `AABI` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_full.md)
 
+- **Stacking Variational Bayesian Monte Carlo**<br>
+  Silvestrin F, Li C & Acerbi L<br>
+  `AABI Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_full.md)
+
+- **Inference-Time Prior Adaptation in Simulation-Based Inference via Guided Diffusion Models**<br>
+  Chang PE, Rissanen S, Loka NRBS, Huang D & Acerbi L<br>
+  `AABI Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_full.md)
+
 ### 2024
 
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
