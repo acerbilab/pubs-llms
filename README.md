@@ -53,6 +53,10 @@ For non-critical applications, we consider that the benefit of having LLM-friend
   Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
   `AISTATS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_full.md)
 
+- **Normalizing Flow Regression for Bayesian Inference with Offline Likelihood Evaluations**<br>
+  Li C, Huggins B, Mikkola P & Acerbi L<br>
+  `AABI` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_full.md)
+
 ### 2024
 
 - **Improving robustness to corruptions with multiplicative weight perturbations**<br>
