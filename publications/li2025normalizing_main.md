@@ -13,19 +13,17 @@ year={2025}
 
 # Normalizing Flow Regression for Bayesian Inference with Offline Likelihood Evaluations
 
-Chengkun Li, Bobby Huggins, Petrus Mikkola, Luigi Acerbi
+Chengkun Li ${ }^{1}$<br>Bobby Huggins ${ }^{2}$<br>Petrus Mikkola ${ }^{1}$<br>Luigi Acerbi ${ }^{1}$<br>${ }^{1}$ Department of Computer Science, University of Helsinki<br>${ }^{2}$ Department of Computer Science and Engineering, Washington University in St. Louis
 
 #### Abstract
 
-Bayesian inference with computationally expensive likelihood evaluations remains a significant challenge in many scientific domains. We propose normalizing flow regression (NFR), a novel offline inference method for approximating posterior distributions. Unlike traditional surrogate approaches that require additional sampling or inference steps, NFR directly yields a tractable posterior approximation through regression on existing log-density evaluations. We introduce training techniques specifically for flow regression, such as tailored priors and likelihood functions, to achieve robust posterior and model evidence estimation. We demonstrate NFR's effectiveness on synthetic benchmarks and real-world applications from neuroscience and biology, showing superior or comparable performance to existing methods. NFR represents a promising approach for Bayesian inference in settings where standard methods are computationally prohibitive or existing model evaluations can be recycled.
+Bayesian inference with computationally expensive likelihood evaluations remains a significant challenge in many scientific domains. We propose normalizing flow regression (NFR), a novel offline inference method for approximating posterior distributions. Unlike traditional surrogate approaches that require additional sampling or inference steps, NFR directly yields a tractable posterior approximation through regression on existing log-density evaluations. We introduce training techniques specifically for flow regression, such as tailored priors and likelihood functions, to achieve robust posterior and model evidence estimation. We demonstrate NFR's effectiveness on synthetic benchmarks and real-world applications from neuroscience and biology, showing superior or comparable performance to existing methods. NFR represents a promising approach for Bayesian inference when standard methods are computationally prohibitive or existing model evaluations can be recycled.
 
 ## 1. Introduction
 
-Black-box models of varying complexity are widely used in scientific and engineering disciplines for tasks such as parameter estimation, hypothesis testing, and predictive modeling (Sacks et al., 1989; Kennedy and O'Hagan, 2001). Bayesian inference provides a principled framework for quantifying uncertainty in both parameters and models by computing full posterior distributions and model evidence (Gelman et al., 2013). However, Bayesian inference is often analytically intractable, requiring the use of approximate methods like Markov chain Monte Carlo (MCMC; Brooks, 2011) or variational inference (VI; Blei et al., 2017). These methods typically necessitate repeated evaluations of the target density, and many require differentiability of the model (Neal, 2011; Kucukelbir et al., 2017). When model evaluations are computationally expensive - for instance, involving extensive numerical methods - these requirements make standard Bayesian approaches impractical.
+Black-box models of varying complexity are widely used in scientific and engineering disciplines for tasks such as parameter estimation, hypothesis testing, and predictive modeling (Sacks et al., 1989; Kennedy and O’Hagan, 2001). Bayesian inference provides a principled framework for quantifying uncertainty in both parameters and models by computing full posterior distributions and model evidence (Gelman et al., 2013). However, Bayesian inference is often analytically intractable, requiring the use of approximate methods like Markov chain Monte Carlo (MCMC; Brooks, 2011) or variational inference (VI; Blei et al., 2017). These methods typically necessitate repeated evaluations of the target density, and many require differentiability of the model (Neal, 2011; Kucukelbir et al., 2017). When model evaluations are computationally expensive - for instance, involving extensive numerical methods - these requirements make standard Bayesian approaches impractical.
 
 Due to these computational demands, practitioners often resort to simpler alternatives such as maximum a posteriori (MAP) estimation or maximum likelihood estimation (MLE); ${ }^{1}$ see for example Wilson and Collins (2019); Ma et al. (2023). While these point estimates can provide useful insights, they fail to capture parameter uncertainty, potentially leading to overconfident or biased conclusions (Gelman et al., 2013). This limitation highlights the need for efficient posterior approximation methods that avoid the computational costs of standard inference techniques.
-
-Recent advances in surrogate modeling present promising alternatives for addressing these challenges. Costly likelihood or posterior density functions are efficiently approximated via surrogates such as Gaussian processes (GPs; Rasmussen, 2003; Gunter et al.,
 
 [^0]
 [^0]: 1. In practice, MLE corresponds to MAP with flat priors.
@@ -34,7 +32,7 @@ Recent advances in surrogate modeling present promising alternatives for address
 
 #### Page 2
 
-2014; Acerbi, 2018; Järvenpää et al., 2021; Adachi et al., 2022; El Gammal et al., 2023). To mitigate the cost of standard GPs, both sparse GPs and deep neural networks have also served as surrogates for posterior approximation (Wang et al., 2022; Li et al., 2024). However, these approaches share a key limitation: the obtained surrogate model, usually of the log likelihood or log posterior, does not directly provide a valid probability distribution. Additional steps, such as performing MCMC or variational inference on the surrogate, are needed to yield tractable posterior approximations. Furthermore, many of these methods require active collections of new likelihood evaluations, which might be unfeasible or wasteful of existing evaluations.
+Recent advances in surrogate modeling present promising alternatives for addressing these challenges. Costly likelihood or posterior density functions are efficiently approximated via surrogates such as Gaussian processes (GPs; Rasmussen, 2003; Gunter et al., 2014; Acerbi, 2018, 2019; Järvenpää et al., 2021; Adachi et al., 2022; El Gammal et al., 2023). To mitigate the cost of standard GPs, both sparse GPs and deep neural networks have also served as surrogates for posterior approximation (Wang et al., 2022; Li et al., 2024). However, these approaches share a key limitation: the obtained surrogate model, usually of the log likelihood or log posterior, does not directly provide a valid probability distribution. Additional steps, such as performing MCMC or variational inference on the surrogate, are needed to yield tractable posterior approximations. Furthermore, many of these methods require active collections of new likelihood evaluations, which might be unfeasible or wasteful of existing evaluations.
 
 To address these challenges, we propose using normalizing flows as regression models for directly approximating the posterior distribution from offline likelihood or density evaluations. While normalizing flows have been extensively studied for variational inference (Rezende and Mohamed, 2015; Agrawal et al., 2020), density estimation (Dinh et al., 2017), and simulation-based inference (Lueckmann et al., 2021; Radev et al., 2022), their application as regression models for posterior approximation remains largely unexplored. Unlike other surrogate methods, normalizing flows directly yield a tractable posterior distribution which is easy to evaluate and sample from. Moreover, unlike other applications of normalizing flows, our regression approach is offline, recycling existing log-density evaluations (e.g., from MAP optimizations as in Li et al., 2024) rather than requiring costly new evaluations from the target model.
 
@@ -50,15 +48,17 @@ $$
 q_{\boldsymbol{\phi}}(\mathbf{x})=p_{\mathbf{u}}(\mathbf{u})\left|\operatorname{det} J_{T_{\boldsymbol{\phi}}}(\mathbf{u})\right|^{-1}, \quad \mathbf{u}=T_{\boldsymbol{\phi}}^{-1}(\mathbf{x})
 $$
 
-where $J_{T_{\boldsymbol{\phi}}}$ denotes the Jacobian matrix of the transformation. The transformation $T_{\boldsymbol{\phi}}(\mathbf{u})$ can be designed to balance expressive power with efficient computation of its Jacobian determinant. In this paper, we use the popular masked autoregressive flow (MAF; Papamakarios et al., 2017). MAF constructs the transformation through an autoregressive process, where each component $\mathbf{x}^{(i)}$ depends on previous components through:
-
-$$
-\mathbf{x}^{(i)}=g_{\text {scale }}\left(\alpha^{(i)}\right) \cdot \mathbf{u}^{(i)}+g_{\text {shift }}\left(\mu^{(i)}\right)
-$$
+where $J_{T_{\boldsymbol{\phi}}}$ denotes the Jacobian matrix of the transformation. The transformation $T_{\boldsymbol{\phi}}(\mathbf{u})$ can be designed to balance expressive power with efficient computation of its Jacobian determinant. In this paper, we use the popular masked autoregressive flow (MAF; Papamakarios
 
 ---
 
 #### Page 3
+
+et al., 2017). MAF constructs the transformation through an autoregressive process, where each component $\mathbf{x}^{(i)}$ depends on previous components through:
+
+$$
+\mathbf{x}^{(i)}=g_{\text {scale }}\left(\alpha^{(i)}\right) \cdot \mathbf{u}^{(i)}+g_{\text {shift }}\left(\mu^{(i)}\right)
+$$
 
 Here, $g_{\text {scale }}$ is typically chosen as the exponential function to ensure positive scaling, while $g_{\text {shift }}$ is usually the identity function. The parameters $\alpha^{(i)}$ and $\mu^{(i)}$ are outputs of unconstrained scalar functions $h_{\alpha}$ and $h_{\mu}$ that take the preceding components as inputs:
 
@@ -79,20 +79,17 @@ $$
 
 where $p(\mathcal{D} \mid \mathbf{x})$ is the likelihood, $p(\mathbf{x})$ is the prior over the parameters, and $p(\mathcal{D})$ is the normalizing constant, also known as evidence or marginal likelihood, a quantity useful in Bayesian model selection (MacKay, 2003). Two widely used approaches for approximating this posterior are variational inference and Markov chain Monte Carlo (Gelman et al., 2013).
 
-VI turns posterior approximation into an optimization problem by positing a family of parametrized distributions, such as normalizing flows ( $q_{\boldsymbol{\phi}}$ in Section 2.1), and optimizing over the parameters $\boldsymbol{\phi}$. The objective to maximize is commonly the evidence lower bound (ELBO), which is equivalent to minimizing the Kullback-Leibler (KL) divergence between the approximate distribution and $p(\mathbf{x} \mid \mathcal{D})$ (Blei et al., 2017). When the likelihood $p(\mathcal{D} \mid \mathbf{x})$ is a black box, the estimated ELBO gradients can exhibit high variance, thus requiring many evaluations to converge (Ranganath et al., 2014). MCMC methods, such as MetropolisHastings, aim to draw samples from the posterior by constructing a Markov chain that converges to $p(\mathbf{x} \mid \mathcal{D})$. While MCMC offers asymptotic guarantees, it requires many likelihood evaluations. Due to the typically large number of required evaluations, both VI and MCMC are often infeasible for black-box models with expensive likelihoods.
+VI turns posterior approximation into an optimization problem by positing a family of parametrized distributions, such as normalizing flows ( $q_{\phi}$ in Section 2.1), and optimizing over the parameters $\boldsymbol{\phi}$. The objective to maximize is commonly the evidence lower bound (ELBO), which is equivalent to minimizing the Kullback-Leibler (KL) divergence between the approximate distribution and $p(\mathbf{x} \mid \mathcal{D})$ (Blei et al., 2017). When the likelihood $p(\mathcal{D} \mid \mathbf{x})$ is a black box, the estimated ELBO gradients can exhibit high variance, thus requiring many evaluations to converge (Ranganath et al., 2014). MCMC methods, such as MetropolisHastings, aim to draw samples from the posterior by constructing a Markov chain that converges to $p(\mathbf{x} \mid \mathcal{D})$. While MCMC offers asymptotic guarantees, it requires many likelihood evaluations. Due to the typically large number of required evaluations, both VI and MCMC are often infeasible for black-box models with expensive likelihoods.
 
 ## 3. Normalizing Flow Regression
 
-We now present our proposed method, Normalizing Flow Regression (NFR) for approximate Bayesian posterior inference. In the following, we denote with $\mathbf{X}=\left(\mathbf{x}_{1}, \ldots, \mathbf{x}_{N}\right)$ a set of input locations where we have evaluated the target posterior, with corresponding unnormalized log-density evaluations $\mathbf{y}=\left(y_{1}, \ldots, y_{N}\right)$, where $\mathbf{x}_{n} \in \mathbb{R}^{D}$ and $y_{n} \in \mathbb{R}$. Evaluations have associated observation noise $\boldsymbol{\sigma}^{2}=\left(\sigma_{1}^{2}, \ldots, \sigma_{N}^{2}\right),{ }^{2}$ where we set $\sigma_{n}^{2}=\sigma_{\min }^{2}=10^{-3}$
-
-[^0]
-[^0]: 2. Log-density observations can be noisy when likelihood calculation involves simulation or Monte Carlo methods. Noise for each observation can then be quantified independently via bootstrap or using specific estimators (van Opheusden et al., 2020; Acerbi, 2020; Järvenpää et al., 2021).
+We now present our proposed method, Normalizing Flow Regression (NFR) for approximate Bayesian posterior inference. In the following, we denote with $\mathbf{X}=\left(\mathbf{x}_{1}, \ldots, \mathbf{x}_{N}\right)$ a set of input locations where we have evaluated the target posterior, with corresponding unnormalized log-density evaluations $\mathbf{y}=\left(y_{1}, \ldots, y_{N}\right)$, where $\mathbf{x}_{n} \in \mathbb{R}^{D}$ and $y_{n} \in \mathbb{R}$. Evaluations
 
 ---
 
 #### Page 4
 
-for noiseless cases. We collect these into a training dataset $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ for our flow regression model. Throughout this section, we use $p_{\text {target }}(\mathbf{x}) \equiv p(\mathcal{D} \mid \mathbf{x}) p(\mathbf{x})$ to denote the unnormalized target posterior density.
+have associated observation noise $\boldsymbol{\sigma}^{2}=\left(\sigma_{1}^{2}, \ldots, \sigma_{N}^{2}\right),{ }^{2}$ where we set $\sigma_{n}^{2}=\sigma_{\min }^{2}=10^{-3}$ for noiseless cases. We collect these into a training dataset $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ for our flow regression model. Throughout this section, we use $p_{\text {target }}(\mathbf{x}) \equiv p(\mathcal{D} \mid \mathbf{x}) p(\mathbf{x})$ to denote the unnormalized target posterior density.
 
 # 3.1. Overview of the regression model
 
@@ -108,7 +105,7 @@ We train the flow regression model itself via MAP estimation, by maximizing:
 
 $$
 \begin{aligned}
-\mathcal{L}(\boldsymbol{\psi}) & =\log p(\mathbf{y} \mid \mathbf{X}, \boldsymbol{\sigma}^{2}, f_{\boldsymbol{\phi}}, C)+\log p(\boldsymbol{\phi})+\log p(C) \\
+\mathcal{L}(\boldsymbol{\psi}) & =\log p\left(\mathbf{y} \mid \mathbf{X}, \boldsymbol{\sigma}^{2}, f_{\boldsymbol{\phi}}, C\right)+\log p(\boldsymbol{\phi})+\log p(C) \\
 & =\sum_{n=1}^{N} \log p\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)+\log p(\boldsymbol{\phi})+\log p(C)
 \end{aligned}
 $$
@@ -119,31 +116,28 @@ Since we only have access to finite pointwise evaluations of the target log-dens
 
 ### 3.2. Likelihood function for log-density observations
 
-For each observation $y_{n}$, let $f_{n} \equiv p_{\text {target }}\left(\mathbf{x}_{n}\right)$ denote the true unnormalized log-density value, which our flow regression model aims to estimate via its prediction $f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right)$. We now discuss how to choose an appropriate likelihood function $p\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)$ for these log-density observations.
-
-A natural first choice would be a Gaussian likelihood,
+For each observation $y_{n}$, let $f_{n} \equiv p_{\text {target }}\left(\mathbf{x}_{n}\right)$ denote the true unnormalized log-density value, which our flow regression model aims to estimate via its prediction $f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right)$. We now discuss how to choose an appropriate likelihood function $p\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)$ for these log-density observations. A natural first choice would be a Gaussian likelihood,
 
 $$
 p\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)=\mathcal{N}\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)
 $$
 
-However, this choice has a significant drawback emerging from the fact that maximizing this likelihood corresponds to minimizing the point-wise squared error $\left|y_{n}-f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right)\right|^{2} / \sigma_{n}^{2}$. Since log-density values approach negative infinity as density values approach zero, small errors in near-zero density regions of the target posterior would dominate the regression objective in Eq. 6. This would cause the normalizing flow to overemphasize matching these near-zero density observations at the expense of accurately modeling the more important high-density regions.
+However, this choice has a significant drawback emerging from the fact that maximizing this likelihood corresponds to minimizing the point-wise squared error $\left|y_{n}-f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right)\right|^{2} / \sigma_{n}^{2}$. Since log-density values approach negative infinity as density values approach zero, small errors in near-zero density regions of the target posterior would dominate the regression objective in Eq. 6. This would cause the normalizing flow to overemphasize matching these
 
-To address this issue, we propose a more robust Tobit likelihood for flow regression, inspired by the Tobit model (Amemiya, 1984) and the noise shaping technique (Li et al., 3. Assuming conditionally independent noise on the log-density estimates, which holds trivially for noiseless observations and for many estimation methods (van Opheusden et al., 2020; Järvenpää et al., 2021).
+[^0]
+[^0]: 2. Log-density observations can be noisy when likelihood calculation involves simulation or Monte Carlo methods. Noise for each observation can then be quantified independently via bootstrap or using specific estimators (van Opheusden et al., 2020; Acerbi, 2020; Järvenpää et al., 2021). 3. Assuming conditionally independent noise on the log-density estimates, which holds trivially for noiseless observations and for many estimation methods (van Opheusden et al., 2020; Järvenpää et al., 2021).
 
 ---
 
 #### Page 5
 
-> **Image description.** The image consists of two plots side-by-side, illustrating the concept of censoring in the context of probability density functions. Both plots share a similar x-axis labeled "x" with tick marks at -16, -8, 0, 8, and 16.
->
-> The left plot displays "Density" on the y-axis, with tick marks at 0.0, 0.2, and 0.4. A black line represents a probability density function with a sharp peak centered around x=0, and relatively flat tails extending to the left and right. The areas under the curve in the tails, near x=-16 and x=16, are shaded with a light blue color and a black criss-cross pattern.
->
-> The right plot shows "Log density" on the y-axis, with tick marks at -100, -50, and 0. A black line represents the log of the probability density function, forming a curve that peaks around x=0. A dashed horizontal line, labeled "y_low", is drawn at approximately y=-50. The areas under the curve, where the log density is below the "y_low" line, are shaded with the same light blue color and black criss-cross pattern as in the left plot.
+> **Image description.** The image consists of two plots side-by-side, illustrating the censoring effect on a target density. Both plots have a similar x-axis, labeled "x", ranging from -16 to 16 with tick marks at -16, -8, 0, 8, and 16. The left plot shows "Density" on the y-axis, ranging from 0.0 to 0.4, with tick marks at 0.0, 0.2, and 0.4. A curve peaks sharply around x=0 and approaches 0 at the extremes. Two shaded regions with a criss-cross pattern are present near x=-16 and x=16, where the density is close to zero. The right plot displays "Log density" on the y-axis, ranging from -100 to 0, with tick marks at -100, -50, and 0. The curve is bell-shaped, peaking at x=0. A dashed horizontal line is drawn at approximately y=-50, labeled "y_low". Shaded regions with a criss-cross pattern are present where the curve falls below the "y_low" line, near x=-16 and x=16.
 
 Figure 1: Illustration of the censoring effect of the Tobit likelihood on a target density. The left panel shows the density plot, while the right panel displays the corresponding log-density values. The shaded region represents the censored observations with log-density values below $y_{\text {low }}$, where the density is near-zero.
 
-2024). Let $f_{\max } \equiv \max _{\mathbf{x}} \log p(\mathbf{x})$ denote the maximum log-density value (i.e., at the distribution mode). The Tobit likelihood takes the form:
+near-zero density observations at the expense of accurately modeling the more important high-density regions.
+
+To address this issue, we propose a more robust Tobit likelihood for flow regression, inspired by the Tobit model (Amemiya, 1984) and the noise shaping technique (Li et al., 2024). Let $f_{\max } \equiv \max _{\mathbf{x}} \log p(\mathbf{x})$ denote the maximum log-density value (i.e., at the distribution mode). The Tobit likelihood takes the form:
 
 $$
 p\left(y_{n} \mid f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}\right)= \begin{cases}\mathcal{N}\left(y_{n} ; f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right), \sigma_{n}^{2}+s\left(f_{\max }-f_{n}\right)^{2}\right) & \text { if } y_{n}>y_{\text {low }} \\ \Phi\left(\frac{y_{\text {low }}-f_{\boldsymbol{\psi}}\left(\mathbf{x}_{n}\right)}{\sqrt{\sigma_{n}^{2}+s\left(f_{\max }-f_{n}\right)^{2}}}\right) & \text { if } y_{n} \leq y_{\text {low }}\end{cases}
@@ -153,33 +147,33 @@ where $y_{\text {low }}$ represents a threshold below which we censor observed l
 
 # 3.3. Prior settings
 
-The flow regression model's log-density prediction depends on both the flow parameters $\phi$ and the log normalizing constant $C$ (Eq. 5), leading to a non-identifiability issue. Given a sufficiently expressive flow, alternative parameterizations $\left(\phi^{\prime}, C^{\prime}\right)$ can yield identical predictions at observed points. While this suggests the necessity of informative priors for both the flow and the normalizing constant, setting a meaningful prior on $C$ is challenging since the target density evaluations are neither i.i.d. nor samples from the target distribution. Therefore, we focus on imposing sensible priors on the flow parameters $\boldsymbol{\phi}$, which indirectly regularize the normalization constant and avoid the pitfalls of complete non-identifiability.
+The flow regression model's log-density prediction depends on both the flow parameters $\boldsymbol{\phi}$ and the log normalizing constant $C$ (Eq. 5), leading to a non-identifiability issue. Given a sufficiently expressive flow, alternative parameterizations $\left(\boldsymbol{\phi}^{\prime}, C^{\prime}\right)$ can yield identical predictions at observed points. While this suggests the necessity of informative priors for both the flow and the normalizing constant, setting a meaningful prior on $C$ is challenging since the target density evaluations are neither i.i.d. nor samples from the target distribution. Therefore, we focus on imposing sensible priors on the flow parameters $\boldsymbol{\phi}$, which indirectly regularize the normalization constant and avoid the pitfalls of complete non-identifiability.
 
-A normalizing flow consists of a base distribution and transformation layers. The base distribution can incorporate prior knowledge about the target posterior's shape, for instance from a moment-matching approximation. In our case, the training data $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ comes from MAP optimization runs on the target posterior. We use a multivariate Gaussian with diagonal covariance as the base distribution $p_{0}$, and estimate its mean and variance
+A normalizing flow consists of a base distribution and transformation layers. The base distribution can incorporate prior knowledge about the target posterior's shape, for instance
 
 ---
 
 #### Page 6
 
-along each dimension using the sample mean and variance of observations with sufficiently high log-density values (see Appendix A. 1 for further details).
+from a moment-matching approximation. In our case, the training data $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ comes from MAP optimization runs on the target posterior. We use a multivariate Gaussian with diagonal covariance as the base distribution $p_{0}$, and estimate its mean and variance along each dimension using the sample mean and variance of observations with sufficiently high log-density values (see Appendix A. 1 for further details).
 
-Specifying priors for the flow transformation layers is less straightforward since they are parameterized by neural networks (Fortuin, 2022). As a normalizing flow is itself a distribution, setting priors for its transformation layers means defining a distribution over distributions. Our approach is to ensure that the flow stays close to its base distribution a priori, unless the data strongly suggests otherwise. We achieve this by constraining the scaling and shifting transformations using the bounded tanh function:
+Specifying priors for the flow transformation layers is less straightforward since they are parameterized by neural networks (Fortuin, 2022). As a normalizing flow is itself a distribution, setting priors for its transformation layers means defining a distribution over distributions. Our approach is to ensure that the flow stays close to its base distribution a priori, unless the data strongly suggests otherwise. We achieve this by constraining the scaling and shifting transformations using the bounded $\tanh$ function:
 
 $$
 \begin{aligned}
-g_{\text {scale }}\left(\alpha^{(i)}\right) & =\alpha_{\max }^{\tanh \left(\alpha^{(i)}\right)} \\
-g_{\text {shift }}\left(\mu^{(i)}\right) & =\mu_{\max } \cdot \tanh \left(\mu^{(i)}\right)
+& g_{\text {scale }}\left(\alpha^{(i)}\right)=\alpha_{\max }^{\tanh \left(\alpha^{(i)}\right)} \\
+& g_{\text {shift }}\left(\mu^{(i)}\right)=\mu_{\max } \cdot \tanh \left(\mu^{(i)}\right)
 \end{aligned}
 $$
 
-where $\alpha_{\max }$ and $\mu_{\max }$ cap the maximum scaling and shifting transformation, preventing extreme deviations from the base distribution. When the flow parameters $\phi=\mathbf{0}$, both $\alpha^{(i)}$ and $\mu^{(i)}$ are zero (Eq. 3), making $g_{\text {scale }}\left(\alpha^{(i)}\right)=1$ and $g_{\text {shift }}\left(\mu^{(i)}\right)=0$, thus yielding the identity transformation. We then place a Gaussian prior on the flow parameters, $p(\phi)=\mathcal{N}\left(\phi ; \mathbf{0}, \sigma_{\phi}^{2} \mathbf{I}\right)$, with $\sigma_{\phi}$ chosen through prior predictive checks (see Section 4.1). $p(\phi)$, combined with our base distribution being moment-matched to the top observations, serves as a meaningful empirical prior that centers the flow in high-density regions of the target. Finally, we place an (improper) flat prior on the log normalization constant, $p(C)=1$.
+where $\alpha_{\max }$ and $\mu_{\max }$ cap the maximum scaling and shifting transformation, preventing extreme deviations from the base distribution. When the flow parameters $\phi=\mathbf{0}$, both $\alpha^{(i)}$ and $\mu^{(i)}$ are zero (Eq. 3), making $g_{\text {scale }}\left(\alpha^{(i)}\right)=1$ and $g_{\text {shift }}\left(\mu^{(i)}\right)=0$, thus yielding the identity transformation. We then place a Gaussian prior on the flow parameters, $p(\boldsymbol{\phi})=\mathcal{N}\left(\boldsymbol{\phi} ; \mathbf{0}, \sigma_{\boldsymbol{\phi}}^{2} \mathbf{I}\right)$, with $\sigma_{\boldsymbol{\phi}}$ chosen through prior predictive checks (see Section 4.1). $p(\boldsymbol{\phi})$, combined with our base distribution being moment-matched to the top observations, serves as a meaningful empirical prior that centers the flow in high-density regions of the target. Finally, we place an (improper) flat prior on the log normalization constant, $p(C)=1$.
 
 # 3.4. Annealed optimization
 
-Fitting a flow to a complex unnormalized target density $p_{\text {target }}(\mathbf{x})$ via direct regression on observations $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ can be challenging due to both the unknown log normalizing constant and potential gradient instabilities during optimization. We found that a more robust approach is to gradually fit the flow to an annealed (tempered) target across training iterations $t=0, \ldots, T_{\max }$, using an inverse temperature parameter $\beta_{t} \in[0,1]$. The tempered target takes the form (see Figure 2 for an illustration):
+Fitting a flow to a complex unnormalized target density $p_{\text {target }}(\mathbf{x})$ via direct regression on observations $\boldsymbol{\Xi}=\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ can be challenging due to both the unknown log normalizing constant and potential gradient instabilities during optimization. We found that a more robust approach is to gradually fit the flow to an annealed (tempered) target across training iterations $t=0, \ldots, T_{\max }$, using an inverse temperature parameter $\beta_{t} \in[0,1]$. The tempered target takes the following form (see Figure 2 for an illustration):
 
 $$
-\widetilde{f}_{\beta_{t}}(\mathbf{x})=\left(1-\beta_{t}\right) \log p_{0}(\mathbf{x})+\beta_{t} \log p_{\text {target }}(\mathbf{x})
+\widehat{f}_{\beta_{t}}(\mathbf{x})=\left(1-\beta_{t}\right) \log p_{0}(\mathbf{x})+\beta_{t} \log p_{\text {target }}(\mathbf{x})
 $$
 
 where $p_{0}(\mathbf{x})$ is the flow's base distribution. This formulation has two key advantages: first, since the base distribution is normalized, we know the true log normalizing constant $C$ is zero when $\beta_{t}=0$. Second, by initializing the flow parameters near zero, the flow starts close to its base distribution $p_{0}$, providing a stable initialization point.
@@ -194,64 +188,46 @@ $$
 \end{aligned}
 $$
 
-where $p_{0}(\mathbf{X})=\left(p_{0}\left(\mathbf{x}_{1}\right), \ldots, p_{0}\left(\mathbf{x}_{N}\right)\right)$ denotes the base distribution evaluated at all observed points. We increase the inverse temperature $\beta_{t}$ according to a tempering schedule increasing from $\beta_{0}=0$ to $\beta_{t_{\text {end }}}=1$, where $t_{\text {end }} \leq T_{\max }$ marks the end of tempering. After reaching $\beta=1$, we can perform additional optimization iterations if needed. By default, we use a linear tempering schedule: $\beta_{t}=\beta_{0}+\frac{t}{t_{\text {end }}}\left(1-\beta_{0}\right)$.
+where $p_{0}(\mathbf{X})=\left(p_{0}\left(\mathbf{x}_{1}\right), \ldots, p_{0}\left(\mathbf{x}_{N}\right)\right)$ denotes the base distribution evaluated at all observed points. We increase the inverse temperature $\beta_{t}$ according to a tempering schedule increasing
 
 ---
 
 #### Page 7
 
-> **Image description.** The image consists of three plots arranged horizontally, each depicting probability density functions with different inverse temperature values (β). Each plot is enclosed in a square frame with a hand-drawn aesthetic.
+> **Image description.** The image shows three separate plots arranged horizontally, each representing a stage in an annealed optimization strategy. The plots share a similar structure, depicting probability density functions. The plots are contained within a box with a hand-drawn style.
 >
-> - **General Layout:** Each plot has an x-axis labeled "x" and a y-axis labeled "Density". The y-axis ranges from 0.0 to 0.4. Each plot displays three curves and several data points.
+> - **Overall Structure:** Each plot has an x-axis labeled "x" and a y-axis labeled "Density." The y-axis ranges from 0.0 to 0.4. Each plot contains three curves representing different distributions: a "Base distribution" (orange), a "Tempered distribution" (green in the middle plot, blue in the right plot), and a "Target distribution" (dashed light orange). Additionally, each plot includes several gray dots labeled "Observations."
 >
-> - **Plot 1 (β = 0):**
+> - **Plot 1 (β=0):** The title above the plot is "β=0". The orange "Base distribution" curve is prominent, showing a bell-shaped curve centered around x=0. The light orange dashed "Target distribution" is flatter. The gray "Observations" dots are positioned along the "Base distribution" curve.
 >
->   - The title above the plot is "β = 0".
->   - An orange curve represents the "Base distribution". It is a bell-shaped curve centered around x=0.
->   - A light blue dashed curve representing the "Target distribution" is visible but much flatter than the base distribution.
->   - Several gray data points ("Observations") are plotted along the orange "Base distribution" curve.
+> - **Plot 2 (β=0.5):** The title above the plot is "β=0.5". The green "Tempered distribution" curve is now more pronounced and closer to the shape of the "Target distribution". The "Observations" dots are positioned along the "Tempered distribution" curve.
 >
-> - **Plot 2 (β = 0.5):**
+> - **Plot 3 (β=1):** The title above the plot is "β=1". The blue "Target distribution" curve is now the most prominent and closely matches the shape of the "Target distribution" (dashed light orange). The "Observations" dots are positioned along the "Target distribution" curve.
 >
->   - The title above the plot is "β = 0.5".
->   - A green curve represents the "Tempered distribution". It is a flatter bell-shaped curve compared to the orange curve in the first plot.
->   - A light blue dashed curve representing the "Target distribution" is visible but much flatter than the tempered distribution.
->   - Several gray data points ("Observations") are plotted along the green "Tempered distribution" curve.
->
-> - **Plot 3 (β = 1):**
->
->   - The title above the plot is "β = 1".
->   - A blue curve represents the "Target distribution". It is a relatively flat curve with a slight bump around x=0.
->   - A light orange dashed curve representing the "Base distribution" is visible but much taller and narrower than the target distribution.
->   - Several gray data points ("Observations") are plotted along the blue "Target distribution" curve.
->
-> - **Legend:** Below the plots, a legend explains the different elements:
->   - Orange line: "Base distribution"
->   - Green line: "Tempered distribution"
->   - Blue line: "Target distribution"
->   - Gray dots: "Observations"
->
-> The image illustrates how the distribution changes as the inverse temperature (β) increases from 0 to 1, transitioning from the "Base distribution" to the "Target distribution". The "Observations" appear to be progressively fitted by the distributions as β increases.
+> - **Legend:** A legend is located below the plots, associating the colors with the distribution types and observations: orange for "Base distribution," green for "Tempered distribution," blue for "Target distribution," and gray dots for "Observations."
 
 Figure 2: Annealed optimization strategy. The flow regression model is progressively fitted to a series of tempered observations, with the inverse temperature $\beta$ increasing over multiple training iterations, interpolating between the base and unnormalized target distributions.
 
+from $\beta_{0}=0$ to $\beta_{t_{\text {end }}}=1$, where $t_{\text {end }} \leq T_{\text {max }}$ marks the end of tempering. After reaching $\beta=1$, we can perform additional optimization iterations if needed. By default, we use a linear tempering schedule: $\beta_{t}=\beta_{0}+\frac{t}{t_{\text {end }}}\left(1-\beta_{0}\right)$.
+
 # 3.5. Normalizing flow regression algorithm
 
-Having introduced the flow regression model and tempering approach, we now present the complete method in Algorithm 1, which returns the flow parameters $\boldsymbol{\phi}$ and the log normalizing constant $C$. We follow a two-step approach: first, we fix the flow parameters $\phi$ and optimize the scalar parameter $C$ using e.g., Brent's method (Brent, 1973), which is computationally efficient as it requires only a single evaluation of the flow. Then, using this result as initialization, we jointly optimize both $\boldsymbol{\phi}$ and $C$ with L-BFGS (Liu and Nocedal, 1989). Further details, including optimization termination criteria, are provided in Appendix A.1.
+Having introduced the flow regression model and tempering approach, we now present the complete method in Algorithm 1, which returns the flow parameters $\boldsymbol{\phi}$ and the log normalizing constant $C$. We follow a two-step approach: first, we fix the flow parameters $\boldsymbol{\phi}$ and optimize the scalar parameter $C$ using, e.g., Brent's method (Brent, 1973), which is efficient as it requires only a single evaluation of the flow. Then, using this result as initialization, we jointly optimize both $\boldsymbol{\phi}$ and $C$ with L-BFGS (Liu and Nocedal, 1989). Further details, including optimization termination criteria, are provided in Appendix A.1.
 
 ```
 Algorithm 1: Normalizing Flow Regression
-Input: Observations \(\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)\), total number of tempered steps \(t*{\text {end }}\), maximum
-number of optimization iterations \(T*{\max }
-Output: Flow \(T*{\phi}\) approximating the target, log normalizing constant \(C\)
-Compute and set the base distribution for the flow, using \(\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)\) (Section 3.3);
-for \(t \leftarrow 0\) to \(T*{\max }\) do
-Set inverse temperature \(\beta*{t} \in[0,1]\) according to tempering schedule \(\left(\beta*{0}=0\right)\);
-Update tempered observations \(\left(\widetilde{\mathbf{X}}_{\beta_{t}}, \widetilde{\mathbf{y}}_{\beta_{t}}, \widetilde{\boldsymbol{\sigma}}_{\beta_{t}}^{2}\right)\) according to Eq. 11 ;
-Fix \(\boldsymbol{\phi}\) and optimize \(C\) using fast \(1 D\) optimization with objective in Eq. 6 ;
-Optimize \((\boldsymbol{\phi}, C)\) jointly using L-BFGS with objective in Eq. 6 ;
-end
+Input: Observations \(\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)\), total number of tempered steps \(t_{\text {end }}\), maximum
+    number of optimization iterations \(T_{\max }
 ```
+
+Output: Flow $T_{\phi}$ approximating the target, log normalizing constant $C$
+Compute and set the base distribution for the flow, using $\left(\mathbf{X}, \mathbf{y}, \boldsymbol{\sigma}^{2}\right)$ (Section 3.3);
+for $t \leftarrow 0$ to $T_{\max }$ do
+Set inverse temperature $\beta_{t} \in[0,1]$ according to tempering schedule $\left(\beta_{0}=0\right)$;
+Update tempered observations $\left(\widetilde{\mathbf{X}}_{\beta_{t}}, \widetilde{\mathbf{y}}_{\beta_{t}}, \widetilde{\boldsymbol{\sigma}}_{\beta_{t}}^{2}\right)$ according to Eq. 11 ;
+Fix $\boldsymbol{\phi}$ and optimize $C$ using fast $1 D$ optimization with objective in Eq. 6 ;
+Optimize $(\boldsymbol{\phi}, C)$ jointly using L-BFGS with objective in Eq. 6 ;
+end
 
 ---
 
@@ -259,23 +235,26 @@ end
 
 # 4. Experiments
 
-We evaluate our normalizing flow regression (NFR) method through a series of experiments. First, we conduct prior predictive checks to select our flow's prior settings (see Section 3.3). We then assess NFR's performance on both synthetic and real-world problems. For all the experiments, we use a masked autoregressive flow architecture and adopt the same fixed hyperparameters for the NFR algorithm (see Appendix A. 1 for details).
+We evaluate our normalizing flow regression (NFR) method through a series of experiments. First, we conduct prior predictive checks to select our flow's prior settings (see Section 3.3). We then assess NFR's performance on both synthetic and real-world problems. For all the experiments, we use a masked autoregressive flow architecture and adopt the same fixed hyperparameters for the NFR algorithm (see Appendix A. 1 for details). ${ }^{4}$
 
 ### 4.1. Prior predictive checks
 
-As introduced in Section 3.3, we place a Gaussian prior $\mathcal{N}\left(\boldsymbol{\phi} ; \mathbf{0}, \sigma_{\phi}^{2} \mathbf{I}\right)$ on the flow parameters $\phi$. Since a normalizing flow represents a probability distribution, drawing parameters from this prior generates different realizations of possible distributions. We calibrate the prior variance $\sigma_{\phi}$ by visually inspecting these realizations, choosing a value that affords sufficient flexibility for the distributions to vary from the base distribution while maintaining reasonably smooth shapes. ${ }^{4}$ Figure 3 shows density contours and samples from flow realizations under three different prior settings: $\sigma_{\phi} \in\{0.02,0.2,2\}$. Based on this analysis, we set the prior standard deviation $\sigma_{\phi}=0.2$ for all subsequent experiments in the paper.
+As introduced in Section 3.3, we place a Gaussian prior $\mathcal{N}\left(\boldsymbol{\phi} ; \mathbf{0}, \sigma_{\phi}^{2} \mathbf{I}\right)$ on the flow parameters $\phi$. Since a normalizing flow represents a probability distribution, drawing parameters from this prior generates different realizations of possible distributions. We calibrate the prior variance $\sigma_{\phi}$ by visually inspecting these realizations, choosing a value that affords sufficient flexibility for the distributions to vary from the base distribution while maintaining reasonably smooth shapes. ${ }^{5}$ Figure 3 shows density contours and samples from flow realizations under three different prior settings: $\sigma_{\phi} \in\{0.02,0.2,2\}$. Based on this analysis, we set the prior standard deviation $\sigma_{\phi}=0.2$ for all subsequent experiments in the paper.
 
-> **Image description.** This image consists of three scatter plots arranged horizontally, each displaying density contours and sample points from flow realizations under different prior settings.
+> **Image description.** This image contains three scatter plots arranged horizontally, each displaying density contours.
 >
-> - **General Layout:** The plots are arranged side-by-side. Each plot has a title indicating the prior distribution used, and a label at the bottom (a, b, or c). Each plot has x and y axes.
+> Each plot has the same basic structure:
 >
-> - **Plot (a):** The title reads "$\phi \sim \mathcal{N}(0, 0.02^2)$". The x-axis ranges from approximately -2.5 to 2.5, and the y-axis ranges from -4 to 4. The plot shows a dense cluster of gray points concentrated around the origin (0,0). Three contour lines are visible, colored green, light blue, and dark blue, respectively. The contours are roughly circular and centered around the origin. The innermost region is shaded in a dark gray.
+> - **Axes:** Each plot has x and y axes. The x-axis ranges vary between plots. The y-axis ranges are similar in the first and third plots, from approximately -4 to 4, while the second plot ranges from -5 to 2.5.
+> - **Data points:** The plots contain a scattering of gray data points, with the density of points varying across the plots.
+> - **Contours:** Overlaid on the data points are density contours, represented by nested lines of different colors (green, light blue, and dark blue). The contours visually represent areas of higher data point density.
+> - **Titles:** Above each plot is a title indicating the distribution from which the data is drawn. The titles are of the form "$\phi \sim \mathcal{N}(0, \sigma^2)$", where $\sigma^2$ varies between plots.
+>   - Plot (a) has title "$\phi \sim \mathcal{N}(0, 0.02^2)$".
+>   - Plot (b) has title "$\phi \sim \mathcal{N}(0, 0.2^2)$".
+>   - Plot (c) has title "$\phi \sim \mathcal{N}(0, 2^2)$".
+> - **Plot labels:** Below each plot is a label in parentheses: (a), (b), and (c), respectively.
 >
-> - **Plot (b):** The title reads "$\phi \sim \mathcal{N}(0, 0.2^2)$". The x-axis ranges from approximately -1 to 6, and the y-axis ranges from -5 to 2.5. The plot shows a cluster of gray points that is elongated and tilted towards the upper right. Three contour lines are visible, colored green, light blue, and dark blue, respectively. The contours are elliptical. The innermost region is shaded in a dark gray.
->
-> - **Plot (c):** The title reads "$\phi \sim \mathcal{N}(0, 2^2)$". The x-axis ranges from approximately -20 to 5, and the y-axis ranges from -4 to 4. The plot shows a more dispersed cluster of gray points with a less defined shape. The distribution appears bimodal or multi-modal. Three contour lines are visible, colored green, light blue, and dark blue, respectively. The contours are irregularly shaped. The innermost region is shaded in a dark gray.
->
-> - **Text Labels:** The plots are labeled (a), (b), and (c) below each plot, respectively.
+> The key difference between the plots is the spread and shape of the data points and contours, which is influenced by the variance in the Gaussian distribution specified in the title. Plot (a) shows a tight, circular distribution. Plot (b) shows a slightly more elongated and spread-out distribution. Plot (c) shows a more complex, multi-modal distribution with two distinct clusters.
 
 Figure 3: Effect of prior variance on normalizing flow behavior, using a standard Gaussian as the base distribution. The panels show flow realizations with different prior standard deviations $\sigma_{\phi}$ : (a) The flow closely resembles the base distribution. (b) The flow exhibits controlled flexibility, allowing meaningful deviations while maintaining reasonable shapes. (c) The flow deviates significantly, producing complex and less plausible distributions.
 
@@ -284,7 +263,7 @@ Figure 3: Effect of prior variance on normalizing flow behavior, using a standar
 We evaluate NFR on several synthetic and real-world problems, each defined by a blackbox log-likelihood function and a log-prior function, or equivalently the target log-density function. The black-box nature of the likelihood means its gradients are unavailable, and we allow evaluations to be moderately expensive and potentially noisy. We are interested
 
 [^0]
-[^0]: 4. This approach is a form of expert prior elicitation (Mikkola et al., 2024) about the expected shape of posterior distributions, leveraging our experience in statistical modeling.
+[^0]: 4. The code implementation of NFR is available at github.com/acerbilab/normalizing-flow-regression. 5. This approach is a form of expert prior elicitation (Mikkola et al., 2024) about the expected shape of posterior distributions, leveraging our experience in statistical modeling.
 
 ---
 
@@ -306,7 +285,7 @@ Metrics. We assess algorithm performance by comparing the returned solutions aga
 
 #### Page 10
 
-# 4.2.1. SyntheTIC PROBLEMS
+# 4.2.1. SYNTHETIC PROBLEMS
 
 Multivariate Rosenbrock-Gaussian $(D=6)$. We first test NFR on a six-dimensional synthetic target density with known complex geometry (Li et al., 2024). The target density takes the form:
 
@@ -318,7 +297,16 @@ which combines two exponentiated Rosenbrock ('banana') functions $\mathcal{R}(x,
 
 From Figure 4 and Table 1, we see that both NFR and VSBQ perform well, with all metrics below the desired thresholds. Still, NFR consistently outperforms VSBQ across all metrics, achieving excellent approximation quality on this complex target. In contrast, BBVI suffers from slow convergence and potential local minima, with several metrics exceeding the thresholds even with a $10 \times$ budget. Unsurprisingly, the Laplace approximation fails to capture the target's highly non-Gaussian structure.
 
-> **Image description.** The image consists of four scatter plots, each representing a different method for approximating a target density. The plots are arranged horizontally. Each plot shows the marginal density for variables x3 and x4. Ground truth samples are represented by gray points. Overlaid on these points are contour lines, colored in blue, green, and yellow, representing the estimated density. The plots are titled as follows: "Laplace", "BBVI (10x)", "VSBQ", and "NFR". The x-axis of each plot is labeled "x3", and the y-axis is labeled "x4" on the leftmost plot. The "Laplace" plot shows an elliptical contour that does not align well with the ground truth samples. The other three plots show contours that more closely follow the shape of the ground truth samples, with "NFR" appearing to have the closest fit.
+> **Image description.** The image consists of four scatter plots arranged horizontally, each representing a different method: Laplace, BBVI (10x), VSBQ, and NFR. All plots share the same axes, labeled x3 on the horizontal axis and x4 on the vertical axis.
+>
+> Each plot displays a distribution of gray dots, representing samples. Overlaid on these dots are contour lines, colored in shades of green and blue, indicating density levels.
+>
+> - **Laplace:** The scatter plot shows a U-shaped distribution of gray dots. The contour lines are elongated and tilted diagonally across the plot, not aligned with the main distribution of the dots.
+> - **BBVI (10x):** The scatter plot shows a U-shaped distribution. The contour lines are more concentrated at the bottom of the U-shape, better aligned with the densest region of the dots.
+> - **VSBQ:** The scatter plot shows a U-shaped distribution. The contour lines are tightly packed at the bottom of the U-shape, closely following the shape of the dot distribution.
+> - **NFR:** The scatter plot shows a U-shaped distribution. The contour lines are also tightly packed at the bottom of the U-shape, similar to VSBQ, indicating a good fit to the data.
+>
+> The grid lines are visible in the background of each plot.
 
 Figure 4: Multivariate Rosenbrock-Gaussian $(D=6)$. Example contours of the marginal density for $x_{3}$ and $x_{4}$, for different methods. Ground-truth samples are in gray.
 
@@ -349,11 +337,11 @@ As shown in Table 2, NFR and VSBQ accurately approximate this posterior, while B
 Table 2: Bayesian timing model $(D=5)$.
 
 |                    | $\Delta \mathbf{L M L}(\downarrow)$ |        MMTV $(\downarrow)$        |          GsKL $(\downarrow)$          |
-| :----------------: | :---------------------------------: | :-------------------------------: | :-----------------------------------: |
+| :----------------- | :---------------------------------: | :-------------------------------: | :-----------------------------------: |
 | BBVI $(1 \times)$  |           $1.6[1.1,2.5]$            |         $0.29[0.27,0.34]$         |           $0.77[0.67,1.0]$            |
-| BBVI $(10 \times)$ |   $\mathbf{0 . 3 2}[0.036,0.66]$    |         0.11 [0.088,0.15]         |           0.13 [0.052,0.23]           |
-|        VSBQ        |    $\mathbf{0 . 2 1}[0.18,0.22]$    | $\mathbf{0 . 0 4 4}[0.039,0.049]$ | $\mathbf{0 . 0 0 6 5}[0.0059,0.0084]$ |
-|        NFR         |    $\mathbf{0 . 1 8}[0.17,0.24]$    | $\mathbf{0 . 0 4 9}[0.041,0.052]$ | $\mathbf{0 . 0 0 8 6}[0.0053,0.011]$  |
+| BBVI $(10 \times)$ |   $\mathbf{0 . 3 2}[0.036,0.66]$    |        $0.11[0.088,0.15]$         |          $0.13[0.052,0.23]$           |
+| VSBQ               |    $\mathbf{0 . 2 1}[0.18,0.22]$    | $\mathbf{0 . 0 4 4}[0.039,0.049]$ | $\mathbf{0 . 0 0 6 5}[0.0059,0.0084]$ |
+| NFR                |    $\mathbf{0 . 1 8}[0.17,0.24]$    | $\mathbf{0 . 0 4 9}[0.041,0.052]$ | $\mathbf{0 . 0 0 8 6}[0.0053,0.011]$  |
 
 Lotka-Volterra model $(D=8)$. Our second real-world test examines parameter inference for the Lotka-Volterra predatory-prey model (Carpenter, 2018), a classic system of coupled differential equations that describe population dynamics. Using data from Howard (2009), we infer eight parameters governing the interaction rates, initial population sizes, and observation noise levels.
 
@@ -369,20 +357,20 @@ The high dimensionality and complex likelihood of this model make it particularl
 
 Table 3: Lotka-Volterra model $(D=8)$.
 
-|                    | $\Delta \mathbf{L M L}(\downarrow)$ |        MMTV $(\downarrow)$        |            GsKL $(\downarrow)$            |
-| :----------------- | :---------------------------------: | :-------------------------------: | :---------------------------------------: |
-| Laplace            |                0.62                 |               0.11                |                   0.14                    |
-| BBVI $(1 \times)$  |          $0.47[0.42,0.59]$          |       $0.055[0.048,0.063]$        |           $0.029[0.025,0.034]$            |
-| BBVI $(10 \times)$ |          $0.24[0.23,0.36]$          |       $0.029[0.025,0.039]$        |          $0.0087[0.0052,0.014]$           |
-| VSBQ               |          $0.95[0.93,0.97]$          |       $0.085[0.084,0.089]$        |           $0.060[0.059,0.062]$            |
-| NFR                |    $\mathbf{0 . 1 8}[0.17,0.18]$    | $\mathbf{0 . 0 1 6}[0.015,0.017]$ | $\mathbf{0 . 0 0 0 6 6}[0.00056,0.00083]$ |
+|                    |  $\Delta$ LML $(\downarrow)$  |        MMTV $(\downarrow)$        |            GsKL $(\downarrow)$            |
+| :----------------- | :---------------------------: | :-------------------------------: | :---------------------------------------: |
+| Laplace            |             0.62              |               0.11                |                   0.14                    |
+| BBVI $(1 \times)$  |       $0.47[0.42,0.59]$       |       $0.055[0.048,0.063]$        |           $0.029[0.025,0.034]$            |
+| BBVI $(10 \times)$ |       $0.24[0.23,0.36]$       |       $0.029[0.025,0.039]$        |          $0.0087[0.0052,0.014]$           |
+| VSBQ               |       $0.95[0.93,0.97]$       |       $0.085[0.084,0.089]$        |           $0.060[0.059,0.062]$            |
+| NFR                | $\mathbf{0 . 1 8}[0.17,0.18]$ | $\mathbf{0 . 0 1 6}[0.015,0.017]$ | $\mathbf{0 . 0 0 0 6 6}[0.00056,0.00083]$ |
 
-approximation is inapplicable. The likelihood's computational cost makes BBVI ( $1 \times$ ), let alone $10 \times$, impractical to benchmark and to use in practice. ${ }^{5}$ Thus, we focus on comparing NFR and VSBQ (Table 4). NFR performs remarkably well on this challenging posterior, with metrics near or just above our desired thresholds, while VSBQ fails to produce a usable approximation.
+approximation is inapplicable. The likelihood's computational cost makes BBVI $(1 \times)$, let alone $10 \times$, impractical to benchmark and to use in practice. ${ }^{6}$ Thus, we focus on comparing NFR and VSBQ (Table 4). NFR performs remarkably well on this challenging posterior, with metrics near or just above our desired thresholds, while VSBQ fails to produce a usable approximation.
 
 Table 4: Multisensory $(D=12)$.
 
-|      |          $\Delta \mathbf{L M L}(\downarrow)$          |      MMTV $(\downarrow)$      |                  GsKL $(\downarrow)$                  |
-| :--: | :---------------------------------------------------: | :---------------------------: | :---------------------------------------------------: |
+|      |              $\Delta$ LML $(\downarrow)$              |      MMTV $(\downarrow)$      |                  GsKL $(\downarrow)$                  |
+| :--- | :---------------------------------------------------: | :---------------------------: | :---------------------------------------------------: |
 | VSBQ | $4.1 \mathrm{e}+2[3.0 \mathrm{e}+2,5.4 \mathrm{e}+2]$ |       $0.87[0.82,0.93]$       | $2.0 \mathrm{e}+2[1.1 \mathrm{e}+2,4.1 \mathrm{e}+4]$ |
 | NFR  |             $\mathbf{0 . 8 2}[0.75,0.90]$             | $\mathbf{0 . 1 3}[0.12,0.14]$ |            $\mathbf{0 . 1 1}[0.091,0.16]$             |
 
@@ -392,4 +380,5 @@ In this paper, we introduced normalizing flow regression as a novel method for p
 
 In this work, we focused on using log-density evaluations from MAP optimization due to its widespread practice, but our framework can be extended to incorporate other likelihood evaluation sources. For example, it could include evaluations of pre-selected plausible parameter values, as seen in cosmology (Rizzato and Sellentin, 2023), or actively and sequentially acquire new evaluations based on the current posterior estimate (Acerbi, 2018; Greenberg et al., 2019). We leave these topics as future work.
 
-5. From partial runs, we estimated $>100$ hours per run for BBVI ( $1 \times$ ) on our computing setup.
+[^0]
+[^0]: 6. From partial runs, we estimated $>100$ hours per run for BBVI $(1 \times)$ on our computing setup.
