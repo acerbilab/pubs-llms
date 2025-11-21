@@ -49,6 +49,10 @@ For non-critical applications, we consider that the benefit of having LLM-friend
 
 ### 2025
 
+- **ALINE: Joint Amortization for Bayesian Inference and Active Data Acquisition**<br>
+  Huang D, Wen X, Bharti A, Kaski S & Acerbi L<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2025aline_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2025aline_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2025aline_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2025aline_full.md)
+
 - **Amortized Probabilistic Conditioning for Optimization, Simulation and Inference**<br>
   Chang PE, Loka N, Huang D, Remes U, Kaski S & Acerbi L<br>
   `AISTATS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025amortized_full.md)
@@ -57,27 +61,27 @@ For non-critical applications, we consider that the benefit of having LLM-friend
   Li C, Huggins B, Mikkola P & Acerbi L<br>
   `AABI` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2025normalizing_full.md)
 
-- **Stacking Variational Bayesian Monte Carlo**<br>
-  Silvestrin F, Li C & Acerbi L<br>
-  `AABI Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_full.md)
-
 - **Inference-Time Prior Adaptation in Simulation-Based Inference via Guided Diffusion Models**<br>
   Chang PE, Rissanen S, Loka NRBS, Huang D & Acerbi L<br>
   `AABI Workshop` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/chang2025inference_full.md)
 
+- **Stacking Variational Bayesian Monte Carlo**<br>
+  Silvestrin F, Li C & Acerbi L<br>
+  `Trans. Mach. Learn. Res.` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_full.md)
+
 ### 2024
 
-- **Improving robustness to corruptions with multiplicative weight perturbations**<br>
-  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
-  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_full.md)
+- **Preferential Normalizing Flows**<br>
+  Mikkola P, Acerbi L & Klami A<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_full.md)
 
 - **Amortized Bayesian Experimental Design for Decision-Making**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_full.md)
 
-- **Preferential Normalizing Flows**<br>
-  Mikkola P, Acerbi L & Klami A<br>
-  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_full.md)
+- **Improving robustness to corruptions with multiplicative weight perturbations**<br>
+  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_full.md)
 
 - **Amortized Bayesian Workflow (Extended Abstract)**<br>
   Schmitt M, Li C, Vehtari A, Acerbi L, Burkner P & Radev ST<br>
@@ -97,21 +101,21 @@ For non-critical applications, we consider that the benefit of having LLM-friend
 
 ### 2023
 
-- **Practical Equivariances via Relational Conditional Neural Processes**<br>
-  Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
-  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_full.md)
-
 - **Learning Robust Statistics for Simulation-based Inference under Model Misspecification**<br>
   Huang D, Bharti A, Souza A, Acerbi L & Kaski S<br>
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_full.md)
 
-- **Online Simulator-Based Experimental Design for Cognitive Model Selection**<br>
-  Aushev A, Putkonen A, Clarte G, Chandramouli SH, Acerbi L, Kaski S & Howes A<br>
-  `Comput Brain Behav` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_full.md)
+- **Practical Equivariances via Relational Conditional Neural Processes**<br>
+  Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_full.md)
 
 - **PyVBMC: Efficient Bayesian inference in Python**<br>
   Huggins B, Li C, Tobaben M, Aarnos MJ & Acerbi L<br>
   `JOSS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_backmatter.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_full.md)
+
+- **Online Simulator-Based Experimental Design for Cognitive Model Selection**<br>
+  Aushev A, Putkonen A, Clarte G, Chandramouli SH, Acerbi L, Kaski S & Howes A<br>
+  `Comput Brain Behav` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_full.md)
 
 ### 2022
 
