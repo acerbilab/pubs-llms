@@ -67,7 +67,7 @@ For non-critical applications, we consider that the benefit of having LLM-friend
 
 - **Stacking Variational Bayesian Monte Carlo**<br>
   Silvestrin F, Li C & Acerbi L<br>
-  `Trans. Mach. Learn. Res.` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_full.md)
+  `TMLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/silvestrin2025stacking_full.md)
 
 ### 2024
 
