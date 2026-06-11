@@ -65,11 +65,13 @@ VENUE_ABBREVIATIONS = {
     'PLoS Computat. Biol.': 'PLoS Comput Biol',
     'PLoS ONE': 'PLoS ONE',
     'Computational Brain & Behavior': 'Comput Brain Behav',
-    'Computational Brain \& Behavior': 'Comput Brain Behav',
+    'Computational Brain \\& Behavior': 'Comput Brain Behav',
     'Journal of Open Source Software': 'JOSS',
     'Journal of Vision': 'JOV',
     'Information Processing Letters': 'Inf Process Lett',
     'Theoretical Computer Science': 'Theor Comput Sci',
+    'Transactions on Machine Learning Research': 'TMLR',
+    'TMLR': 'TMLR',
 }
 
 def identify_workshop(venue):
@@ -153,6 +155,45 @@ def extract_bibtex(file_path):
         'file_path': file_path
     }
 
+LATEX_ACCENTS = {
+    '"': {'a': '\u00e4', 'e': '\u00eb', 'i': '\u00ef', 'o': '\u00f6', 'u': '\u00fc', 'y': '\u00ff',
+          'A': '\u00c4', 'E': '\u00cb', 'I': '\u00cf', 'O': '\u00d6', 'U': '\u00dc', 'Y': '\u0178'},
+    "'": {'a': '\u00e1', 'e': '\u00e9', 'i': '\u00ed', 'o': '\u00f3', 'u': '\u00fa', 'y': '\u00fd',
+          'A': '\u00c1', 'E': '\u00c9', 'I': '\u00cd', 'O': '\u00d3', 'U': '\u00da', 'Y': '\u00dd'},
+    '`': {'a': '\u00e0', 'e': '\u00e8', 'i': '\u00ec', 'o': '\u00f2', 'u': '\u00f9',
+          'A': '\u00c0', 'E': '\u00c8', 'I': '\u00cc', 'O': '\u00d2', 'U': '\u00d9'},
+    '^': {'a': '\u00e2', 'e': '\u00ea', 'i': '\u00ee', 'o': '\u00f4', 'u': '\u00fb',
+          'A': '\u00c2', 'E': '\u00ca', 'I': '\u00ce', 'O': '\u00d4', 'U': '\u00db'},
+    '~': {'a': '\u00e3', 'n': '\u00f1', 'o': '\u00f5', 'A': '\u00c3', 'N': '\u00d1', 'O': '\u00d5'},
+    'c': {'c': '\u00e7', 'C': '\u00c7'},
+}
+
+LATEX_SPECIAL_CHARS = {
+    r'\aa': '\u00e5',
+    r'\AA': '\u00c5',
+    r'\ae': '\u00e6',
+    r'\AE': '\u00c6',
+    r'\o': '\u00f8',
+    r'\O': '\u00d8',
+    r'\ss': '\u00df',
+}
+
+def normalize_latex_name(name):
+    """Convert common LaTeX accent macros before name parsing."""
+    def replace_accent(match):
+        accent, char = match.group(1), match.group(2)
+        return LATEX_ACCENTS.get(accent, {}).get(char, char)
+
+    for latex, unicode_char in LATEX_SPECIAL_CHARS.items():
+        name = name.replace('{' + latex + '}', unicode_char)
+        name = name.replace(latex, unicode_char)
+
+    accent_chars = r'["\'`^~c]'
+    name = re.sub(r'{\\(' + accent_chars + r')\s*([A-Za-z])}', replace_accent, name)
+    name = re.sub(r'\\(' + accent_chars + r')\s*{([A-Za-z])}', replace_accent, name)
+    name = re.sub(r'\\(' + accent_chars + r')\s*([A-Za-z])', replace_accent, name)
+    return name
+
 def format_author_list(authors):
     """Format the author list for display as 'Surname FI' with '& ' for last author."""
     import re
@@ -161,6 +202,8 @@ def format_author_list(authors):
     formatted_authors = []
     
     for author in author_list:
+        author = normalize_latex_name(author)
+
         # Find braced surnames like "{de Souza}"
         braced_match = re.search(r'{([^{}]+)}', author)
         
