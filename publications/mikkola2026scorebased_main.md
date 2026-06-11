@@ -1,11 +1,9 @@
 ```
-@misc{mikkola2025scorebased,
+@inproceedings{mikkola2026scorebased,
   title={Score-Based Density Estimation from Pairwise Comparisons},
   author={Petrus Mikkola and Luigi Acerbi and Arto Klami},
-  year={2025},
-  eprint={2510.09146},
-  archivePrefix={arXiv},
-  primaryClass={cs.LG},
+  booktitle={The Fourteenth International Conference on Learning Representations (ICLR)},
+  year={2026},
   url={https://arxiv.org/abs/2510.09146}
 }
 ```
