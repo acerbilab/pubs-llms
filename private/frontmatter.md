@@ -26,9 +26,14 @@ For practical usage, each paper is available in full as well as split into three
 
 ### Technical Details
 
-The paper-to-Markdown conversion process uses [inscriber](https://lacerbi.github.io/inscriber/), with [DeepSeek OCR](https://github.com/deepseek-ai/DeepSeek-OCR/) for text and figure/table extraction and [Gemma 4 E4B](https://ai.google.dev/gemma/docs/core/) for image-to-text descriptions and table reconstruction; followed by a final correctness check with Claude.
+The paper-to-Markdown conversion process uses [inscriber](https://github.com/lacerbi/inscriber), with [DeepSeek OCR](https://github.com/deepseek-ai/DeepSeek-OCR/) for text and figure/table extraction and [Gemma 4 E4B](https://ai.google.dev/gemma/docs/core/) for image-to-text descriptions and table reconstruction; followed by a final correctness check with Claude.
 
-Until 2025, the conversion process used [paper2llm](https://lacerbi.github.io/paper2llm/), with [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and table extraction and Gemini 2.x Flash for image description. This pathway has been discontinued, preferring a local pipeline (modulo the final correction pass).
+<details>
+<summary>Pre-2026 conversion pipeline.</summary>
+
+Before 2026, the conversion process used [paper2llm](https://lacerbi.github.io/paper2llm/), with [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and table extraction and Gemini 2.x Flash for image description. This pathway has been discontinued, preferring a local pipeline (modulo the final correction pass).
+
+</details>
 
 ### Disclaimer
 
