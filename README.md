@@ -26,9 +26,14 @@ For practical usage, each paper is available in full as well as split into three
 
 ### Technical Details
 
-The paper-to-Markdown conversion process uses [inscriber](https://lacerbi.github.io/inscriber/), with [DeepSeek OCR](https://github.com/deepseek-ai/DeepSeek-OCR/) for text and figure/table extraction and [Gemma 4 E4B](https://ai.google.dev/gemma/docs/core/) for image-to-text descriptions and table reconstruction; followed by a final correctness check with Claude.
+The paper-to-Markdown conversion process uses [inscriber](https://github.com/lacerbi/inscriber), with [DeepSeek OCR](https://github.com/deepseek-ai/DeepSeek-OCR/) for text and figure/table extraction and [Gemma 4 E4B](https://ai.google.dev/gemma/docs/core/) for image-to-text descriptions and table reconstruction; followed by a final correctness check with Claude.
 
-Until 2025, the conversion process used [paper2llm](https://lacerbi.github.io/paper2llm/), with [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and table extraction and Gemini 2.x Flash for image description. This pathway has been discontinued, preferring a local pipeline (modulo the final correction pass).
+<details>
+<summary>Pre-2026 conversion pipeline.</summary>
+
+Before 2026, the conversion process used [paper2llm](https://lacerbi.github.io/paper2llm/), with [Mistral OCR](https://mistral.ai/news/mistral-ocr) for text and table extraction and Gemini 2.x Flash for image description. This pathway has been discontinued, preferring a local pipeline (modulo the final correction pass).
+
+</details>
 
 ### Disclaimer
 
@@ -87,13 +92,13 @@ For non-critical applications, we consider that the benefit of having LLM-friend
   Mikkola P, Acerbi L & Klami A<br>
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/mikkola2024preferential_full.md)
 
-- **Improving robustness to corruptions with multiplicative weight perturbations**<br>
-  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
-  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_full.md)
-
 - **Amortized Bayesian Experimental Design for Decision-Making**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2024amortized_full.md)
+
+- **Improving robustness to corruptions with multiplicative weight perturbations**<br>
+  Trinh T, Heinonen M, Acerbi L & Kaski S<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/trinh2024improving_full.md)
 
 - **Amortized Decision-Aware Bayesian Experimental Design**<br>
   Huang D, Guo Y, Acerbi L & Kaski S<br>
@@ -113,21 +118,21 @@ For non-critical applications, we consider that the benefit of having LLM-friend
 
 ### 2023
 
-- **Practical Equivariances via Relational Conditional Neural Processes**<br>
-  Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
-  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_full.md)
-
 - **Learning Robust Statistics for Simulation-based Inference under Model Misspecification**<br>
   Huang D, Bharti A, Souza A, Acerbi L & Kaski S<br>
   `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023learning_full.md)
 
-- **Online Simulator-Based Experimental Design for Cognitive Model Selection**<br>
-  Aushev A, Putkonen A, Clarte G, Chandramouli SH, Acerbi L, Kaski S & Howes A<br>
-  `Comput Brain Behav` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_full.md)
+- **Practical Equivariances via Relational Conditional Neural Processes**<br>
+  Huang D, Hausmann M, Remes U, Clarté G, Luck KS, Kaski S & Acerbi L<br>
+  `NeurIPS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huang2023practical_full.md)
 
 - **PyVBMC: Efficient Bayesian inference in Python**<br>
   Huggins B, Li C, Tobaben M, Aarnos MJ & Acerbi L<br>
   `JOSS` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_backmatter.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/huggins2023pyvbmc_full.md)
+
+- **Online Simulator-Based Experimental Design for Cognitive Model Selection**<br>
+  Aushev A, Putkonen A, Clarte G, Chandramouli SH, Acerbi L, Kaski S & Howes A<br>
+  `Comput Brain Behav` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/aushev2023online_full.md)
 
 ### 2022
 
