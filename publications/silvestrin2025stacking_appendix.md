@@ -4,21 +4,21 @@
 
 #### Page 22
 
-# A Appendix 
+# A Appendix
 
 This appendix provides additional details and analyses to complement the main text, included in the following sections:
 
-- An overview of Variational Bayesian Monte Carlo, A. 1
-- A description of how S-VBMC handles VBMC's parameter transformations, A. 2
-- Additional experiments, A. 3
-- Full experimental results, A. 4
-- Example posterior visualisations, A. 5
+- An overview of Variational Bayesian Monte Carlo, A.1
+- A description of how S-VBMC handles VBMC's parameter transformations, A.2
+- Additional experiments, A.3
+- Full experimental results, A.4
+- Example posterior visualisations, A.5
 
-## A. 1 An overview of Variational Bayesian Monte Carlo
+## A.1 An overview of Variational Bayesian Monte Carlo
 
 In this appendix we briefly describe Variational Bayesian Monte Carlo (VBMC). This is a simple overview of the various components of the algorithm, and a full in-depth description of these is beyond the scope of this appendix. For further details, see Acerbi (2018; 2020).
 
-As mentioned in Section 2.3, VBMC addresses the problem of expensive likelihoods with black-box properties by using a surrogate for the log-joint (see Eq. 5). Like many other surrogate-based approaches (Garnett, 2023), VBMC uses a Gaussian process (GP) to approximate its expensive target (Rasmussen \& Williams, 2006). GPs are stochastic processes such that any finite collection $f\left(\mathbf{x}_{1}\right), \ldots, f\left(\mathbf{x}_{n}\right)$ follows a multivariate normal distribution. A GP is fully specified by a mean function
+As mentioned in Section 2.3, VBMC addresses the problem of expensive likelihoods with black-box properties by using a surrogate for the log-joint (see Eq. 5). Like many other surrogate-based approaches (Garnett, 2023), VBMC uses a Gaussian process (GP) to approximate its expensive target (Rasmussen & Williams, 2006). GPs are stochastic processes such that any finite collection $f\left(\mathbf{x}_{1}\right), \ldots, f\left(\mathbf{x}_{n}\right)$ follows a multivariate normal distribution. A GP is fully specified by a mean function
 
 $$
 m(\mathbf{x})=\mathbb{E}[f(\mathbf{x})]
@@ -30,20 +30,20 @@ $$
 \kappa\left(\mathbf{x}, \mathbf{x}^{\prime}\right)=\operatorname{cov}\left[f(\mathbf{x}), f\left(\mathbf{x}^{\prime}\right)\right]
 $$
 
-and an observation noise model or likelihood. In VBMC, as in most surrogate modelling approaches, the likelihood is assumed to be Gaussian, which affords closed-form GP posterior computations. Specifically, given a training set $(\mathbf{X}, \mathbf{y}, \mathbf{S})$ with $\mathbf{X}$ being the observed input locations, $\mathbf{y}$ the corresponding observed function values, and $\mathbf{S}$ a diagonal covariance matrix representing observation noise, the posterior mean and covariance functions for a test input location $\overline{\mathbf{x}}$ are, respectively,
+and an observation noise model or likelihood. In VBMC, as in most surrogate modelling approaches, the likelihood is assumed to be Gaussian, which affords closed-form GP posterior computations. Specifically, given a training set $(\mathbf{X}, \mathbf{y}, \mathbf{S})$ with $\mathbf{X}$ being the observed input locations, $\mathbf{y}$ the corresponding observed function values, and $\mathbf{S}$ a diagonal covariance matrix representing observation noise, the posterior mean and covariance functions for a test input location $\tilde{\mathbf{x}}$ are, respectively,
 
 $$
-\mu_{p}(\overline{\mathbf{x}})=\kappa(\overline{\mathbf{x}}, \mathbf{X})(\kappa(\mathbf{X}, \mathbf{X})+\mathbf{S})^{-1}(\mathbf{y}-m(\mathbf{X}))+m(\overline{\mathbf{x}})
+\mu_{p}(\tilde{\mathbf{x}})=\kappa(\tilde{\mathbf{x}}, \mathbf{X})(\kappa(\mathbf{X}, \mathbf{X})+\mathbf{S})^{-1}(\mathbf{y}-m(\mathbf{X}))+m(\tilde{\mathbf{x}})
 $$
 
 and
 
 $$
-\kappa_{p}(\overline{\mathbf{x}}, \overline{\mathbf{x}})=\kappa(\overline{\mathbf{x}}, \overline{\mathbf{x}})-\kappa(\overline{\mathbf{x}}, \mathbf{X})(\kappa(\mathbf{X}, \mathbf{X})+\mathbf{S})^{-1} \kappa(\mathbf{X}, \overline{\mathbf{x}})
+\kappa_{p}(\tilde{\mathbf{x}}, \tilde{\mathbf{x}})=\kappa(\tilde{\mathbf{x}}, \tilde{\mathbf{x}})-\kappa(\tilde{\mathbf{x}}, \mathbf{X})(\kappa(\mathbf{X}, \mathbf{X})+\mathbf{S})^{-1} \kappa(\mathbf{X}, \tilde{\mathbf{x}})
 $$
 
-For further details on GPs and their use in machine learning, see Rasmussen \& Williams (2006).
-Crucially, a GP surrogate does not yield a usable posterior approximation, as the integral of Eq. 1 (Bayes' rule) remains intractable. Even if the integral can be solved, it does not yield a usable approximation of the posterior, such as the ability to draw samples from it. To address this point, VBMC makes use of Bayesian quadrature, a method for obtaining Bayesian estimates of intractable integrals (O'Hagan, 1991; Ghahramani \& Rasmussen, 2002). Given an integral
+For further details on GPs and their use in machine learning, see Rasmussen & Williams (2006).
+Crucially, a GP surrogate does not yield a usable posterior approximation, as the integral of Eq. 1 (Bayes' rule) remains intractable. Even if the integral can be solved, it does not yield a usable approximation of the posterior, such as the ability to draw samples from it. To address this point, VBMC makes use of Bayesian quadrature, a method for obtaining Bayesian estimates of intractable integrals (O'Hagan, 1991; Ghahramani & Rasmussen, 2002). Given an integral
 
 $$
 \mathcal{J}=\int f(\mathbf{x}) \pi(\mathbf{x}) d \mathbf{x}
@@ -86,14 +86,14 @@ To build a good surrogate approximation of the log-joint, a number of likelihood
 
 #### Page 24
 
-# A. 2 Change-of-variables corrections in S-VBMC 
+## A.2 Change-of-variables corrections in S-VBMC
 
-Problem setting. Due to the variational whitening feature introduced in Acerbi (2020), each VBMC run operates in its own transformed parameter space, whereas in Acerbi (2018) all VBMC runs shared the same transformed parameter space (a fixed transform for bounded variables). An interested reader should refer to Acerbi (2020) for more information about variational whitening, and an in-depth discussion of this is beyond the scope of this appendix.
+**Problem setting.** Due to the variational whitening feature introduced in Acerbi (2020), each VBMC run operates in its own transformed parameter space, whereas in Acerbi (2018) all VBMC runs shared the same transformed parameter space (a fixed transform for bounded variables). An interested reader should refer to Acerbi (2020) for more information about variational whitening, and an in-depth discussion of this is beyond the scope of this appendix.
 In the context of the $m$-th VBMC run, we call $g_{m}(\cdot)$ the function determining the parameter transformation, $g_{m}(\boldsymbol{\theta})$ the transformed parameters, and $\boldsymbol{\psi}_{m}$ the parameters of the variational posterior expressed in the transformed space, $q_{\boldsymbol{\psi}_{m}}\left(g_{m}(\boldsymbol{\theta})\right)$.
 Crucially, VBMC returns approximate posteriors in the transformed space, and, since each run is executed independently, and has its own transformation $g_{m}(\cdot)$, the densities obtained with the different approximate posterior parameters $q_{\boldsymbol{\psi}_{m}}\left(g_{m}(\boldsymbol{\theta})\right)$ are not directly comparable. To calculate the stacked ELBO, we need to operate in the common (original) parameter space, in which the parameters $\boldsymbol{\theta}$ are expressed.
-Concretely, this means applying appropriate corrections to the densities used to evaluate the stacked ELBO. In the following, we provide a brief introduction to such corrections and discuss how they can be applied to compute the entropy and the expected log-joint (i.e., the two terms of the stacked ELBO, see Eq. 11) in the common parameter space. Importantly, these corrections do not depend on the mixture weights of the stacked posterior, preserving the differentiability of our objective function with respect to $\hat{\mathbf{w}}$.
+Concretely, this means applying appropriate corrections to the densities used to evaluate the stacked ELBO. In the following, we provide a brief introduction to such corrections and discuss how they can be applied to compute the entropy and the expected log-joint (i.e., the two terms of the stacked ELBO, see Eq. 11) in the common parameter space. Importantly, these corrections do not depend on the mixture weights of the stacked posterior, preserving the differentiability of our objective function with respect to $\tilde{\mathbf{w}}$.
 
-The Jacobian correction. Parameter transformations can be handled via the Jacobian correction. Given a random variable $\boldsymbol{x}$, its probability $p_{\boldsymbol{x}}(\boldsymbol{x})$ and a transformation $\boldsymbol{y}=T(\boldsymbol{x})$, we have
+**The Jacobian correction.** Parameter transformations can be handled via the Jacobian correction. Given a random variable $\boldsymbol{x}$, its probability $p_{\boldsymbol{x}}(\boldsymbol{x})$ and a transformation $\boldsymbol{y}=T(\boldsymbol{x})$, we have
 
 $$
 p_{\boldsymbol{x}}(\boldsymbol{x})=p_{\boldsymbol{y}}(T(\boldsymbol{x}))\left|\operatorname{det} \frac{\partial T(\boldsymbol{x})}{\partial \boldsymbol{x}}\right|
@@ -123,19 +123,19 @@ $$
 q_{\tilde{\boldsymbol{\phi}}}(\boldsymbol{\theta})=\sum_{m=1}^{M} \sum_{k=1}^{K_{m}} \tilde{w}_{m, k} q_{k, \boldsymbol{\psi}_{m}}\left(g_{m}(\boldsymbol{\theta})\right) J_{m}^{-1}\left(g_{m}(\boldsymbol{\theta})\right)
 $$
 
-In line with the notation used in the main text, $\boldsymbol{\phi}_{m}$ and $\tilde{\boldsymbol{\phi}}$ are the parameters of the $m$-th VBMC posterior and of the stacked posterior, respectively, expressed in the common parameter space. With the exception of $\mathbf{w}_{m}$ and $\hat{\mathbf{w}}$ (which are not affected by the transformation), these parameters are unknown, but, as we will show in the following paragraphs, they are not needed to estimate the stacked ELBO.
+In line with the notation used in the main text, $\boldsymbol{\phi}_{m}$ and $\tilde{\boldsymbol{\phi}}$ are the parameters of the $m$-th VBMC posterior and of the stacked posterior, respectively, expressed in the common parameter space. With the exception of $\mathbf{w}_{m}$ and $\tilde{\mathbf{w}}$ (which are not affected by the transformation), these parameters are unknown, but, as we will show in the following paragraphs, they are not needed to estimate the stacked ELBO.
 
 ---
 
 #### Page 25
 
-The corrected entropy. One term of the stacked ELBO is the entropy
+**The corrected entropy.** One term of the stacked ELBO is the entropy
 
 $$
-\mathcal{H}\left[q_{\hat{\boldsymbol{\phi}}}\right]=-\mathbb{E}_{q_{\hat{\boldsymbol{\phi}}}}\left[\log q_{\hat{\boldsymbol{\phi}}}(\boldsymbol{\theta})\right]
+\mathcal{H}\left[q_{\tilde{\boldsymbol{\phi}}}\right]=-\mathbb{E}_{q_{\tilde{\boldsymbol{\phi}}}}\left[\log q_{\tilde{\boldsymbol{\phi}}}(\boldsymbol{\theta})\right]
 $$
 
-for which no closed-form solution is available. We estimate it via Monte Carlo as in Eq. 12 of the main text, but crucially evaluate all component densities in the original space using the correction shown in Eqs. A. 13 and A.14. Concretely, for each component $q_{k, \boldsymbol{\psi}_{m}}$ we draw $S$ samples in the $m$-th transformed space, $\left\{\mathbf{z}_{m, k}^{(s)} \sim q_{k, \boldsymbol{\psi}_{m}}\right\}_{s=1}^{S}$, and map them to the original space, $\mathbf{x}_{m, k}^{(s)}=g_{m}^{-1}\left(\mathbf{z}_{m, k}^{(s)}\right)$. Then, for every sample $\mathbf{x}_{m, k}^{(s)}$ and for every component $q_{k^{\prime}, \boldsymbol{\phi}_{m^{\prime}}}$, we compute the per-component log-density in the original space via
+for which no closed-form solution is available. We estimate it via Monte Carlo as in Eq. 12 of the main text, but crucially evaluate all component densities in the original space using the correction shown in Eqs. A.13 and A.14. Concretely, for each component $q_{k, \boldsymbol{\psi}_{m}}$ we draw $S$ samples in the $m$-th transformed space, $\left\{\mathbf{z}_{m, k}^{(s)} \sim q_{k, \boldsymbol{\psi}_{m}}\right\}_{s=1}^{S}$, and map them to the original space, $\mathbf{x}_{m, k}^{(s)}=g_{m}^{-1}\left(\mathbf{z}_{m, k}^{(s)}\right)$. Then, for every sample $\mathbf{x}_{m, k}^{(s)}$ and for every component $q_{k^{\prime}, \boldsymbol{\phi}_{m^{\prime}}}$, we compute the per-component log-density in the original space via
 
 $$
 \log q_{k^{\prime}, \boldsymbol{\phi}_{m^{\prime}}}\left(\mathbf{x}_{m, k}^{(s)}\right)=\log q_{k^{\prime}, \boldsymbol{\psi}_{m^{\prime}}}\left(g_{m^{\prime}}\left(\mathbf{x}_{m, k}^{(s)}\right)\right)-\log J_{m^{\prime}}\left(g_{m^{\prime}}\left(\mathbf{x}_{m, k}^{(s)}\right)\right)
@@ -144,12 +144,12 @@ $$
 and then aggregate
 
 $$
-\log q_{\hat{\boldsymbol{\phi}}}\left(\mathbf{x}_{m, k}^{(s)}\right)=\log \sum_{m^{\prime}=1}^{M} \sum_{k^{\prime}=1}^{K_{m^{\prime}}} \hat{w}_{m^{\prime}, k^{\prime}} q_{k^{\prime}, \boldsymbol{\phi}_{m^{\prime}}}\left(\mathbf{x}_{m, k}^{(s)}\right)
+\log q_{\tilde{\boldsymbol{\phi}}}\left(\mathbf{x}_{m, k}^{(s)}\right)=\log \sum_{m^{\prime}=1}^{M} \sum_{k^{\prime}=1}^{K_{m^{\prime}}} \tilde{w}_{m^{\prime}, k^{\prime}} q_{k^{\prime}, \boldsymbol{\phi}_{m^{\prime}}}\left(\mathbf{x}_{m, k}^{(s)}\right)
 $$
 
-via log-sum-exp. Then these values can be plugged into Eq. 12 of the main text to estimate the entropy. Importantly, the transformations do not depend on the mixture weights, so the entropy remains differentiable with respect to $\hat{\mathbf{w}}$.
+via log-sum-exp. Then these values can be plugged into Eq. 12 of the main text to estimate the entropy. Importantly, the transformations do not depend on the mixture weights, so the entropy remains differentiable with respect to $\tilde{\mathbf{w}}$.
 
-The corrected expected log-joint. Let $\hat{L}_{m, k}$ be the VBMC estimate (computed in the run's transformed coordinates) of the component-wise expected log-joint,
+**The corrected expected log-joint.** Let $\hat{L}_{m, k}$ be the VBMC estimate (computed in the run's transformed coordinates) of the component-wise expected log-joint,
 
 $$
 \hat{L}_{m, k} \approx \mathbb{E}_{q_{k, \boldsymbol{\psi}_{m}}}\left[\log p_{m}\left(\mathcal{D}, g_{m}(\boldsymbol{\theta})\right)\right]
@@ -161,7 +161,7 @@ $$
 \hat{I}_{m, k}=\hat{L}_{m, k}-\mathbb{E}_{q_{k, \boldsymbol{\psi}_{m}}}\left[\log J_{m}\left(g_{m}(\boldsymbol{\theta})\right)\right] \approx \mathbb{E}_{q_{k, \boldsymbol{\phi}_{m}}}\left[\log p(\mathcal{D}, \boldsymbol{\theta})\right]
 $$
 
-In practice we estimate the (per-component) Jacobian term in Eq. A. 19 using the same samples $\left\{\mathbf{z}_{m, k}^{(s)} \sim q_{k, \boldsymbol{\psi}_{m}}\right\}_{s=1}^{S}$ employed for the entropy and setting
+In practice we estimate the (per-component) Jacobian term in Eq. A.19 using the same samples $\left\{\mathbf{z}_{m, k}^{(s)} \sim q_{k, \boldsymbol{\psi}_{m}}\right\}_{s=1}^{S}$ employed for the entropy and setting
 
 $$
 \mathbb{E}_{q_{k, \boldsymbol{\psi}_{m}}}\left[\log J_{m}\left(g_{m}(\boldsymbol{\theta})\right)\right] \approx \frac{1}{S} \sum_{s=1}^{S} \log J_{m}\left(\mathbf{z}_{m, k}^{(s)}\right)
@@ -175,31 +175,31 @@ Importantly, the $\hat{I}_{m, k}$ described here (i.e., the corrected ones) are 
 
 #### Page 26
 
-# A. 3 Additional experiments 
+## A.3 Additional experiments
 
-## A.3.1 S-VBMC variant
+### A.3.1 S-VBMC variant
 
-To probe the benefits of optimising the ELBO with respect to the weights of the individual components, we performed additional experiments comparing the version of S-VBMC presented in the main text ("allweights") with a S-VBMC variant where we only reweigh the weights of each individual VBMC posterior ("posterior-only"). Specifically, we considered a stacked posterior written as:
+To probe the benefits of optimising the ELBO with respect to the weights of the individual components, we performed additional experiments comparing the version of S-VBMC presented in the main text ("all-weights") with a S-VBMC variant where we only reweigh the weights of each individual VBMC posterior ("posterior-only"). Specifically, we considered a stacked posterior written as:
 
 $$
-q_{\hat{\boldsymbol{\phi}}}(\boldsymbol{\theta})=\sum_{m=1}^{M} \hat{\omega}_{m} q_{\boldsymbol{\phi}_{m}}(\boldsymbol{\theta})
+q_{\tilde{\boldsymbol{\phi}}}(\boldsymbol{\theta})=\sum_{m=1}^{M} \tilde{\omega}_{m} q_{\boldsymbol{\phi}_{m}}(\boldsymbol{\theta})
 $$
 
-For this "posterior-only" variant, we optimised the global ELBO with respect to the weights $\hat{\omega}_{m}$ assigned to each posterior. This is similar to the naive stacking approach seen in the main paper (Eq. 18), with the difference that the posterior weights are now optimised. We ran this method for all the benchmark problems described in Sections 4.4 and 4.5, using the same bootstrapping procedure described in Section 4.1.
+For this "posterior-only" variant, we optimised the global ELBO with respect to the weights $\tilde{\omega}_{m}$ assigned to each posterior. This is similar to the naive stacking approach seen in the main paper (Eq. 18), with the difference that the posterior weights are now optimised. We ran this method for all the benchmark problems described in Sections 4.4 and 4.5, using the same bootstrapping procedure described in Section 4.1.
 
-The results of this comparison are reported in Figures A. 1 and A.2, and in further detail in Appendix A.4.2. We observe that optimising with respect to $\hat{\boldsymbol{\omega}}$ ("posterior-only") performs well, with both MMTV and GsKL metrics steadily improving with increased numbers of stacked posteriors. In fact, for most problems, "posterior-only" S-VBMC performs comparably to the "all-weights" variant presented in the main paper, which optimises all components weights $\hat{\mathbf{w}}$. Still, the "all-weights" variant performs slightly better in the GsKL metric and in some challenging scenarios (e.g., the multisensory model), so it remains our base recommendation, paired with the debiasing approach described in Section 5.
+The results of this comparison are reported in Figures A.1 and A.2, and in further detail in Appendix A.4.2. We observe that optimising with respect to $\tilde{\boldsymbol{\omega}}$ ("posterior-only") performs well, with both MMTV and GsKL metrics steadily improving with increased numbers of stacked posteriors. In fact, for most problems, "posterior-only" S-VBMC performs comparably to the "all-weights" variant presented in the main paper, which optimises all components weights $\tilde{\mathbf{w}}$. Still, the "all-weights" variant performs slightly better in the GsKL metric and in some challenging scenarios (e.g., the multisensory model), so it remains our base recommendation, paired with the debiasing approach described in Section 5.
 
-## A.3.2 Additional runtime analyses
+### A.3.2 Additional runtime analyses
 
 Here we report the total runtime cost (in seconds) of BBVI for all our benchmark problems compared to that of running VBMC 40 times and stacking the resulting posteriors with S-VBMC. We consider this particular number of runs because the BBVI target evaluation budget was set to match that of S-VBMC with $M=40$. For both, we report the median and $95 \%$ confidence interval, computed from 10000 bootstrap resamples. For S-VBMC, each resample consisted of 40 VBMC runs and one S-VBMC run, then the S-VBMC runtime was added to that of the VBMC run with the highest runtime. This follows from the assumption that VBMC is run 40 times in parallel, and S-VBMC can be launched the moment the last VBMC run has converged.
 
-It is important to note that, as is common in the surrogate-based literature (Acerbi, 2018; Wang \& Li, 2018; Acerbi, 2020; Järvenpää et al., 2021; El Gammal et al., 2023; Järvenpää \& Corander, 2024), in this work, we demonstrated the efficacy of our method on several problems where function evaluations are not computationally expensive, as a full benchmark with multiple expensive models is highly impractical. Therefore, wall-clock time needs to be interpreted carefully as a metric when comparing methods with different likelihood evaluation costs.
+It is important to note that, as is common in the surrogate-based literature (Acerbi, 2018; Wang & Li, 2018; Acerbi, 2020; Järvenpää et al., 2021; El Gammal et al., 2023; Järvenpää & Corander, 2024), in this work, we demonstrated the efficacy of our method on several problems where function evaluations are not computationally expensive, as a full benchmark with multiple expensive models is highly impractical. Therefore, wall-clock time needs to be interpreted carefully as a metric when comparing methods with different likelihood evaluation costs.
 
 We can directly compare VBMC and S-VBMC, as we did in Section 4.6, because by construction they use the same backbone method and have the same evaluation costs (S-VBMC adds a small post-processing cost, which, crucially, does not depend on the cost of likelihood evaluation). Conversely, comparisons to non-VBMC methods become highly problem-dependent. The typical solution would consist of matching the number of function evaluations (as we did, see Section 4.2), for which non-surrogate-based baselines would be at a significant disadvantage, as demonstrated in previous work (Acerbi, 2018; 2020).
 
 These considerations are crucial to interpret these results, displayed in Table A.1. As expected, BBVI is much faster than S-VBMC on problems with fast likelihood evaluation, but as soon as the likelihood becomes more expensive ( $\approx 0.7$ seconds per evaluation for the neuronal model) the cost of non-VBMC methods increases dramatically, illustrating the kind of scenarios VBMC was developed to solve in the first place.
 
-Finally, it is worth noting that, as shown in Figures 3 and 4 and Tables A. 3 and A.4, BBVI performs substantially worse than S-VBMC across our examples, particularly in our real-world problems. Therefore, even where there may be runtime advantages (with the caveats discussed above), these come at a considerable cost in terms of posterior quality.
+Finally, it is worth noting that, as shown in Figures 3 and 4 and Tables A.3 and A.4, BBVI performs substantially worse than S-VBMC across our examples, particularly in our real-world problems. Therefore, even where there may be runtime advantages (with the caveats discussed above), these come at a considerable cost in terms of posterior quality.
 
 ---
 
@@ -246,7 +246,7 @@ Finally, it is worth noting that, as shown in Figures 3 and 4 and Tables A. 3 an
 > 
 > In summary, the figure visually compares the convergence and performance metrics of two S-VBMC weighting schemes across different problem complexities, with "all-weights" S-VBMC (blue) generally demonstrating superior or faster convergence, especially in the more challenging noisy scenarios.
 
-Figure A.1: Performance comparison between the two versions of S-VBMC ("all-weights" and "posterioronly") on synthetic problems. Metrics are plotted as a function of the number of VBMC runs stacked (median and $95 \%$ confidence interval, computed from 10000 bootstrap resamples) for S-VBMC when the ELBO is optimised with respect to "all-weights" (blue) and "posterior-only" weights (yellow). The black horizontal line in the ELBO panels represents the ground-truth LML, while the dashed lines on $\Delta$ LML, MMTV, and GsKL denote desirable thresholds for each metric (good performance is below the threshold; see Section 4.3)
+Figure A.1: Performance comparison between the two versions of S-VBMC ("all-weights" and "posterior-only") on synthetic problems. Metrics are plotted as a function of the number of VBMC runs stacked (median and $95 \%$ confidence interval, computed from 10000 bootstrap resamples) for S-VBMC when the ELBO is optimised with respect to "all-weights" (blue) and "posterior-only" weights (yellow). The black horizontal line in the ELBO panels represents the ground-truth LML, while the dashed lines on $\Delta$ LML, MMTV, and GsKL denote desirable thresholds for each metric (good performance is below the threshold; see Section 4.3)
 
 ---
 
@@ -276,29 +276,29 @@ Figure A.1: Performance comparison between the two versions of S-VBMC ("all-weig
 > *   An icon showing a yellow downward-pointing triangle with vertical error bars is labeled: "posterior-only" S-VBMC
 > *   An icon showing a blue circle with vertical error bars is labeled: "all-weights" S-VBMC
 
-Figure A.2: Performance comparison between the two versions of S-VBMC ("all-weights" and "posterioronly") on real-world problems. Metrics are plotted as a function of the number of VBMC runs stacked (median and $95 \%$ confidence interval, computed from 10000 bootstrap resamples) for S-VBMC when the ELBO is optimised with respect to "all-weights" (blue) and "posterior-only" weights (yellow). The black horizontal line in the ELBO panels represents the ground-truth LML, while the dashed lines on $\Delta$ LML, MMTV, and GsKL denote desirable thresholds for each metric (good performance is below the threshold; see Section 4.3)
+Figure A.2: Performance comparison between the two versions of S-VBMC ("all-weights" and "posterior-only") on real-world problems. Metrics are plotted as a function of the number of VBMC runs stacked (median and $95 \%$ confidence interval, computed from 10000 bootstrap resamples) for S-VBMC when the ELBO is optimised with respect to "all-weights" (blue) and "posterior-only" weights (yellow). The black horizontal line in the ELBO panels represents the ground-truth LML, while the dashed lines on $\Delta$ LML, MMTV, and GsKL denote desirable thresholds for each metric (good performance is below the threshold; see Section 4.3)
 
 Table A.1: BBVI runtime (in seconds) compared to that of 40 (parallel) VBMC runs and their subsequent stacking with S-VBMC. Values show median with $95 \%$ confidence interval in brackets. Bold entries indicate the best median performance (i.e., lowest compute time).
 
 |  | Algorithm |  |
 | :-- | :--: | :--: |
 | Benchmark | BBVI runtime (s) | VBMC + S-VBMC runtime (s) |
-| GMM (noiseless) | $\mathbf{9 . 9}[9.4,10.3]$ | $458.3[428.3,510.8]$ |
-| GMM $(\sigma=3)$ | $\mathbf{1 2 . 8}[12.2,13.7]$ | $857.8[759.0,954.8]$ |
-| Ring (noiseless) | $\mathbf{1 2 . 2}[11.7,12.6]$ | $559.3[516.9,794.2]$ |
-| Ring $(\sigma=3)$ | $\mathbf{1 4 . 0}[13.4,15.0]$ | $1269.9[1206.0,1557.4]$ |
-| Neuronal model (noiseless) | $8497.0[8411.2,8617.8]$ | $\mathbf{1 5 6 1 . 8}[1445.1,1900.1]$ |
-| Multisensory model $(\sigma=3)$ | $\mathbf{2 4 . 5}[21.2,27.3]$ | $3149.5[2616.3,3525.1]$ |
+| GMM (noiseless) | $\mathbf{9.9}[9.4,10.3]$ | $458.3[428.3,510.8]$ |
+| GMM $(\sigma=3)$ | $\mathbf{12.8}[12.2,13.7]$ | $857.8[759.0,954.8]$ |
+| Ring (noiseless) | $\mathbf{12.2}[11.7,12.6]$ | $559.3[516.9,794.2]$ |
+| Ring $(\sigma=3)$ | $\mathbf{14.0}[13.4,15.0]$ | $1269.9[1206.0,1557.4]$ |
+| Neuronal model (noiseless) | $8497.0[8411.2,8617.8]$ | $\mathbf{1561.8}[1445.1,1900.1]$ |
+| Multisensory model $(\sigma=3)$ | $\mathbf{24.5}[21.2,27.3]$ | $3149.5[2616.3,3525.1]$ |
 
 ---
 
 #### Page 29
 
-# A. 4 Full experimental results 
+## A.4 Full experimental results
 
-## A.4.1 Filtering procedure
+### A.4.1 Filtering procedure
 
-Here we briefly present the results of our filtering procedure, described in Section 4.1. As shown in Table A.2, VBMC had considerable trouble when run on the neuronal model, with over half the runs failing to converge (as assessed by the pyvbmc software, Huggins et al., 2023), suggesting a complex, non-trivial posterior structure which is reflected in the poor performance of other inference methods (see Figure 4 and Table A.4). Convergence issues were also found with the noisy Ring target, although to a lesser extent. Once nonconverged runs were discarded, our second filtering criterion (i.e., excluding poorly converged runs with excessive uncertainty associated with the $\hat{I}_{k}$ estimates) led to considerably fewer exclusions overall, with only the Ring target being somewhat affected ( $8 \%$ and $13 \%$ of runs discarded in noiseless and noisy settings, respectively).
+Here we briefly present the results of our filtering procedure, described in Section 4.1. As shown in Table A.2, VBMC had considerable trouble when run on the neuronal model, with over half the runs failing to converge (as assessed by the pyvbmc software, Huggins et al., 2023), suggesting a complex, non-trivial posterior structure which is reflected in the poor performance of other inference methods (see Figure 4 and Table A.4). Convergence issues were also found with the noisy Ring target, although to a lesser extent. Once non-converged runs were discarded, our second filtering criterion (i.e., excluding poorly converged runs with excessive uncertainty associated with the $\hat{I}_{k}$ estimates) led to considerably fewer exclusions overall, with only the Ring target being somewhat affected ( $8 \%$ and $13 \%$ of runs discarded in noiseless and noisy settings, respectively).
 
 All our VBMC runs were indexed, and, for our experiments, we used the 100 filtered runs with the lowest indices.
 
@@ -314,9 +314,9 @@ Table A.2: Result of our filtering procedures. This table shows the total number
 | Neuronal model (noiseless) | 300 | 159 | 1 | 140 |
 | Multisensory $(\sigma=3)$ | 150 | 0 | 1 | 149 |
 
-## A.4.2 Posterior metrics
+### A.4.2 Posterior metrics
 
-We present a comprehensive comparison of S-VBMC against VBMC, NS and BBVI in Tables A. 3 and A.4, complementing the visualisations in Figures 3, 4, A. 1 and A.2. We consider both the version of S-VBMC described in the main text (where the ELBO is optimised with respect to the component weights $\hat{\mathbf{w}}$, "allweights"), and the one described in Appendix A.3.1 (where the ELBO is optimised with respect to the posterior weights $\hat{\boldsymbol{\omega}}$, "posterior-only").
+We present a comprehensive comparison of S-VBMC against VBMC, NS and BBVI in Tables A.3 and A.4, complementing the visualisations in Figures 3, 4, A.1 and A.2. We consider both the version of S-VBMC described in the main text (where the ELBO is optimised with respect to the component weights $\tilde{\mathbf{w}}$, "all-weights"), and the one described in Appendix A.3.1 (where the ELBO is optimised with respect to the posterior weights $\tilde{\boldsymbol{\omega}}$, "posterior-only").
 
 For both synthetic problems (Table A.3) and real-world problems (Table A.4), S-VBMC generally demonstrates consistently improved posterior approximation metrics compared to the baselines. However, we observe an increase in $\Delta$ LML error with larger numbers of stacked runs in problems with noisy targets. This increase likely stems from the accumulation of ELBO estimation bias, a phenomenon analysed in detail in Section 5.
 
@@ -324,56 +324,56 @@ For both synthetic problems (Table A.3) and real-world problems (Table A.4), S-V
 
 #### Page 30
 
-Table A.3: Comparison of S-VBMC, VBMC, and BBVI performance on synthetic benchmark problems. Values show median with $95 \%$ confidence intervals (computed from 10000 bootstrap resamples) in brackets. Bold entries indicate best median performance; multiple entries are bolded when confidence intervals overlap with the best median. For compactness, we label the S-VBMC version described in the main text "w.r.t. $\hat{\mathbf{w}}$ ", (indicating that the ELBO is optimised with respect to "all-weights" $\hat{\mathbf{w}}$ ), and the version described in Appendix A.3.1 "w.r.t. $\hat{\boldsymbol{\omega}}$ ", (indicating that the ELBO is optimised with respect to $\hat{\boldsymbol{\omega}}$, or "posterior-only").
+Table A.3: Comparison of S-VBMC, VBMC, and BBVI performance on synthetic benchmark problems. Values show median with $95 \%$ confidence intervals (computed from 10000 bootstrap resamples) in brackets. Bold entries indicate best median performance; multiple entries are bolded when confidence intervals overlap with the best median. For compactness, we label the S-VBMC version described in the main text "w.r.t. $\tilde{\mathbf{w}}$ ", (indicating that the ELBO is optimised with respect to "all-weights" $\tilde{\mathbf{w}}$ ), and the version described in Appendix A.3.1 "w.r.t. $\tilde{\boldsymbol{\omega}}$ ", (indicating that the ELBO is optimised with respect to $\tilde{\boldsymbol{\omega}}$, or "posterior-only").
 
 | Algorithm | Benchmarks |  |  |  |  |  |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 |  | GMM |  |  | Ring |  |  |
-|  | $\Delta \mathbf{L M L}$ | MMTV | GsKL | $\Delta \mathbf{L M L}$ | MMTV | GsKL |
-|  | Noiseless |  |  |  |  |  |
-| BBVI, MoG $(K=50)$ | $0.059[0.028,0.075]$ | $0.059[0.035,0.08]$ | $0.0083[0.0011,0.010]$ | $8[0.8,9.6]$ | $0.51[0.48,0.53]$ | $0.72[0.66,1.2]$ |
+|  | $\Delta\mathbf{LML}$ | MMTV | GsKL | $\Delta\mathbf{LML}$ | MMTV | GsKL |
+| **Noiseless** |  |  |  |  |  |  |
+| BBVI, MoG $(K=50)$ | $0.059[0.028,0.075]$ | $\mathbf{0.059}[0.035,0.08]$ | $\mathbf{0.0083}[0.0011,0.019]$ | $8[6.8,9.6]$ | $0.51[0.48,0.53]$ | $0.72[0.66,1.2]$ |
 | BBVI, MoG $(K=500)$ | $0.053[0.029,0.11]$ | $0.052[0.043,0.07]$ | $0.0087[0.0025,0.013]$ | $8.3[6.9,12]$ | $0.47[0.45,0.49]$ | $0.67[0.55,0.81]$ |
 | VBMC | $1.4[0.7,1.4]$ | $0.54[0.39,0.55]$ | $13[7.6,14]$ | $1.2[1.2,1.3]$ | $0.53[0.51,0.56]$ | $9.4[7.2,14]$ |
 | NS (10 runs) | $0.091[0.07,0.12]$ | $0.15[0.12,0.17]$ | $0.054[0.034,0.075]$ | $0.16[0.09,0.24]$ | $0.19[0.18,0.22]$ | $0.04[0.021,0.091]$ |
 | NS (20 runs) | $0.047[0.037,0.062]$ | $0.11[0.089,0.12]$ | $0.027[0.018,0.032]$ | $0.11[0.073,0.13]$ | $0.18[0.16,0.18]$ | $0.028[0.018,0.049]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 10$ runs) | $0.0042[0.0037,0.0087]$ | $0.032[0.031,0.04]$ | $0.0017[0.00081,0.003]$ | $0.08[0.057,0.22]$ | $0.16[0.15,0.2]$ | $0.0065[0.0029,0.043]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 20$ runs) | $0.0059[0.0035,0.0074]$ | $0.031[0.024,0.035]$ | $0.0011[0.00064,0.0016]$ | $0.04[0.037,0.048]$ | $0.15[0.14,0.15]$ | $0.002[0.0013,0.0028]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 10$ runs) | $0.0089[0.0043,0.015]$ | $0.036[0.028,0.05]$ | $0.0015[0.0011,0.004]$ | $0.034[0.027,0.047]$ | $0.14[0.14,0.14]$ | $0.0013[0.00081,0.0023]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 20$ runs) | $0.0046[0.0028,0.0072]$ | $0.031[0.026,0.036]$ | $0.0013[0.00047,0.0019]$ | $0.022[0.019,0.026]$ | $0.14[0.13,0.14]$ | $0.0011[0.00096,0.0014]$ |
-| Noisy $(\sigma=3)$ |  |  |  |  |  |  |
-| BBVI, MoG $(K=50)$ | $0.23[0.11,0.43]$ | $0.13[0.092,0.18]$ | $0.03[0.01,0.12]$ | $4.3[3.3,4.7]$ | $0.51[0.47,0.54]$ | $1.1[0.65,1.7]$ |
-| BBVI, MoG $(K=500)$ | $0.27[0.076,0.45]$ | $0.1[0.094,0.13]$ | $0.019[0.011,0.034]$ | $4.7[4,5.5]$ | $0.93[0.91,0.94]$ | $48[28,49]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 10$ runs) | $\mathbf{0.0042}[0.0037,0.0087]$ | $\mathbf{0.032}[0.031,0.04]$ | $\mathbf{0.0017}[0.00081,0.003]$ | $0.08[0.057,0.22]$ | $0.16[0.15,0.2]$ | $0.0065[0.0029,0.043]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 20$ runs) | $\mathbf{0.0059}[0.0035,0.0074]$ | $\mathbf{0.031}[0.024,0.035]$ | $\mathbf{0.0011}[0.00064,0.0016]$ | $0.04[0.037,0.048]$ | $\mathbf{0.15}[0.14,0.15]$ | $\mathbf{0.002}[0.0013,0.0028]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 10$ runs) | $\mathbf{0.0089}[0.0043,0.015]$ | $\mathbf{0.036}[0.028,0.05]$ | $\mathbf{0.0015}[0.0011,0.004]$ | $0.034[0.027,0.047]$ | $\mathbf{0.14}[0.14,0.14]$ | $\mathbf{0.0013}[0.00081,0.0023]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 20$ runs) | $\mathbf{0.0046}[0.0028,0.0072]$ | $\mathbf{0.031}[0.026,0.036]$ | $\mathbf{0.0013}[0.00047,0.0019]$ | $\mathbf{0.022}[0.019,0.026]$ | $\mathbf{0.14}[0.13,0.14]$ | $\mathbf{0.0011}[0.00096,0.0014]$ |
+| **Noisy $(\sigma=3)$** |  |  |  |  |  |  |
+| BBVI, MoG $(K=50)$ | $0.23[0.11,0.43]$ | $\mathbf{0.13}[0.092,0.18]$ | $0.03[0.01,0.12]$ | $4.3[3.3,4.7]$ | $0.51[0.47,0.54]$ | $1.1[0.65,1.7]$ |
+| BBVI, MoG $(K=500)$ | $0.27[0.076,0.45]$ | $\mathbf{0.1}[0.094,0.13]$ | $0.019[0.011,0.034]$ | $4.7[4,5.5]$ | $0.93[0.91,0.94]$ | $48[28,49]$ |
 | VBMC | $0.98[0.78,1.1]$ | $0.44[0.43,0.47]$ | $9.7[8.5,11]$ | $1.3[1.1,1.5]$ | $0.62[0.57,0.65]$ | $38[24,95]$ |
-| NS (10 runs) | $0.11[0.066,0.19]$ | $0.17[0.14,0.16]$ | $0.066[0.029,0.12]$ | $0.082[0.066,0.12]$ | $0.23[0.21,0.26]$ | $0.056[0.033,0.091]$ |
-| NS (20 runs) | $0.056[0.046,0.082]$ | $0.1[0.09,0.12]$ | $0.017[0.011,0.026]$ | $0.19[0.16,0.22]$ | $0.18[0.16,0.2]$ | $0.023[0.017,0.03]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 10$ runs) | $0.19[0.16,0.24]$ | $0.13[0.11,0.14]$ | $0.012[0.0069,0.031]$ | $0.23[0.12,0.28]$ | $0.23[0.21,0.24]$ | $0.02[0.01,0.026]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 20$ runs) | $0.32[0.39,0.34]$ | $0.089[0.078,0.098]$ | $0.0082[0.004,0.013]$ | $0.37[0.34,0.41]$ | $0.18[0.17,0.19]$ | $0.0054[0.004,0.011]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 10$ runs) | $0.32[0.27,0.45]$ | $0.11[0.092,0.13]$ | $0.016[0.0058,0.034]$ | $0.39[0.34,0.45]$ | $0.2[0.19,0.31]$ | $0.053[0.0089,0.025]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 20$ runs) | $0.53[0.51,0.61]$ | $0.09[0.084,0.097]$ | $0.0049[0.0036,0.0072]$ | $0.68[0.63,0.71]$ | $0.17[0.17,0.18]$ | $0.0045[0.0025,0.0071]$ |
+| NS (10 runs) | $\mathbf{0.11}[0.066,0.19]$ | $0.17[0.14,0.18]$ | $0.066[0.029,0.12]$ | $\mathbf{0.082}[0.066,0.12]$ | $0.23[0.21,0.26]$ | $0.056[0.033,0.091]$ |
+| NS (20 runs) | $\mathbf{0.056}[0.046,0.082]$ | $\mathbf{0.1}[0.09,0.12]$ | $0.017[0.011,0.026]$ | $0.19[0.16,0.22]$ | $\mathbf{0.18}[0.18,0.2]$ | $0.023[0.017,0.03]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 10$ runs) | $0.19[0.16,0.24]$ | $0.13[0.11,0.14]$ | $\mathbf{0.012}[0.0069,0.031]$ | $\mathbf{0.23}[0.12,0.28]$ | $0.23[0.21,0.24]$ | $0.02[0.01,0.026]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 20$ runs) | $0.32[0.28,0.34]$ | $\mathbf{0.089}[0.078,0.098]$ | $\mathbf{0.0082}[0.004,0.013]$ | $0.37[0.34,0.41]$ | $\mathbf{0.18}[0.17,0.19]$ | $\mathbf{0.0054}[0.004,0.011]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 10$ runs) | $0.32[0.27,0.45]$ | $\mathbf{0.11}[0.092,0.13]$ | $\mathbf{0.016}[0.0058,0.034]$ | $0.39[0.34,0.45]$ | $0.2[0.19,0.21]$ | $0.013[0.0089,0.025]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 20$ runs) | $0.53[0.51,0.61]$ | $\mathbf{0.09}[0.084,0.097]$ | $\mathbf{0.0049}[0.0036,0.0072]$ | $0.68[0.63,0.71]$ | $\mathbf{0.17}[0.17,0.18]$ | $\mathbf{0.0045}[0.0025,0.0071]$ |
 
-Table A.4: Comparison of S-VBMC, VBMC, and BBVI performance on neuronal and multisensory causal inference models. Bold entries indicate best median performance; multiple entries are bolded when confidence intervals overlap with the best median. See the caption of Table A. 3 for further details.
+Table A.4: Comparison of S-VBMC, VBMC, and BBVI performance on neuronal and multisensory causal inference models. Bold entries indicate best median performance; multiple entries are bolded when confidence intervals overlap with the best median. See the caption of Table A.3 for further details.
 
 | Algorithm | Benchmarks |  |  |  |  |  |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 |  | Multisensory model $(\sigma=3)$ |  |  | Neuronal model |  |  |
-|  | $\Delta \mathbf{L M L}$ | MMTV | GsKL | $\Delta \mathbf{L M L}$ | MMTV | GsKL |
+|  | $\Delta\mathbf{LML}$ | MMTV | GsKL | $\Delta\mathbf{LML}$ | MMTV | GsKL |
 | BBVI, MoG $(K=50)$ | $1.7[1.5,4.9]$ | $0.11[0.097,0.13]$ | $0.17[0.16,0.2]$ | $44[33,120]$ | $0.6[0.56,0.64]$ | $20[17,23]$ |
 | BBVI, MoG $(K=500)$ | $1.8[1.6,2.5]$ | $0.31[0.28,0.33]$ | $0.53[0.48,0.55]$ | $170[140,260]$ | $0.67[0.64,0.7]$ | $21[18,26]$ |
-| VBMC | $0.32[0.23,0.37]$ | $0.18[0.17,0.19]$ | $0.21[0.17,0.23]$ | $3[3,3.1]$ | $0.32[0.31,0.32]$ | $140[97,190]$ |
-| NS (10 runs) | $0.46[0.41,0.52]$ | $0.12[0.11,0.12]$ | $0.072[0.056,0.078]$ | $1.8[1.8,1.9]$ | $0.17[0.16,0.18]$ | $1.2[0.27,1.4]$ |
-| NS (20 runs) | $0.55[0.5,0.59]$ | $0.1[0.096,0.11]$ | $0.06[0.052,0.068]$ | $1.8[1.7,1.9]$ | $0.17[0.15,0.18]$ | $1[0.35,1.6]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 10$ runs) | $0.73[0.63,0.86]$ | $0.11[0.097,0.12]$ | $0.062[0.052,0.074]$ | $1.8[1.7,1.8]$ | $0.14[0.12,0.15]$ | $0.67[0.36,1.1]$ |
-| S-VBMC (w.r.t. $\hat{\boldsymbol{\omega}}, 20$ runs) | $0.88[0.86,0.95]$ | $0.1[0.095,0.11]$ | $0.047[0.044,0.057]$ | $1.5[1.5,1.6]$ | $0.11[0.087,0.13]$ | $0.3[0.037,0.57]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 10$ runs) | $0.93[0.89,1]$ | $0.091[0.086,0.094]$ | $0.042[0.038,0.05]$ | $1.7[1.6,1.7]$ | $0.14[0.11,0.15]$ | $0.47[0.17,0.79]$ |
-| S-VBMC (w.r.t. $\hat{\mathbf{w}}, 20$ runs) | $1.2[1.2,1.3]$ | $0.079[0.076,0.091]$ | $0.039[0.03,0.044]$ | $1.5[1.5,1.6]$ | $0.12[0.092,0.13]$ | $0.48[0.059,0.54]$ |
+| VBMC | $\mathbf{0.32}[0.23,0.37]$ | $0.18[0.17,0.19]$ | $0.21[0.17,0.23]$ | $3[3,3.1]$ | $0.32[0.31,0.32]$ | $140[97,190]$ |
+| NS (10 runs) | $0.46[0.41,0.52]$ | $0.12[0.11,0.12]$ | $0.072[0.056,0.078]$ | $1.8[1.8,1.9]$ | $0.17[0.16,0.18]$ | $\mathbf{1.2}[0.27,1.4]$ |
+| NS (20 runs) | $0.55[0.5,0.59]$ | $0.1[0.096,0.11]$ | $0.06[0.052,0.068]$ | $1.8[1.7,1.9]$ | $0.17[0.15,0.18]$ | $\mathbf{1}[0.35,1.6]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 10$ runs) | $0.73[0.63,0.86]$ | $0.11[0.097,0.12]$ | $0.062[0.052,0.074]$ | $1.8[1.7,1.8]$ | $\mathbf{0.14}[0.12,0.15]$ | $\mathbf{0.67}[0.36,1.1]$ |
+| S-VBMC (w.r.t. $\tilde{\boldsymbol{\omega}}, 20$ runs) | $0.88[0.86,0.95]$ | $0.1[0.095,0.11]$ | $\mathbf{0.047}[0.044,0.057]$ | $\mathbf{1.5}[1.5,1.6]$ | $\mathbf{0.11}[0.087,0.13]$ | $\mathbf{0.3}[0.037,0.57]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 10$ runs) | $0.93[0.89,1]$ | $\mathbf{0.091}[0.086,0.094]$ | $\mathbf{0.042}[0.038,0.05]$ | $\mathbf{1.7}[1.6,1.7]$ | $\mathbf{0.14}[0.11,0.15]$ | $\mathbf{0.47}[0.17,0.79]$ |
+| S-VBMC (w.r.t. $\tilde{\mathbf{w}}, 20$ runs) | $1.2[1.2,1.3]$ | $\mathbf{0.079}[0.076,0.091]$ | $\mathbf{0.039}[0.03,0.044]$ | $\mathbf{1.5}[1.5,1.6]$ | $\mathbf{0.12}[0.092,0.13]$ | $\mathbf{0.48}[0.059,0.54]$ |
 
 ---
 
 #### Page 31
 
-# A. 5 Example posterior visualisations 
+## A.5 Example posterior visualisations
 
-We use corner plots (Foreman-Mackey, 2016) to visualise exemplar posterior approximations from different algorithms, including S-VBMC, VBMC and BBVI. These plots depict one-dimensional marginal distributions and all pairwise two-dimensional marginals of the posterior samples. Example results (chosen at random among the runs reported in Section 4 and Appendix A.4) are shown in Figures A.3, A.4, A.5, and A.6. SVBMC consistently improves the posterior approximations over standard VBMC and generally outperforms BBVI, showing a closer alignment with the target posterior.
+We use corner plots (Foreman-Mackey, 2016) to visualise exemplar posterior approximations from different algorithms, including S-VBMC, VBMC and BBVI. These plots depict one-dimensional marginal distributions and all pairwise two-dimensional marginals of the posterior samples. Example results (chosen at random among the runs reported in Section 4 and Appendix A.4) are shown in Figures A.3, A.4, A.5, and A.6. S-VBMC consistently improves the posterior approximations over standard VBMC and generally outperforms BBVI, showing a closer alignment with the target posterior.
 
 > **Image description.** A multi-panel figure displays four "corner plots," each visualizing posterior distributions for two variables, $\theta_1$ and $\theta_2$, under different conditions. The panels are arranged in a 2x2 grid, labeled (a) through (d).
 > 
@@ -490,107 +490,6 @@ Figure A.3: GMM $(D=2)$ example posterior visualisation. Orange contours and poi
 > - **Bottom-right plot ($\theta_2$):** The dark grey/black outline is U-shaped. The orange distribution is a step-like histogram, forming a U-shape similar to panel (b), but potentially with more jaggedness or slightly higher peaks.
 > - **Label:** (d) S-VBMC (20 runs, noisy)
 
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
-0
 
 ---
 
@@ -607,7 +506,7 @@ Figure A.3: GMM $(D=2)$ example posterior visualisation. Orange contours and poi
 > Detailed description of each panel:
 > 
 > **Panel (e): BBVI, MoG ($K=50$)**
-> *   **2D Contour Plot (bottom-left):** The grey contours form a distinct ring centered at (0,0). The orange/brown contours are concentrated within the left half of this ring, showing a somewhat diffuse distribution with higher density around $\theta_1 \approx -3$ and $\theta_2 \approx 0$.
+> *   **2D Contour Plot (bottom-left):** The grey contours form a distinct ring centred near (1, -2). The orange/brown contours are concentrated within the left half of this ring, showing a somewhat diffuse distribution with higher density around $\theta_1 \approx -3$ and $\theta_2 \approx 0$.
 > *   **1D $\theta_1$ Plot (top-left):** The black step plot shows two peaks at approximately -6 and 6. The orange step plot shows a single, broader peak centered around -3, gradually decreasing towards 6.
 > *   **1D $\theta_2$ Plot (bottom-right):** The black step plot shows two peaks at approximately -6 and 6. The orange step plot shows a single, relatively broad peak centered around 0.
 > 
@@ -626,7 +525,7 @@ Figure A.3: GMM $(D=2)$ example posterior visualisation. Orange contours and poi
 > *   **1D $\theta_1$ Plot (top-left):** The black step plot has peaks at -6 and 6. The orange step plot shows an exceptionally sharp and tall peak precisely at 0, with minimal values elsewhere.
 > *   **1D $\theta_2$ Plot (bottom-right):** The black step plot has peaks at -6 and 6. The orange step plot shows an exceptionally sharp and tall peak precisely at 6, with minimal values elsewhere.
 
-Figure A.4: Ring $(D=2)$ example posterior visualisation. See the caption of Figure A. 3 for further details.
+Figure A.4: Ring $(D=2)$ example posterior visualisation. See the caption of Figure A.3 for further details.
 
 ---
 
@@ -694,7 +593,7 @@ Figure A.4: Ring $(D=2)$ example posterior visualisation. See the caption of Fig
 > 
 > In both panels, the black distributions generally appear more concentrated and unimodal, while the orange distributions are often broader, sometimes shifted, or show slightly different modes, particularly in panel (c).
 
-Figure A.5: Neuronal model $(D=5)$ example posterior visualisation. See the caption of Figure A. 3 for further details.
+Figure A.5: Neuronal model $(D=5)$ example posterior visualisation. See the caption of Figure A.3 for further details.
 
 ---
 
@@ -750,4 +649,4 @@ Figure A.5: Neuronal model $(D=5)$ example posterior visualisation. See the capt
 > 
 > In summary, both panels are corner plots comparing two distributions across six parameters. Panel (d) visually suggests a more concentrated and potentially better-aligned approximation (represented in orange) compared to panel (c), where the orange distributions are somewhat broader and less perfectly aligned with the black/grey distributions.
 
-Figure A.6: Multisensory model $(D=6, \sigma=3)$ example posterior visualisation. See the caption of Figure A. 3 for further details.
+Figure A.6: Multisensory model $(D=6, \sigma=3)$ example posterior visualisation. See the caption of Figure A.3 for further details.

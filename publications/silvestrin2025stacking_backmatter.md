@@ -12,7 +12,7 @@ The model referred to as the "neuronal model" in the main text and appendices wa
 
 #### Page 19
 
-# References 
+## References
 
 Luigi Acerbi. Variational Bayesian Monte Carlo. Advances in Neural Information Processing Systems, 31: $8222-8232,2018$.
 
@@ -28,7 +28,7 @@ David M Blei, Alp Kucukelbir, and Jon D McAuliffe. Variational inference: A revi
 
 Steve Brooks, Andrew Gelman, Galin Jones, and Xiao-Li Meng. Handbook of Markov Chain Monte Carlo. CRC press, 2011.
 
-Kenneth P Burnham and David R Anderson. Model selection and multimodel inference: a practical information-theoretic approach. Springer Science \& Business Media, 2003.
+Kenneth P Burnham and David R Anderson. Model selection and multimodel inference: a practical information-theoretic approach. Springer Science & Business Media, 2003.
 
 Trevor Campbell and Xinglong Li. Universal boosting variational inference. Advances in Neural Information Processing Systems, 32:3484-3495, 2019.
 
@@ -75,7 +75,7 @@ Chengkun Li, Grégoire Clarté, Martin Jørgensen, and Luigi Acerbi. Fast post-p
 
 Jiajun Liang, Qian Zhang, Wei Deng, Qifan Song, and Guang Lin. Bayesian federated learning with Hamiltonian Monte Carlo: Algorithm and theory. Journal of Computational and Graphical Statistics, 34(2): $509-518,2025$.
 
-David JC MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003 .
+David JC MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.
 
 Andrew C Miller, Nicholas J Foti, and Ryan P Adams. Variational boosting: Iteratively refining posterior approximations. In Proceedings of the 34th International Conference on Machine Learning, volume 70, pp. 2420-2429. PMLR, 2017.
 
@@ -83,7 +83,7 @@ Willie Neiswanger, Chong Wang, and Eric Xing. Asymptotically exact, embarrassing
 
 Christopher Nemeth and Chris Sherlock. Merging MCMC subposteriors through Gaussian-process approximations. Bayesian Analysis, 13(2):507-530, 2018.
 
-Anthony O'Hagan. Bayes-Hermite quadrature. Journal of Statistical Planning and Inference, 29(3):245-260, 1991 .
+Anthony O'Hagan. Bayes-Hermite quadrature. Journal of Statistical Planning and Inference, 29(3):245-260, 1991.
 
 Michael Osborne, Roman Garnett, Zoubin Ghahramani, David K Duvenaud, Stephen J Roberts, and Carl Rasmussen. Active learning of model evidence using Bayesian quadrature. Advances in Neural Information Processing Systems, 25:46-54, 2012.
 

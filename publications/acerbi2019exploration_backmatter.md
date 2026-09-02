@@ -4,7 +4,7 @@
 
 #### Page 8
 
-# REFERENCES 
+# References
 
 Luigi Acerbi. Variational Bayesian Monte Carlo. Advances in Neural Information Processing Systems, 31:8222-8232, 2018.
 
@@ -26,7 +26,7 @@ Donald R Jones, Matthias Schonlau, and William J Welch. Efficient global optimiz
 
 Kirthevasan Kandasamy, Jeff Schneider, and Barnabás Póczos. Bayesian active learning for posterior estimation. Twenty-Fourth International Joint Conference on Artificial Intelligence, 2015.
 
-Robert E Kass and Adrian E Raftery. Bayes factors. Journal of the American Statistical Association, $90(430): 773-795,1995$.
+Robert E Kass and Adrian E Raftery. Bayes factors. Journal of the American Statistical Association, 90(430):773-795, 1995.
 
 Diederik P Kingma and Jimmy Ba. Adam: A method for stochastic optimization. Proceedings of the 3rd International Conference on Learning Representations, 2014.
 
@@ -34,7 +34,7 @@ Diederik P Kingma and Max Welling. Auto-encoding variational Bayes. Proceedings 
 
 Ruben Martinez-Cantin. Funneled Bayesian optimization for design, tuning and control of autonomous systems. IEEE Transactions on Cybernetics, (99):1-12, 2018.
 
-Andrew C Miller, Nicholas Foti, and Ryan P Adams. Variational boosting: Iteratively refining posterior approximations. Proceedings of the 34th International Conference on Machine Learning, $70: 2420-2429,2017$.
+Andrew C Miller, Nicholas Foti, and Ryan P Adams. Variational boosting: Iteratively refining posterior approximations. Proceedings of the 34th International Conference on Machine Learning, 70:2420-2429, 2017.
 
 Radford M Neal. Slice sampling. Annals of Statistics, 31(3):705-741, 2003.
 Anthony O'Hagan. Bayes-Hermite quadrature. Journal of Statistical Planning and Inference, 29 (3):245-260, 1991.
@@ -46,7 +46,7 @@ Anthony O'Hagan. Bayes-Hermite quadrature. Journal of Statistical Planning and I
 Michael Osborne, David K Duvenaud, Roman Garnett, Carl E Rasmussen, Stephen J Roberts, and Zoubin Ghahramani. Active learning of model evidence using Bayesian quadrature. Advances in Neural Information Processing Systems, 25:46-54, 2012.
 C. Rasmussen and C. K. I. Williams. Gaussian Processes for Machine Learning. MIT Press, 2006.
 
-Bobak Shahriari, Kevin Swersky, Ziyu Wang, Ryan P Adams, and Nando de Freitas. Taking the human out of the loop: A review of Bayesian optimization. Proceedings of the IEEE, 104(1): $148-175,2016$.
+Bobak Shahriari, Kevin Swersky, Ziyu Wang, Ryan P Adams, and Nando de Freitas. Taking the human out of the loop: A review of Bayesian optimization. Proceedings of the IEEE, 104(1):148-175, 2016.
 
 Jasper Snoek, Hugo Larochelle, and Ryan P Adams. Practical Bayesian optimization of machine learning algorithms. Advances in Neural Information Processing Systems, 25:2951-2959, 2012.
 
