@@ -64,13 +64,13 @@ For non-critical applications, we consider that the benefit of having LLM-friend
   Yang Y, Rissanen S, Chang PE, Loka NRBS, Huang D, Solin A, Heinonen M & Acerbi L<br>
   `ICLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/yang2026priorguide_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/yang2026priorguide_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/yang2026priorguide_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/yang2026priorguide_full.md)
 
-- **Efficient Autoregressive Inference for Transformer Probabilistic Models**<br>
-  Hassan C, Loka NRBS, Li C, Huang D, Chang PE, Yang Y, Silvestrin F, Kaski S & Acerbi L<br>
-  `ICLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_full.md)
-
 - **Amortized Bayesian Workflow**<br>
   Li C, Vehtari A, Bürkner P, Radev ST, Acerbi L & Schmitt M<br>
   `TMLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2026amortized_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2026amortized_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2026amortized_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/li2026amortized_full.md)
+
+- **Efficient Autoregressive Inference for Transformer Probabilistic Models**<br>
+  Hassan C, Loka NRBS, Li C, Huang D, Chang PE, Yang Y, Silvestrin F, Kaski S & Acerbi L<br>
+  `ICLR` | [main](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_main.md) | [backmatter](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_backmatter.md) | [appendix](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_appendix.md) | [full](https://github.com/acerbilab/pubs-llms/blob/main/publications/hassan2026efficient_full.md)
 
 ### 2025
 
