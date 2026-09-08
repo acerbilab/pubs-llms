@@ -18,13 +18,11 @@ Trung Trinh ${ }^{1}$ Markus Heinonen ${ }^{1}$ Luigi Acerbi ${ }^{2}$ Samuel Ka
 
 #### Abstract
 
-Bayesian neural networks (BNNs) promise improved generalization under covariate shift by providing principled probabilistic representations of epistemic uncertainty. However, weightbased BNNs often struggle with high computational complexity of large-scale architectures and datasets. Node-based BNNs have recently been introduced as scalable alternatives, which induce epistemic uncertainty by multiplying each hidden node with latent random variables, while learning a point-estimate of the weights. In this paper, we interpret these latent noise variables as implicit representations of simple and domainagnostic data perturbations during training, producing BNNs that perform well under covariate shift due to input corruptions. We observe that the diversity of the implicit corruptions depends on the entropy of the latent variables, and propose a straightforward approach to increase the entropy of these variables during training. We evaluate the method on out-of-distribution image classification benchmarks, and show improved uncertainty estimation of node-based BNNs under covariate shift due to input perturbations. As a side effect, the method also provides robustness against noisy training labels.
+Bayesian neural networks (BNNs) promise improved generalization under covariate shift by providing principled probabilistic representations of epistemic uncertainty. However, weight-based BNNs often struggle with high computational complexity of large-scale architectures and datasets. Node-based BNNs have recently been introduced as scalable alternatives, which induce epistemic uncertainty by multiplying each hidden node with latent random variables, while learning a point-estimate of the weights. In this paper, we interpret these latent noise variables as implicit representations of simple and domain-agnostic data perturbations during training, producing BNNs that perform well under covariate shift due to input corruptions. We observe that the diversity of the implicit corruptions depends on the entropy of the latent variables, and propose a straightforward approach to increase the entropy of these variables during training. We evaluate the method on out-of-distribution image classification benchmarks, and show improved uncertainty estimation of node-based BNNs under covariate shift due to input perturbations. As a side effect, the method also provides robustness against noisy training labels.
 
 ## 1. Introduction
 
-Bayesian neural networks (BNNs) induce epistemic uncertainty over predictions by placing a distribution over the weights (MacKay, 1992; 1995; Hinton \& van Camp, 1993; Neal, 1996). However, it is challenging to infer the weight posterior due to the high dimensionality and multi-modality of this distribution (Wenzel et al., 2020; Izmailov et al., 2021b). Alternative BNN methods have been introduced
-
-[^0]to avoid the complexity of weight-space inference, which include combining multiple maximum-a-posteriori (MAP) solutions (Lakshminarayanan et al., 2017), performing inference in the function-space (Sun et al., 2019), or performing inference in a lower dimensional latent space (Karaletsos et al., 2018; Pradier et al., 2018; Izmailov et al., 2020; Dusenberry et al., 2020).
+Bayesian neural networks (BNNs) induce epistemic uncertainty over predictions by placing a distribution over the weights (MacKay, 1992; 1995; Hinton \& van Camp, 1993; Neal, 1996). However, it is challenging to infer the weight posterior due to the high dimensionality and multi-modality of this distribution (Wenzel et al., 2020; Izmailov et al., 2021b). Alternative BNN methods have been introduced to avoid the complexity of weight-space inference, which include combining multiple maximum-a-posteriori (MAP) solutions (Lakshminarayanan et al., 2017), performing inference in the function-space (Sun et al., 2019), or performing inference in a lower dimensional latent space (Karaletsos et al., 2018; Pradier et al., 2018; Izmailov et al., 2020; Dusenberry et al., 2020).
 
 A recent approach to simplify BNNs is node stochasticity, which assigns latent noise variables to hidden nodes of the network (Kingma et al., 2015; Gal \& Ghahramani, 2016; Karaletsos et al., 2018; Karaletsos \& Bui, 2020; Dusenberry et al., 2020; Nguyen et al., 2021). By restricting inference to the node-based latent variables, node stochasticity greatly reduces the dimension of the posterior, as the number of nodes is orders of magnitude smaller than the number of weights in a neural network (Dusenberry et al., 2020). Within this framework, multiplying each hidden node with its own random variable has been shown to produce great predictive performance, while having dramatically smaller computational complexity compared to weight-space BNNs (Gal \& Ghahramani, 2016; Kingma et al., 2015; Dusenberry et al., 2020; Nguyen et al., 2021).
 
@@ -32,7 +30,7 @@ In this paper, we focus on node-based BNNs, which represent epistemic uncertaint
 
 In summary, our contributions are:
 
-1. We demonstrate that node stochasticity simulates dataspace corruptions during training. We show that the diversity of these corruptions corresponds to the entropy
+1. We demonstrate that node stochasticity simulates data-space corruptions during training. We show that the diversity of these corruptions corresponds to the entropy
 
 [^0]:
     ${ }^{1}$ Department of Computer Science, Aalto University, Finland
@@ -43,9 +41,12 @@ In summary, our contributions are:
 
 #### Page 2
 
-of the latent node variables, and training on more diverse generated corruptions produce node-based BNNs that are robust against a wider range of corruptions. 2. We derive an entropy-regularized variational inference formulation for node-based BNNs. 3. We demonstrate excellent empirical results in predictive uncertainty estimation under covariate shift due to corruptions compared to strong baselines on largescale image classification tasks. 4. We show that, as a side effect, our approach provides robust learning in the presence of noisy training labels.
+of the latent node variables, and training on more diverse generated corruptions produce node-based BNNs that are robust against a wider range of corruptions.
+2. We derive an entropy-regularized variational inference formulation for node-based BNNs.
+3. We demonstrate excellent empirical results in predictive uncertainty estimation under covariate shift due to corruptions compared to strong baselines on large-scale image classification tasks.
+4. We show that, as a side effect, our approach provides robust learning in the presence of noisy training labels.
 
-Our code is available at https://github.com/ AaltoPML/node-BNN-covariate-shift.
+Our code is available at https://github.com/AaltoPML/node-BNN-covariate-shift.
 
 ## 2. Background
 
@@ -69,7 +70,7 @@ $$
 \mathbf{f}_{\mathcal{Z}}^{0}(\mathbf{x}) & =\mathbf{x} \\
 \mathbf{h}_{\mathcal{Z}}^{\ell}(\mathbf{x}) & =\left(\mathbf{W}^{\ell}\left(\mathbf{f}_{\mathcal{Z}}^{\ell-1}(\mathbf{x}) \circ \mathbf{z}^{\ell}\right)+\mathbf{b}^{\ell}\right) \circ \mathbf{s}^{\ell} \\
 \mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x}) & =\sigma^{\ell}\left(\mathbf{h}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right), \quad \forall \ell=1, \ldots, L \\
-\mathbf{f}_{\mathcal{Z}}(\mathbf{x}) & =\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})
+\mathbf{f}_{\mathcal{Z}}(\mathbf{x}) & =\mathbf{f}_{\mathcal{Z}}^{L}(\mathbf{x})
 \end{aligned}
 $$
 
@@ -99,7 +100,7 @@ where $\mathbf{z}^{\ell}$ and $\mathbf{s}^{\ell}$ are the multiplicative latent 
 >
 > The arrangement suggests a flow or transformation process, where the initial image on the left is processed through the central shape, resulting in two modified images on the right. The text labels and arrows indicate mathematical operations or relationships between these elements.
 
-Figure 1. A sketch depicting the connection between the output distribution at the $\ell$-th layer induced by node stochasticity (purple) centered on the average output ( $\odot$ ), and the output shifts generated by input corruptions ( $\odot, \odot$ ). We expect good performance under mild corruption $\mathbf{g}_{0}$, as the resulting shift remains inside the highdensity region of $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}\right)$, and worse results under severe corruption $\mathbf{g}_{1}$.
+Figure 1. A sketch depicting the connection between the output distribution at the $\ell$-th layer induced by node stochasticity (purple) centered on the average output (red), and the output shifts generated by input corruptions (blue, green). We expect good performance under mild corruption $\mathbf{g}_{0}$, as the resulting shift remains inside the high-density region of $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}\right)$, and worse results under severe corruption $\mathbf{g}_{1}$.
 
 the $\ell$-th layer, and $\circ$ denotes the Hadamard (element-wise) product. We collect all latent variables to $\mathcal{Z}=\left\{\mathbf{z}^{\ell}, \mathbf{s}^{\ell}\right\}_{\ell=1}^{L}$. ${ }^{1}$
 To learn the network parameters, we follow Dusenberry et al. (2020) and perform variational inference (Blei et al., 2017) over the weight parameters $\theta$ and latent node variables $\mathcal{Z}$. We begin by defining a prior $p(\theta, \mathcal{Z})=p(\theta) p(\mathcal{Z})$. We set a variational posterior approximation $q_{\hat{\theta}, \phi}(\theta, \mathcal{Z})=$ $q_{\hat{\theta}}(\theta) q_{\phi}(\mathcal{Z})$, where $q_{\hat{\theta}}(\theta)=\delta(\theta-\hat{\theta})$ is a Dirac delta distribution and $q_{\phi}(\mathcal{Z})$ is a Gaussian or a mixture of Gaussians distribution. We infer the posterior by minimizing the Kullback-Leibler (KL) divergence between variational approximation $q$ and true posterior $p(\theta, \mathcal{Z} \mid \mathcal{D})$. This is equivalent to maximizing the evidence lower bound (ELBO):
@@ -132,7 +133,7 @@ For instance, $\mathbf{x}$ could be an image and $\mathbf{g}^{0}$ can represent 
 
 $$
 \begin{aligned}
-\frac{\text { shift }}{\mathbf{g}^{\ell}(\mathbf{x})} & =\overbrace{\mathbf{f}^{\ell}\left(\mathbf{x}^{c}\right)}^{\text {corrupted output }} \cdot \overbrace{\mathbf{f}^{\ell}(\mathbf{x})}^{\text {clean output }} \\
+\underbrace{\mathbf{g}^{\ell}(\mathbf{x})}_{\text {shift }} & =\overbrace{\mathbf{f}^{\ell}\left(\mathbf{x}^{c}\right)}^{\text {corrupted output }}-\overbrace{\mathbf{f}^{\ell}(\mathbf{x})}^{\text {clean output }} \\
 & \approx \mathbf{J}_{\sigma}\left[\mathbf{h}^{\ell}(\mathbf{x})\right]\left(\mathbf{W}^{\ell} \mathbf{g}^{\ell-1}(\mathbf{x})\right)
 \end{aligned}
 $$
@@ -151,16 +152,16 @@ In this section, we demonstrate that multiplicative node variables correspond to
 
 ### 3.1. Relating input corruptions and multiplicative nodes
 
-The node-based BNN of Eqs. (5)-(8) induces the predictive posterior $p\left(\mathbf{f}_{\mathcal{S}}^{\ell}(\mathbf{x})\right)$ over the $\ell$-th layer outputs by marginalizing over the variational latent parameter posterior $q\left(\mathcal{Z}_{\leq \ell}\right)$. Optimization of the variational objective in Eq. (9) enforces the model to achieve low loss on the training data despite
+The node-based BNN of Eqs. (5)-(8) induces the predictive posterior $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ over the $\ell$-th layer outputs by marginalizing over the variational latent parameter posterior $q\left(\mathcal{Z}_{\leq \ell}\right)$. Optimization of the variational objective in Eq. (9) enforces the model to achieve low loss on the training data despite
 each layer output being corrupted by noise from $q(\mathcal{Z})$, represented by the expected log likelihood term of the ELBO. Let $\hat{\mathbf{f}}^{\ell}(\mathbf{x})$ denote the mean predictive posterior,
 
 $$
 \hat{\mathbf{f}}^{\ell}(\mathbf{x})=\mathbb{E}_{q(\mathcal{Z})}\left[\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right], \quad \forall \ell=1, \ldots, L
 $$
 
-and where we denote the final output $\hat{\mathbf{f}}(\mathbf{x})=\hat{\mathbf{f}}^{L}(\mathbf{x})$. If the shifted output $\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}^{0}(\mathbf{x})\right)=\hat{\mathbf{f}}^{\ell}(\mathbf{x})+\mathbf{g}^{\ell}(\mathbf{x})$ caused by corrupting a training sample $\mathbf{x}$ using $\mathbf{g}^{0}$ lies within the predictive distribution of $\mathbf{f}_{\mathcal{S}}^{\ell}(\mathbf{x})$ (blue dot in Fig. 1), then the model can map this corrupted version of $\mathbf{x}$ to its correct label. This implies robustness against the space of implicit corruptions generated by $q(\mathcal{Z})$, which indirectly leads to robustness against real corruptions. However, standard variational inference will converge to a posterior whose entropy is calibrated for the variability in the training data, but does not necessarily account for corruptions caused by covariate shifts. Thus, the posterior might cover the corruption with low severity $\mathbf{g}_{0}$ (blue dot in Fig. 1), but not the one with higher severity $\mathbf{g}_{1}$ (green dot in Fig. 1). To promote predictive distributions that are more robust to perturbations, we propose to increase the entropy of $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ by increasing the entropy of the variational posterior $q(\mathcal{Z})$.
+and where we denote the final output $\hat{\mathbf{f}}(\mathbf{x})=\hat{\mathbf{f}}^{L}(\mathbf{x})$. If the shifted output $\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}^{0}(\mathbf{x})\right)=\hat{\mathbf{f}}^{\ell}(\mathbf{x})+\mathbf{g}^{\ell}(\mathbf{x})$ caused by corrupting a training sample $\mathbf{x}$ using $\mathbf{g}^{0}$ lies within the predictive distribution of $\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})$ (blue dot in Fig. 1), then the model can map this corrupted version of $\mathbf{x}$ to its correct label. This implies robustness against the space of implicit corruptions generated by $q(\mathcal{Z})$, which indirectly leads to robustness against real corruptions. However, standard variational inference will converge to a posterior whose entropy is calibrated for the variability in the training data, but does not necessarily account for corruptions caused by covariate shifts. Thus, the posterior might cover the corruption with low severity $\mathbf{g}_{0}$ (blue dot in Fig. 1), but not the one with higher severity $\mathbf{g}_{1}$ (green dot in Fig. 1). To promote predictive distributions that are more robust to perturbations, we propose to increase the entropy of $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ by increasing the entropy of the variational posterior $q(\mathcal{Z})$.
 
-Empirical demonstration. To illustrate our intuition, we present an example with two node-based BNNs, one with high entropy and one with lower entropy. We use the ALL-CNN-C architecture of Springenberg et al. (2014) and CIFAR10 (Krizhevsky et al., 2009). We initialize the standard deviations of $q(\mathcal{Z})$ for the low-entropy model using the half-normal $\mathcal{N}^{+}(0.16,0.02)$, while we use $\mathcal{N}^{+}(0.32,0.02)$ for the high-entropy model. For brevity, we refer to the former model as $\mathcal{M}_{16}$ and the latter model as $\mathcal{M}_{32}$. In the left plot of Fig. 3, we show that, after training, $\mathcal{M}_{32}$ retains higher variational posterior entropy than $\mathcal{M}_{16}$ due to having higher initial standard deviations for $q(\mathcal{Z}) .^{2}$ We use principal component analysis (PCA) to visualize the samples from the output distribution $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ of the $\ell$-th layer with respect to one input image $\mathbf{x}$, as well as the output $\left\{\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}_{i}(\mathbf{x})\right)\right\}_{i=1}^{95}$ under the real image corruptions $\left\{\mathbf{g}_{i}\right\}_{i=1}^{95}$ from Hendrycks \& Dietterich (2019). There are 19 corruption types with 5 levels of severity, totalling 95 corruption functions. Fig. 2 shows the activations of the last layer, projected into a two-dimensional subspace with PCA for visualization. From this figure, we can see that there is more overlap between samples from $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ and the shifted outputs $\left\{\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}_{i}(\mathbf{x})\right)\right\}_{i=1}^{95}$ for $\mathcal{M}_{32}$ in Fig. 2b than for $\mathcal{M}_{16}$ in Fig. 2a. This indicates that during training the posterior of $\mathcal{M}_{32}$ is able to simulate a larger number of implicit corruptions bearing resemblance to the real-world corruptions than the posterior of $\mathcal{M}_{16}$, leading to better neg-
+Empirical demonstration. To illustrate our intuition, we present an example with two node-based BNNs, one with high entropy and one with lower entropy. We use the ALL-CNN-C architecture of Springenberg et al. (2014) and CIFAR10 (Krizhevsky et al., 2009). We initialize the standard deviations of $q(\mathcal{Z})$ for the low-entropy model using the half-normal $\mathcal{N}^{+}(0.16,0.02)$, while we use $\mathcal{N}^{+}(0.32,0.02)$ for the high-entropy model. For brevity, we refer to the former model as $\mathcal{M}_{16}$ and the latter model as $\mathcal{M}_{32}$. In the left plot of Fig. 3, we show that, after training, $\mathcal{M}_{32}$ retains higher variational posterior entropy than $\mathcal{M}_{16}$ due to having higher initial standard deviations for $q(\mathcal{Z}) .^{2}$ We use principal component analysis (PCA) to visualize the samples from the output distribution $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ of the $\ell$-th layer with respect to one input image $\mathbf{x}$, as well as the output $\left\{\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}_{i}(\mathbf{x})\right)\right\}_{i=1}^{95}$ under the real image corruptions $\left\{\mathbf{g}_{i}\right\}_{i=1}^{95}$ from Hendrycks \& Dietterich (2019). There are 19 corruption types with 5 levels of severity, totalling 95 corruption functions. Fig. 2 shows the activations of the last layer, projected into a two-dimensional subspace with PCA for visualization. From this figure, we can see that there is more overlap between samples from $p\left(\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right)$ and the shifted outputs $\left\{\hat{\mathbf{f}}^{\ell}\left(\mathbf{x}+\mathbf{g}_{i}(\mathbf{x})\right)\right\}_{i=1}^{95}$ for $\mathcal{M}_{32}$ in Fig. 2b than for $\mathcal{M}_{16}$ in Fig. 2a. This indicates that during training the posterior of $\mathcal{M}_{32}$ is able to simulate a larger number of implicit corruptions bearing resemblance to the real-world corruptions than the posterior of $\mathcal{M}_{16}$, leading to better
 
 [^0]
 [^0]: ${ }^{2}$ Obtaining high-entropy models by starting with high-entropy initializations is a simple heuristic for the purpose of this example. We introduce a principled approach in Section 4.
@@ -190,9 +191,9 @@ Empirical demonstration. To illustrate our intuition, we present an example with
 >   - (a) M16: Located below the two plots in the left column.
 >   - (b) M32: Located below the two plots in the right column.
 
-Figure 2. PCA plots of the last layer's outputs of models (a) $\mathcal{M}_{16}$ and (b) $\mathcal{M}_{32}$ with respect to one sample from CIFAR-10 (included in the top left panel). Grey circles are samples from the output distribution induced by $q(\mathcal{Z})$, while the red ellipse shows their 99 percentile. The red circle denotes the expected output $\overline{\mathbf{f}}^{\prime}(\mathbf{x})=$ $\mathbb{E}_{q(\mathcal{Z})}\left[\overline{\mathbf{f}}_{\mathcal{Z}}^{\prime}(\mathbf{x})\right]$ of the test point. Other colored circles represents the expected output $\overline{\mathbf{f}}^{\prime}$ of the 19 corrupted versions of the test point under 5 levels of severity Hendrycks \& Dietterich (2019). Most of the mild corruptions reside inside the predictive posterior of both models (filled color circles). By contrast, only the higher-entropy $\mathcal{M}_{32}$ model encapsulates a large fraction of the severe corruptions - empirically demonstrating the intuition sketched in Fig. 1 and described in Section 3.1.
+Figure 2. PCA plots of the last layer's outputs of models (a) $\mathcal{M}_{16}$ and (b) $\mathcal{M}_{32}$ with respect to one sample from CIFAR-10 (included in the top left panel). Grey circles are samples from the output distribution induced by $q(\mathcal{Z})$, while the red ellipse shows their 99 percentile. The red circle denotes the expected output $\hat{\mathbf{f}}^{\ell}(\mathbf{x})=$ $\mathbb{E}_{q(\mathcal{Z})}\left[\mathbf{f}_{\mathcal{Z}}^{\ell}(\mathbf{x})\right]$ of the test point. Other colored circles represents the expected output $\hat{\mathbf{f}}^{\ell}$ of the 19 corrupted versions of the test point under 5 levels of severity Hendrycks \& Dietterich (2019). Most of the mild corruptions reside inside the predictive posterior of both models (filled color circles). By contrast, only the higher-entropy $\mathcal{M}_{32}$ model encapsulates a large fraction of the severe corruptions - empirically demonstrating the intuition sketched in Fig. 1 and described in Section 3.1.
 
-ative log-likelihood (NLL) accross all level of corruptions as well as on the clean test set in Fig. 3. This example supports our intuition that increasing the entropy of the latent variables $\mathcal{Z}$ allows them to simulate more diverse implicit corruptions, thereby boosting the model's robustness against a wider range of input corruptions.
+negative log-likelihood (NLL) accross all level of corruptions as well as on the clean test set in Fig. 3. This example supports our intuition that increasing the entropy of the latent variables $\mathcal{Z}$ allows them to simulate more diverse implicit corruptions, thereby boosting the model's robustness against a wider range of input corruptions.
 
 Why latent variables at every layer? In principle, we could have introduced latent variables only to the first layer of the network, as the shift simulated in the first layer will propagate to subsequent layers. However, modern NNs contain asymmetric activation functions such as ReLU or Softplus, which can attenuate the signal of the shift in the later layers. Thus, the latent variables in every layer (after the first one) maintain the strength of the shift throughout the network during the forward pass. Moreover, by using latent variables at every layer - as opposed to only the first layer - we can simulate a more diverse set of input corruptions, since we can map each sample $\mathcal{Z}$ from $q(\mathcal{Z})$ to an input
 
@@ -221,16 +222,16 @@ corruption as shown in the following section.
 Next, we show how to find the explicit image corruptions that correspond to the stochasticity of the predictive posterior. Let $\mathcal{Z}$ be a sample drawn from $q(\mathcal{Z})$. If we assume that $\mathcal{Z}$ corresponds to an input corruption $\mathbf{g}(\mathbf{x})$ :
 
 $$
-\mathbf{f}_{\mathcal{Z}}(\mathbf{x})=\overline{\mathbf{f}}(\mathbf{x}+\mathbf{g}(\mathbf{x}))
+\mathbf{f}_{\mathcal{Z}}(\mathbf{x})=\hat{\mathbf{f}}(\mathbf{x}+\mathbf{g}(\mathbf{x}))
 $$
 
 then we can approximately solve for $\mathbf{g}(\mathbf{x})=\mathbf{x}^{c}-\mathbf{x}$ by finding $\mathbf{x}^{c}$ that minimizes
 
 $$
-\mathcal{L}\left(\mathbf{x}^{c}\right)=\frac{1}{2}\left\|\mathbf{f}_{\mathcal{Z}}(\mathbf{x})-\overline{\mathbf{f}}\left(\mathbf{x}^{c}\right)\right\|_{2}^{2}+\frac{\lambda}{2}\|\mathbf{g}(\mathbf{x})\|_{2}^{2}
+\mathcal{L}\left(\mathbf{x}^{c}\right)=\frac{1}{2}\left\|\mathbf{f}_{\mathcal{Z}}(\mathbf{x})-\hat{\mathbf{f}}\left(\mathbf{x}^{c}\right)\right\|_{2}^{2}+\frac{\lambda}{2}\|\mathbf{g}(\mathbf{x})\|_{2}^{2}
 $$
 
-using gradient descent. The second term with a coefficent $\lambda \geq 0$ regularizes the norm of $\mathbf{g}(\mathbf{x})$. This approach is simi-
+using gradient descent. The second term with a coefficent $\lambda \geq 0$ regularizes the norm of $\mathbf{g}(\mathbf{x})$. This approach is
 
 ---
 
@@ -259,31 +260,9 @@ using gradient descent. The second term with a coefficent $\lambda \geq 0$ regul
 >   - A blue line with downward triangle markers.
 > - Shaded regions around each line indicate standard deviation. The orange shaded region is lighter than the blue shaded region.
 
-> **Image description.** The image contains two line graphs, labeled "Left" and "Right" (though the labels themselves are not visible in the cropped image). Both graphs depict the Negative Log-Likelihood (NLL) on the y-axis against a variable lambda (λ) on the x-axis.
->
-> **Left Graph:**
->
-> - The x-axis (λ) ranges from 0.01 to 0.5, with tick marks at approximately 0.01, 0.03, 0.1, and 0.5.
-> - The y-axis (NLL) ranges from 0.3 to 2.7, with tick marks at 0.3, 0.9, 1.5, 2.1, and 2.7. An arrow points to the y-axis label, "NLL."
-> - Two lines are plotted:
->   - A solid orange line with circular markers, labeled "M16" in the legend. This line starts at a high NLL value around 2.7 at λ = 0.01 and decreases as λ increases. A shaded orange region surrounds the line, indicating a standard deviation.
->   - A solid blue line with downward triangle markers, labeled "M32" in the legend. This line starts at a lower NLL value around 1.3 at λ = 0.01 and decreases as λ increases. A shaded blue region surrounds the line, indicating a standard deviation.
-> - The legend is located at the top right of the graph and is labeled "Model".
->
-> **Right Graph:**
->
-> - The x-axis (λ) ranges from 0.01 to 0.5, with tick marks at approximately 0.01, 0.03, 0.1, and 0.5.
-> - The y-axis (NLL) ranges from 0.3 to 2.7, with tick marks at 0.3, 0.9, 1.5, 2.1, and 2.7.
-> - Two lines are plotted:
->   - A solid orange line with circular markers, labeled "M16" in the legend. This line starts at a high NLL value and decreases as λ increases. A shaded orange region surrounds the line, indicating a standard deviation.
->   - A solid blue line with downward triangle markers, labeled "M32" in the legend. This line starts at a lower NLL value and decreases as λ increases. A shaded blue region surrounds the line, indicating a standard deviation.
-> - The legend is located at the top right of the graph and is labeled "Model".
->
-> The overall visual impression is that both graphs show a decreasing trend of NLL as λ increases for both models, with M32 generally having a lower NLL than M16. The shaded regions indicate the variability in the results.
-
 Figure 5. Negative log-likelihood (NLL) on 1024 test images of CIFAR-10 corrupted by the implicit corruptions generated by $\mathcal{M}_{16}$ and $\mathcal{M}_{32}$, whose intensities are controlled by $\lambda$ in Eq. (16). For each result, we report the mean and standard deviation over 10 runs. (Left) Each model is tested on the corruptions that it generated. Dashed lines are results on the clean images for reference. Each model is resistant to its own corruptions, as evidenced by the slight decrease in performance under different $\lambda$. (Right) Each model is tested on the corruptions produced by the other. The model with higher entropy $\mathcal{M}_{32}$ is more robust against the corruptions of the one with lower entropy $\mathcal{M}_{16}$ than the reverse, which further supports the notion that higher entropy provides better robustness against input corruptions.
 
-lar to the method of finding adversarial examples of Goodfellow et al. (2014). Fig. 4 visualizes the corruptions generated by $\mathcal{M}_{32}$ on a test image of CIFAR10 under different $\lambda$. We can see that $\lambda$ controls the severity of the corruptions, with smaller $\lambda$ corresponding to higher severity.
+similar to the method of finding adversarial examples of Goodfellow et al. (2014). Fig. 4 visualizes the corruptions generated by $\mathcal{M}_{32}$ on a test image of CIFAR10 under different $\lambda$. We can see that $\lambda$ controls the severity of the corruptions, with smaller $\lambda$ corresponding to higher severity.
 
 Is a model robust against its own corruptions? We use both models $\mathcal{M}_{16}$ and $\mathcal{M}_{32}$ to generate corruptions on a subset of 1024 test images of CIFAR10. We generate 8 corruptions per test image. The left plot of Fig. 5 shows that each model is robust against its own implicit corruptions even when the corruption is severe, as evidenced by the small performance degradation under different $\lambda$. By comparing the right plot to the left plot, we can see that each model is less resistant to the corruptions generated by the other model than its own corruptions. Crucially, however, the performance of $\mathcal{M}_{32}$ under the corruptions generated by $\mathcal{M}_{16}$ is better than the reverse. This example thus suggests that while each model is resistant to its own corruptions, the model with higher entropy shows better robustness against the corruptions created by the other model. ${ }^{3}$
 
@@ -301,7 +280,7 @@ Here we consider the approach of augmenting the original ELBO in Eq. (9) with an
 $$
 \begin{aligned}
 \mathcal{L}_{\gamma}(\hat{\theta}, \phi)= & \mathcal{L}(\hat{\theta}, \phi)+\gamma \mathbb{H}\left[q_{\phi}(\mathcal{Z})\right] \\
-= & \underbrace{\mathbb{E}_{q_{\phi}(\mathcal{Z})}_{\text {expected log-likelihood }}[\log p(\mathcal{D} \mid \hat{\theta}, \mathcal{Z})]}_{\text {expe }}-\underbrace{\mathbb{H}\left[q_{\phi}(\mathcal{Z}), p(\mathcal{Z})\right]}_{\text {cross-entropy }} \\
+= & \underbrace{\mathbb{E}_{q_{\phi}(\mathcal{Z})}[\log p(\mathcal{D} \mid \hat{\theta}, \mathcal{Z})]}_{\text {expected log-likelihood }}-\underbrace{\mathbb{H}\left[q_{\phi}(\mathcal{Z}), p(\mathcal{Z})\right]}_{\text {cross-entropy }} \\
 & +\underbrace{(\gamma+1) \mathbb{H}\left[q_{\phi}(\mathcal{Z})\right]}_{\text {variational entropy }}+\underbrace{\log p(\hat{\theta})}_{\text {weight prior }}
 \end{aligned}
 $$
@@ -360,7 +339,7 @@ Figure 6. Results of (VGG16 / CIFAR 100 / out) with different $K$. The results i
 
 ## 5. Experiments
 
-In this section, we present experimental results of nodebased BNNs on image classification tasks. For the datasets, we use CIFAR (Krizhevsky et al., 2009) and TINYIMAGENET (Le \& Yang, 2015), which have corrupted versions of the test set provided by Hendrycks \& Dietterich (2019). We use VGG16 (Simonyan \& Zisserman, 2014), RESNET18 (He et al., 2016a) and PRACTRESNET18 (He et al., 2016b) for the architectures. We test three structures of latent variables: in, where we only use the input latent variables $\left\{\mathbf{z}^{t}\right\}_{t=1}^{L}$; out, where we only use the output latent variables $\left\{\mathbf{s}^{t}\right\}_{t=1}^{L}$; and both, where we use both $\left\{\mathbf{z}^{t}\right\}_{t=1}^{L}$ and $\left\{\mathbf{s}^{t}\right\}_{t=1}^{L}$. We use $K \in\{1,2,4\}$ Gaussian component(s) in the variational posterior. For each result, we report the mean and standard deviation over multiple runs.
+In this section, we present experimental results of node-based BNNs on image classification tasks. For the datasets, we use CIFAR (Krizhevsky et al., 2009) and TINYIMAGENET (Le \& Yang, 2015), which have corrupted versions of the test set provided by Hendrycks \& Dietterich (2019). We use VGG16 (Simonyan \& Zisserman, 2014), RESNET18 (He et al., 2016a) and PREACTRESNET18 (He et al., 2016b) for the architectures. We test three structures of latent variables: in, where we only use the input latent variables $\left\{\mathbf{z}^{\ell}\right\}_{\ell=1}^{L}$; out, where we only use the output latent variables $\left\{\mathbf{s}^{\ell}\right\}_{\ell=1}^{L}$; and both, where we use both $\left\{\mathbf{z}^{\ell}\right\}_{\ell=1}^{L}$ and $\left\{\mathbf{s}^{\ell}\right\}_{\ell=1}^{L}$. We use $K \in\{1,2,4\}$ Gaussian component(s) in the variational posterior. For each result, we report the mean and standard deviation over multiple runs.
 
 ### 5.1. Effects of $\gamma$ on covariate shift
 
@@ -447,8 +426,7 @@ We also observe these patterns in other architectures and datasets (see Appendix
 
 ### 5.2. Effects of $\gamma$ on robustness against noisy labels
 
-Learning wrong labels amounts to memorizing random patterns, which requires more capacity from the model than learning generalizable patterns (Arpit et al., 2017). We hypothesize that if we corrupt wrongly labelled training samples with sufficiently diverse implicit corruptions, we overwhelm the neural network making it unable to mem-
-orize these spurious patterns during training. To test this intuition, we follow the experiment in Jiang et al. (2018), where we take a percentage of training samples in CIFAR10 and corrupt their labels. We thus split the training set into two parts: $\mathcal{D}_{1}$ containing only samples with correct labels, and $\mathcal{D}_{2}$ including those with wrong labels. We then track the final NLL of $\mathcal{D}_{1}$ and $\mathcal{D}_{2}$ under different $\gamma$, and visualize the results in Fig. 8. This figure shows that as $\gamma$ increases, the NLL of $\mathcal{D}_{2}$ (noisy labels) increases much faster than that of $\mathcal{D}_{1}$ (clean labels), indicating that the network fails to learn random patterns under simulated corruptions. As a consequence, the model generalizes better on the test set, as shown in Fig. 9.
+Learning wrong labels amounts to memorizing random patterns, which requires more capacity from the model than learning generalizable patterns (Arpit et al., 2017). We hypothesize that if we corrupt wrongly labelled training samples with sufficiently diverse implicit corruptions, we overwhelm the neural network making it unable to memorize these spurious patterns during training. To test this intuition, we follow the experiment in Jiang et al. (2018), where we take a percentage of training samples in CIFAR10 and corrupt their labels. We thus split the training set into two parts: $\mathcal{D}_{1}$ containing only samples with correct labels, and $\mathcal{D}_{2}$ including those with wrong labels. We then track the final NLL of $\mathcal{D}_{1}$ and $\mathcal{D}_{2}$ under different $\gamma$, and visualize the results in Fig. 8. This figure shows that as $\gamma$ increases, the NLL of $\mathcal{D}_{2}$ (noisy labels) increases much faster than that of $\mathcal{D}_{1}$ (clean labels), indicating that the network fails to learn random patterns under simulated corruptions. As a consequence, the model generalizes better on the test set, as shown in Fig. 9.
 
 ### 5.3. Benchmark results
 
@@ -458,7 +436,7 @@ On CIFAR100, node-based BNNs outperform the baselines in NLL and error, however 
 
 ## 6. Related works
 
-Multiplicative latent node variables in BNNs. There have been several earlier works that utilize multiplicative latent node variables, either as a primary source of pre-
+Multiplicative latent node variables in BNNs. There have been several earlier works that utilize multiplicative latent node variables, either as a primary source of
 
 ---
 
@@ -481,9 +459,9 @@ Multiplicative latent node variables in BNNs. There have been several earlier wo
 >
 > The x-axis is labeled "Corruption level" and ranges from 0 to 5. The y-axes vary depending on the metric being plotted. The top row has y-axis ranges of approximately 0 to 0.2 for ECE, 0 to 1.5 for NLL, and 0 to 40 for Error (%). The bottom row has y-axis ranges of approximately 0 to 0.2 for ECE, 0 to 3.0 for NLL, and 20 to 60 for Error (%).
 
-Figure 10. Results of RESNET18 on CIFAR10 (top) and CIFAR100 (bottom). We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for nonens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best across all metrics on OOD data of CIFAR100, while having competitive results on CIFAR10. We include a larger version of this plot in Appendix G.
+Figure 10. Results of RESNET18 on CIFAR10 (top) and CIFAR100 (bottom). We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for non-ens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best across all metrics on OOD data of CIFAR100, while having competitive results on CIFAR10. We include a larger version of this plot in Appendix G.
 
-dictive uncertainty such as MC-Dropout (Gal \& Ghahramani, 2016), Variational Dropout (Kingma et al., 2015), Rank-1 BNNs (Dusenberry et al., 2020) and Structured Dropout (Nguyen et al., 2021); or to improve the flexibility of the mean-field Gaussian posterior in variational inference (Louizos \& Welling, 2017). Here we study the contribution of these latent variables to robustness under covariate shift.
+predictive uncertainty such as MC-Dropout (Gal \& Ghahramani, 2016), Variational Dropout (Kingma et al., 2015), Rank-1 BNNs (Dusenberry et al., 2020) and Structured Dropout (Nguyen et al., 2021); or to improve the flexibility of the mean-field Gaussian posterior in variational inference (Louizos \& Welling, 2017). Here we study the contribution of these latent variables to robustness under covariate shift.
 
 BNNs under covariate shift. Previous works have evaluated the predictive uncertainty of BNNs under covariate shift (Ovadia et al., 2019; Izmailov et al., 2021b), with the recent work by Izmailov et al. (2021b) showing that standard BNNs with high-fidelity posteriors perform worse than MAP solutions under covariate shift. Izmailov et al.
 
@@ -506,7 +484,7 @@ BNNs under covariate shift. Previous works have evaluated the predictive uncerta
 > - "cSGHMC" (yellow triangle)
 > - "ens cSGHMC" (hollow yellow triangle)
 
-Figure 11. Results of PRACTRESNET18 on TINYIMAGENET. We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for non-ens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best accross all metrics on OOD data, while having competitive performance on ID data. We include a larger version of this plot in Appendix G.
+Figure 11. Results of PREACTRESNET18 on TINYIMAGENET. We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for non-ens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best accross all metrics on OOD data, while having competitive performance on ID data. We include a larger version of this plot in Appendix G.
 
 (2021a) attributed this phenomenon to the absence of posterior contraction on the null-space of the data manifold. This problem is avoided in node-based BNNs as they still maintain a point-estimate for the weights.
 
@@ -514,7 +492,7 @@ Dropout as data augmentation. Similar to our study, a previous work by Bouthilli
 
 Adversarial robustness via feature perturbations. Data-space perturbations have been investigated as a means to defend neural networks against adversarial attacks ( Li et al., 2018; Jeddi et al., 2020; Vadera et al., 2020).
 
-Tempered posteriors. Tempered posteriors have been used in variational inference to obtain better variational posterior approximations (Mandt et al., 2016). A recent study put the focus on the cold posterior effect of weightbased BNNs (Wenzel et al., 2020). We have shown that our approach of regularizing the variational entropy is equivalent to performing variational inference with a hot posterior
+Tempered posteriors. Tempered posteriors have been used in variational inference to obtain better variational posterior approximations (Mandt et al., 2016). A recent study put the focus on the cold posterior effect of weight-based BNNs (Wenzel et al., 2020). We have shown that our approach of regularizing the variational entropy is equivalent to performing variational inference with a hot posterior
 
 ---
 
@@ -526,4 +504,4 @@ as the target distribution. Tempered posteriors have also been studied in Bayesi
 
 We analyzed node-based BNNs from the perspective of using latent node variables for simulating input corruptions. We showed that by regularizing the entropy of the latent variables, we increase the diversity of the implicit corruptions, and thus improve performance of node-based BNNs under covariate shift. Across CIFAR10, CIFAR100 and TINYIMAGENET, entropy regularized node-based BNNs produce excellent results in uncertainty metrics on OOD data.
 
-In this study, we focused on variational inference, leaving the study of implicit corruptions under other approximate inference methods as future work. Furthermore, our work shows the benefits of hot posteriors and argues for an inherent trade-off between ID and OOD performance in nodebased BNNs. It is an interesting future direction to study these questions in weight-based BNNs. Finally, our work presented entropy as a surprisingly useful summary statistic that can partially explain the complex connection between the variational posterior and corruption robustness. One important research direction is to develop more informative statistics that can better encapsulate this connection.
+In this study, we focused on variational inference, leaving the study of implicit corruptions under other approximate inference methods as future work. Furthermore, our work shows the benefits of hot posteriors and argues for an inherent trade-off between ID and OOD performance in node-based BNNs. It is an interesting future direction to study these questions in weight-based BNNs. Finally, our work presented entropy as a surprisingly useful summary statistic that can partially explain the complex connection between the variational posterior and corruption robustness. One important research direction is to develop more informative statistics that can better encapsulate this connection.

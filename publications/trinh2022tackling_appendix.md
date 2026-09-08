@@ -153,7 +153,7 @@ For VGG16, we set the initial learning rate $\lambda_{1}=\lambda_{2}=0.05$, and 
 
 For RESNET18, we set the initial learning rate $\lambda_{1}=\lambda_{2}=0.10$, and we decrease $\lambda_{1}$ linearly from 0.10 to 0.001 from epoch 150 to epoch 270 , while keeping $\lambda_{2}$ fixed throughout training. We initialize the standard deviations with $\mathcal{N}^{+}(0.40,0.02)$ and set the standard deviation of the prior to 0.40 .
 
-For PRACTRESNET18, we set the initial learning rate $\lambda_{1}=\lambda_{2}=0.10$, and we decrease $\lambda_{1}$ linearly from 0.10 to 0.001 from epoch 75 to epoch 135 , while keeping $\lambda_{2}$ fixed throughout training. We initialize the standard deviations with $\mathcal{N}^{+}(0.30,0.02)$ and set the standard deviation of the prior to 0.30 .
+For PREACTRESNET18, we set the initial learning rate $\lambda_{1}=\lambda_{2}=0.10$, and we decrease $\lambda_{1}$ linearly from 0.10 to 0.001 from epoch 75 to epoch 135 , while keeping $\lambda_{2}$ fixed throughout training. We initialize the standard deviations with $\mathcal{N}^{+}(0.30,0.02)$ and set the standard deviation of the prior to 0.30 .
 
 ## F.3. Runtime
 
@@ -282,7 +282,7 @@ Figure 14. Results of RESNET18 on CIFAR10 (top) and CIFAR100 (bottom). We use $K
 >
 > All three plots share the same x-axis label "Corruption level" and have vertical grid lines at each integer x-axis value. The y-axis scales differ between the plots to accommodate the different ranges of values for ECE, NLL, and Error (%). A legend is provided below all three plots, mapping the marker shapes and colors to the corresponding machine learning methods.
 
-Figure 15. Results of PRACTRESNET18 on TINYIMAGENET. We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for non-ens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best accross all metrics on OOD data, while having competitive performance on ID data.
+Figure 15. Results of PREACTRESNET18 on TINYIMAGENET. We use $K=4$ and only the latent output variables for node-based BNNs. We plot ECE, NLL and error for different corruption levels, where level 0 indicates no corruption. We report the average performance over 19 corruption types for level 1 to 5 . We denote the ensemble of a method using the shorthand ens in front of the name. Each result is the average over 25 runs for non-ens versions and 5 runs for ens versions. The error bars represent the standard deviations across different runs. Node-based BNNs and their ensembles (blue) perform best accross all metrics on OOD data, while having competitive performance on ID data.
 
 VGG16 / CIFAR10
 
@@ -448,4 +448,4 @@ PreActResNet18 / TinylmageNet
 >   - "1", "2", "4" (legend labels)
 >   - Numerical values on the axes.
 
-Figure 24. Results of PRACTRESNET18 on TINYIMAGENET under different $\gamma$ value. $K$ is the number of components. Each row corresponds a different latent variable structure. We report the mean and standard deviation over 5 runs for each result.
+Figure 24. Results of PREACTRESNET18 on TINYIMAGENET under different $\gamma$ value. $K$ is the number of components. Each row corresponds a different latent variable structure. We report the mean and standard deviation over 5 runs for each result.

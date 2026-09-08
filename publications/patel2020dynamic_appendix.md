@@ -10,7 +10,7 @@
 
 ## A. 1 Gradient of the log policy
 
-In order to compute $\nabla_{\sigma} \log (\pi(a \mid s))$, we first note that we can rewrite draws from the memory distribution, $\bar{q}_{s a} \sim \mathcal{N}\left(\bar{q}_{s a}, \sigma_{s a}^{2}\right)$, as $\bar{q}_{s a}=\bar{q}_{s a}+\zeta_{s a} \sigma_{s a}$, where $\zeta_{s a} \sim \mathcal{N}(0,1)$ [33]. In this section, we abuse the notation slightly to omit the explicit dependence on the state-action pair $(s, a)$ for clarity, and instead place it in the subscript. With this, we can write our policy $\pi$ as a probability vector for all actions $a$ in a given state $s$ :
+In order to compute $\nabla_{\sigma} \log (\pi(a \mid s))$, we first note that we can rewrite draws from the memory distribution, $\tilde{q}_{s a} \sim \mathcal{N}\left(\bar{q}_{s a}, \sigma_{s a}^{2}\right)$, as $\tilde{q}_{s a}=\bar{q}_{s a}+\zeta_{s a} \sigma_{s a}$, where $\zeta_{s a} \sim \mathcal{N}(0,1)$ [33]. In this section, we abuse the notation slightly to omit the explicit dependence on the state-action pair $(s, a)$ for clarity, and instead place it in the subscript. With this, we can write our policy $\pi$ as a probability vector for all actions $a$ in a given state $s$ :
 
 $$
 \begin{aligned}
