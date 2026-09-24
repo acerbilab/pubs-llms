@@ -257,7 +257,9 @@ def format_author_list(authors):
 
 def get_conference_order(venue):
     """Return a number to sort conferences within a year."""
-    venue_lower = venue.lower()
+    # Match on the abbreviation too: a full name such as "International Conference on
+    # Learning Representations" is only recognized as ICLR through the venue mapping.
+    venue_lower = f"{venue} {get_venue_abbreviation(venue)}".lower()
     
     # Initialize default value
     venue_value = 0
@@ -343,8 +345,9 @@ def update_readme():
             
             publications.append(bibtex_data)
     
-    # Sort publications by year (descending) and then by conference order
-    publications.sort(key=lambda x: (-x['year'], -get_conference_order(x['venue'])))
+    # Sort publications by year (descending), then by conference order, then by file name,
+    # so that ties do not depend on the order in which the filesystem lists the files
+    publications.sort(key=lambda x: (-x['year'], -get_conference_order(x['venue']), x['github_link']))
     
     # Group publications by year
     publications_by_year = defaultdict(list)
