@@ -1,0 +1,10 @@
+{
+  "base": "liu2026distilling",
+  "title": "Distilling noise characteristics and prior expectations in multisensory causal inference",
+  "bibtex": "paper.bib",
+  "parts": {
+    "main":       {"chunks": ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"], "figs": "main"},
+    "backmatter": {"chunks": ["M1_sidebar", "M9"], "figs": "main"},
+    "appendix":   {"chunks": ["S1", "S2", "S3", "S4", "S5", "S6", "S7"], "figs": "supp"}
+  }
+}

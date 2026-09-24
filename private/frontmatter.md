@@ -28,6 +28,8 @@ For practical usage, each paper is available in full as well as split into three
 
 The paper-to-Markdown conversion process uses [inscriber](https://github.com/lacerbi/inscriber), with [DeepSeek OCR](https://github.com/deepseek-ai/DeepSeek-OCR/) for text and figure/table extraction and [Gemma 4 E4B](https://ai.google.dev/gemma/docs/core/) for image-to-text descriptions and table reconstruction; followed by a final correctness check with Claude.
 
+Papers whose PDF has a clean embedded text layer may instead start from the extracted text, with Claude agents reconstructing equations and tables and describing figures from the page images. This workflow is packaged as the [`transcribe-paper`](https://github.com/acerbilab/pubs-llms/blob/main/.claude/skills/transcribe-paper/SKILL.md) Claude Code skill in this repository.
+
 <details>
 <summary>Pre-2026 conversion pipeline.</summary>
 
